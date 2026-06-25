@@ -1,0 +1,3153 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EnglishEveryday — Production-Grade SaaS Language Platform Roadmap</title>
+  <meta name="description" content="Comprehensive technical roadmap for a production-grade multi-tenant language learning SaaS platform — from classroom MVP to enterprise scale." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: {
+            brand: { 50:'#eff6ff', 100:'#dbeafe', 200:'#bfdbfe', 300:'#93c5fd', 400:'#60a5fa', 500:'#3b82f6', 600:'#2563eb', 700:'#1d4ed8', 800:'#1e40af', 900:'#1e3a8a' },
+            surface: { 900:'#0a0e1a', 800:'#0f1629', 700:'#141c35', 600:'#1a2340', 500:'#202b4d' },
+          },
+          animation: { 'fade-in': 'fadeIn 0.4s ease', 'slide-down': 'slideDown 0.35s ease' },
+          keyframes: {
+            fadeIn: { from:{ opacity:0, transform:'translateY(-6px)' }, to:{ opacity:1, transform:'translateY(0)' } },
+            slideDown: { from:{ opacity:0, maxHeight:'0px' }, to:{ opacity:1, maxHeight:'9999px' } },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0a0e1a; color: #e2e8f0; scroll-behavior: smooth; }
+    .glass { background: rgba(15,22,41,0.75); backdrop-filter: blur(16px); border: 1px solid rgba(99,130,255,0.12); }
+    .glass-card { background: rgba(20,28,53,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(99,130,255,0.1); }
+    .glow { box-shadow: 0 0 32px rgba(59,130,246,0.15), 0 2px 8px rgba(0,0,0,0.4); }
+    .phase-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; }
+    .collapsible-content { display: none; }
+    .collapsible-content.open { display: block; animation: fadeIn 0.35s ease; }
+    .mermaid-wrap { overflow-x: auto; }
+    .mermaid { min-width: 480px; }
+    .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899); }
+    .timeline-dot { position: absolute; left: 16px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid; background: #0a0e1a; z-index: 2; }
+    .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 2px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 0.55rem 0.85rem; border: 1px solid rgba(99,130,255,0.15); font-size: 0.82rem; }
+    th { background: rgba(59,130,246,0.12); font-weight: 600; }
+    tr:hover td { background: rgba(59,130,246,0.06); }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(99,130,255,0.15); padding: 1px 5px; border-radius: 4px; color: #93c5fd; }
+    pre { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; background: rgba(10,14,26,0.9); border: 1px solid rgba(99,130,255,0.12); padding: 1rem; border-radius: 8px; overflow-x: auto; line-height: 1.65; color: #a5f3fc; }
+    .risk-critical { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
+    .risk-high { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.3); }
+    .risk-medium { background: rgba(234,179,8,0.1); border-color: rgba(234,179,8,0.25); }
+    .risk-low { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.25); }
+    .tag { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; margin: 2px; }
+    .progress-bar { height: 6px; border-radius: 3px; background: rgba(99,130,255,0.15); overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
+    .nav-pill { padding: 5px 14px; border-radius: 99px; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .nav-pill:hover, .nav-pill.active { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .gradient-text { background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(99,130,255,0.25), transparent); margin: 2.5rem 0; }
+    @media (max-width: 768px) { .mermaid { min-width: 340px; } }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- ===================== STICKY NAV ===================== -->
+<nav class="sticky top-0 z-50 glass border-b border-white/5 px-4 py-3">
+  <div class="max-w-screen-xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-sm font-bold">EE</div>
+      <span class="font-bold text-white text-sm tracking-tight">EnglishEveryday <span class="text-blue-400 font-mono text-xs">/ SaaS Roadmap</span></span>
+    </div>
+    <div class="flex items-center gap-1 overflow-x-auto scrollbar-thin pb-1 flex-wrap">
+      <a href="#product-vision" class="nav-pill text-slate-400">Vision</a>
+      <a href="#architecture-overview" class="nav-pill text-slate-400">Architecture</a>
+      <a href="#database-design" class="nav-pill text-slate-400">Database</a>
+      <a href="#tenant-model" class="nav-pill text-slate-400">Tenant</a>
+      <a href="#phases" class="nav-pill text-slate-400">Phases</a>
+      <a href="#teacher-system" class="nav-pill text-slate-400">Teacher</a>
+      <a href="#risk-matrix" class="nav-pill text-slate-400">Risk</a>
+      <a href="#scaling" class="nav-pill text-slate-400">Scaling</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="relative overflow-hidden px-6 py-24 text-center">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-20 left-1/4 w-64 h-64 bg-violet-600/8 rounded-full blur-3xl"></div>
+    <div class="absolute top-10 right-1/4 w-48 h-48 bg-pink-600/8 rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-xs font-mono text-blue-300 mb-6 border border-blue-500/20">
+      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+      Production-Grade · Multi-Tenant · SaaS Architecture
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black mb-4 leading-tight">
+      <span class="gradient-text">EnglishEveryday</span>
+    </h1>
+    <p class="text-xl md:text-2xl font-semibold text-slate-300 mb-3">Language Learning Platform — Technical Roadmap</p>
+    <p class="text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed mb-8">
+      A complete 19-phase blueprint from classroom MVP to a 100,000-user enterprise SaaS. Designed for zero-regression scaling across architecture, database, and product layers.
+    </p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <div class="glass-card px-5 py-3 rounded-xl text-center">
+        <div class="text-2xl font-black text-blue-400">19</div>
+        <div class="text-xs text-slate-500 mt-1">Phases</div>
+      </div>
+      <div class="glass-card px-5 py-3 rounded-xl text-center">
+        <div class="text-2xl font-black text-violet-400">5</div>
+        <div class="text-xs text-slate-500 mt-1">Product Eras</div>
+      </div>
+      <div class="glass-card px-5 py-3 rounded-xl text-center">
+        <div class="text-2xl font-black text-pink-400">22+</div>
+        <div class="text-xs text-slate-500 mt-1">DB Tables</div>
+      </div>
+      <div class="glass-card px-5 py-3 rounded-xl text-center">
+        <div class="text-2xl font-black text-emerald-400">100K+</div>
+        <div class="text-xs text-slate-500 mt-1">Target Users</div>
+      </div>
+      <div class="glass-card px-5 py-3 rounded-xl text-center">
+        <div class="text-2xl font-black text-amber-400">~18mo</div>
+        <div class="text-xs text-slate-500 mt-1">Full Timeline</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-screen-xl mx-auto px-4 pb-32 space-y-10">
+
+<!-- ===================== PRODUCT VISION ===================== -->
+<section id="product-vision">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-lg">🎯</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Product Vision</h2>
+      <p class="text-slate-500 text-sm">Five product eras — designed to evolve without a database redesign</p>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-5 gap-4">
+    <!-- Era cards -->
+    <div class="glass-card rounded-xl p-5 glow border-l-4 border-blue-500">
+      <div class="phase-badge tag bg-blue-500/20 text-blue-300 mb-3">ERA 1</div>
+      <h3 class="font-bold text-white mb-2">Classroom</h3>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• 1 Teacher, N Students</li>
+        <li>• Flashcards &amp; Quizzes</li>
+        <li>• Vocabulary Sets</li>
+        <li>• Basic Progress</li>
+        <li>• Simple Games</li>
+      </ul>
+      <div class="mt-3 progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      <div class="text-xs text-blue-400 mt-1">Foundation</div>
+    </div>
+    <div class="glass-card rounded-xl p-5 border-l-4 border-violet-500">
+      <div class="phase-badge tag bg-violet-500/20 text-violet-300 mb-3">ERA 2</div>
+      <h3 class="font-bold text-white mb-2">Multi-Teacher</h3>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• Multiple Classrooms</li>
+        <li>• Shared Content</li>
+        <li>• Teacher Roles</li>
+        <li>• Content Library</li>
+        <li>• Assignments</li>
+      </ul>
+      <div class="mt-3 progress-bar"><div class="progress-fill" style="width:75%; background: linear-gradient(90deg, #8b5cf6, #a78bfa)"></div></div>
+      <div class="text-xs text-violet-400 mt-1">Scale Content</div>
+    </div>
+    <div class="glass-card rounded-xl p-5 border-l-4 border-pink-500">
+      <div class="phase-badge tag bg-pink-500/20 text-pink-300 mb-3">ERA 3</div>
+      <h3 class="font-bold text-white mb-2">Multi-School</h3>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• School Management</li>
+        <li>• Org Admins</li>
+        <li>• Multi-Org Tenant</li>
+        <li>• Org Analytics</li>
+        <li>• Bulk Enrollment</li>
+      </ul>
+      <div class="mt-3 progress-bar"><div class="progress-fill" style="width:55%; background: linear-gradient(90deg, #ec4899, #f472b6)"></div></div>
+      <div class="text-xs text-pink-400 mt-1">Org Layer</div>
+    </div>
+    <div class="glass-card rounded-xl p-5 border-l-4 border-amber-500">
+      <div class="phase-badge tag bg-amber-500/20 text-amber-300 mb-3">ERA 4</div>
+      <h3 class="font-bold text-white mb-2">Public SaaS</h3>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• Open Registration</li>
+        <li>• Subscription Plans</li>
+        <li>• Stripe Integration</li>
+        <li>• Multi-Tenant Arch</li>
+        <li>• Usage Quotas</li>
+      </ul>
+      <div class="mt-3 progress-bar"><div class="progress-fill" style="width:35%; background: linear-gradient(90deg, #f59e0b, #fbbf24)"></div></div>
+      <div class="text-xs text-amber-400 mt-1">Revenue</div>
+    </div>
+    <div class="glass-card rounded-xl p-5 border-l-4 border-emerald-500">
+      <div class="phase-badge tag bg-emerald-500/20 text-emerald-300 mb-3">ERA 5</div>
+      <h3 class="font-bold text-white mb-2">Enterprise</h3>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• White-Label Portals</li>
+        <li>• SSO / SAML</li>
+        <li>• Dedicated Analytics</li>
+        <li>• Custom Domains</li>
+        <li>• SLA Guarantees</li>
+      </ul>
+      <div class="mt-3 progress-bar"><div class="progress-fill" style="width:15%; background: linear-gradient(90deg, #10b981, #34d399)"></div></div>
+      <div class="text-xs text-emerald-400 mt-1">Enterprise</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ARCHITECTURE OVERVIEW ===================== -->
+<section id="architecture-overview">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-violet-700 flex items-center justify-center text-lg">🏗️</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Architecture Overview</h2>
+      <p class="text-slate-500 text-sm">Four architecture stages with rationale for every design decision</p>
+    </div>
+  </div>
+
+  <!-- Architecture Stages -->
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="glass-card rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-3"><span class="tag bg-blue-500/20 text-blue-300">MVP</span><span class="text-white font-semibold">Classroom Scale</span><span class="text-slate-500 text-xs ml-auto">0–500 users</span></div>
+      <p class="text-xs text-slate-400 mb-3">Single server, monorepo, shared PostgreSQL, basic Redis cache. Optimize for developer velocity.</p>
+      <pre class="text-xs">
+Client (React/Vite)
+    │  HTTPS
+    ▼
+Nginx (Reverse Proxy)
+    │
+    ├── Fastify API (Node.js / TS)
+    │       │
+    │       ├── PostgreSQL (Primary)
+    │       ├── Redis (Cache/Session)
+    │       └── S3 (MinIO local)
+    │
+    └── Static Assets (CDN)
+      </pre>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-3"><span class="tag bg-violet-500/20 text-violet-300">GROWTH</span><span class="text-white font-semibold">Multi-School Scale</span><span class="text-slate-500 text-xs ml-auto">500–10K users</span></div>
+      <p class="text-xs text-slate-400 mb-3">Read replica, Redis cluster, BullMQ workers, CDN for media. Optimize for reliability.</p>
+      <pre class="text-xs">
+Client (React/Vite + CDN)
+    │
+Load Balancer
+    │
+┌───┴────────┐
+│ API Pod x2  │ (Fastify + PM2)
+└───┬────────┘
+    ├── PG Primary ──► PG Replica(s)
+    ├── Redis Cluster
+    ├── BullMQ Workers
+    └── S3 (Cloud)
+      </pre>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-3"><span class="tag bg-pink-500/20 text-pink-300">SCALE</span><span class="text-white font-semibold">SaaS Scale</span><span class="text-slate-500 text-xs ml-auto">10K–100K users</span></div>
+      <p class="text-xs text-slate-400 mb-3">Microservice extraction for hot paths, PG partitioning, horizontal API scaling, dedicated analytics pipeline.</p>
+      <pre class="text-xs">
+CDN (CloudFront/BunnyCDN)
+    │
+API Gateway (Nginx/Caddy)
+    │
+┌───┬───┬───┬───┐
+│API│API│API│API│  (Fastify pods, K8s/Docker)
+└───┴─┬─┴───┴───┘
+      ├── PG (partitioned, Citus or sharding)
+      ├── Redis Sentinel
+      ├── BullMQ Fleet
+      ├── Analytics DB (ClickHouse)
+      └── S3 Multiregion
+      </pre>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-3"><span class="tag bg-emerald-500/20 text-emerald-300">ENTERPRISE</span><span class="text-white font-semibold">Enterprise Scale</span><span class="text-slate-500 text-xs ml-auto">100K+ users</span></div>
+      <p class="text-xs text-slate-400 mb-3">Per-tenant isolation, white-label routing, SAML SSO, dedicated DB clusters for large tenants.</p>
+      <pre class="text-xs">
+Custom Domain (tenant.yourdomain.com)
+    │
+Multi-Tenant Router (tenant resolution)
+    │
+┌──────────────────────────────┐
+│  Shared Pool   │  Dedicated  │
+│  (SMB tenants) │  (Enterprise│
+│                │   tenants)  │
+└──────────────────────────────┘
+    ├── Tenant-scoped PG schemas
+    ├── Per-tenant Redis namespaces
+    └── White-label asset buckets
+      </pre>
+    </div>
+  </div>
+
+  <!-- High Level Architecture Diagram -->
+  <div class="glass-card rounded-xl p-6 mb-6">
+    <button onclick="toggleSection('arch-diagram')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">📐 High-Level Architecture Diagram</h3>
+      <span class="text-slate-500 text-sm" id="arch-diagram-icon">▼ expand</span>
+    </button>
+    <div id="arch-diagram" class="collapsible-content mt-4">
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+graph TB
+    subgraph Client["🖥 Client Layer"]
+        Web["React + Vite\nTeacher/Student App"]
+        Admin["Admin Portal\n(React)"]
+    end
+    subgraph Edge["🌐 Edge / Gateway"]
+        CDN["CDN\nStatic Assets"]
+        LB["Load Balancer\nNginx / Caddy"]
+        WS["WebSocket Gateway"]
+    end
+    subgraph API["⚡ API Layer (Fastify / TS)"]
+        Auth["Auth Service"]
+        Core["Core API\n(Tenants/Users/Classes)"]
+        Learning["Learning Engine\n(Vocab/Quiz/Games)"]
+        Analytics["Analytics Service"]
+        Media["Media Service"]
+    end
+    subgraph Workers["🔄 Worker Layer (BullMQ)"]
+        EmailQ["Email Queue"]
+        AnalyticsQ["Analytics Ingest"]
+        ProgressQ["Progress Calculator"]
+        NotifQ["Notification Queue"]
+    end
+    subgraph Data["🗄 Data Layer"]
+        PG["PostgreSQL\n(Primary)"]
+        PGR["PostgreSQL\n(Replica)"]
+        Redis["Redis Cluster\n(Cache/Sessions)"]
+        CH["ClickHouse\n(Analytics)"]
+        S3["S3 / MinIO\n(Media/Assets)"]
+    end
+    subgraph Obs["📊 Observability"]
+        Prom["Prometheus"]
+        Grafana["Grafana"]
+        OTEL["OpenTelemetry"]
+    end
+
+    Web --> CDN --> LB
+    Admin --> LB
+    LB --> Auth & Core & Learning & Analytics & Media
+    Web --> WS --> Learning
+    Core & Learning --> PG
+    Core --> PGR
+    Analytics --> CH
+    Media --> S3
+    Auth --> Redis
+    Core --> Redis
+    Learning --> Workers
+    Workers --> PG & Redis & CH
+    API --> OTEL --> Prom --> Grafana
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authentication Flow -->
+  <div class="glass-card rounded-xl p-6 mb-6">
+    <button onclick="toggleSection('auth-flow')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">🔐 Authentication Flow</h3>
+      <span class="text-slate-500 text-sm" id="auth-flow-icon">▼ expand</span>
+    </button>
+    <div id="auth-flow" class="collapsible-content mt-4">
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant GW as API Gateway
+    participant Auth as Auth Service
+    participant TM as Tenant Middleware
+    participant DB as PostgreSQL
+    participant Cache as Redis
+
+    C->>GW: POST /auth/login {email, password, tenantSlug}
+    GW->>TM: Resolve tenant from slug/domain
+    TM->>Cache: GET tenant:{slug}
+    alt Cache Miss
+        Cache-->>TM: null
+        TM->>DB: SELECT * FROM tenants WHERE slug=?
+        DB-->>TM: tenant record
+        TM->>Cache: SET tenant:{slug} TTL=3600
+    end
+    TM->>Auth: Authenticate with tenant context
+    Auth->>DB: SELECT user + roles WHERE tenant_id=?
+    DB-->>Auth: user + permissions
+    Auth->>Auth: Verify bcrypt password
+    Auth->>Auth: Generate access_token (15min JWT)
+    Auth->>Auth: Generate refresh_token (7d JWT)
+    Auth->>Cache: SET refresh:{userId} token TTL=7d
+    Auth-->>C: {access_token, refresh_token, user, tenant}
+
+    Note over C,Cache: Subsequent Requests
+    C->>GW: GET /api/classrooms Bearer: access_token
+    GW->>Auth: Validate JWT signature + expiry
+    Auth->>Auth: Extract {userId, tenantId, role, permissions}
+    Auth-->>GW: authContext
+    GW->>DB: Query scoped to tenant_id
+    DB-->>C: Response
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deployment Architecture -->
+  <div class="glass-card rounded-xl p-6">
+    <button onclick="toggleSection('deploy-diagram')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">🚀 Deployment Architecture (Docker / VPS)</h3>
+      <span class="text-slate-500 text-sm" id="deploy-diagram-icon">▼ expand</span>
+    </button>
+    <div id="deploy-diagram" class="collapsible-content mt-4">
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+graph LR
+    subgraph VPS1["VPS 1 — App Server"]
+        Nginx["Nginx\n:80/:443"]
+        API1["Fastify API\n:3000"]
+        Worker1["BullMQ Worker"]
+    end
+    subgraph VPS2["VPS 2 — Data Server"]
+        PG["PostgreSQL\n:5432"]
+        Redis["Redis\n:6379"]
+        Minio["MinIO\n:9000"]
+    end
+    subgraph VPS3["VPS 3 — Observability"]
+        Prom["Prometheus\n:9090"]
+        Grafana["Grafana\n:3001"]
+        Loki["Loki\n(Logs)"]
+    end
+    GH["GitHub Actions\nCI/CD"] -->|docker compose pull + up| VPS1
+    DNS["DNS\n(Cloudflare Proxy)"] --> Nginx
+    Nginx --> API1
+    API1 --> PG & Redis & Minio
+    Worker1 --> PG & Redis
+    API1 -->|metrics| Prom
+    Prom --> Grafana
+    API1 -->|logs| Loki
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TENANT MODEL ===================== -->
+<section id="tenant-model">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-pink-700 flex items-center justify-center text-lg">🏢</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Multi-Tenant Model</h2>
+      <p class="text-slate-500 text-sm">Hierarchical tenant design supporting all five product eras</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-6">
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">Tenant Hierarchy</h3>
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+graph TD
+    T["🌐 Tenant\n(Platform Account)"]
+    O1["🏫 Organization\n(School A)"]
+    O2["🏫 Organization\n(School B)"]
+    O3["🏢 Org\n(Lang Center)"]
+    C1["📚 Classroom 1"]
+    C2["📚 Classroom 2"]
+    C3["📚 Classroom 3"]
+    C4["📚 Classroom 4"]
+    T --> O1 & O2 & O3
+    O1 --> C1 & C2
+    O2 --> C3
+    O3 --> C4
+        </div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">Tenant Isolation Strategy</h3>
+      <table>
+        <thead><tr><th>Approach</th><th>Used When</th><th>Isolation Level</th></tr></thead>
+        <tbody>
+          <tr><td>Row-Level (tenant_id)</td><td>MVP → SaaS</td><td><span class="tag bg-amber-500/20 text-amber-300">Medium</span></td></tr>
+          <tr><td>PG Schema per Tenant</td><td>Growth → Scale</td><td><span class="tag bg-blue-500/20 text-blue-300">High</span></td></tr>
+          <tr><td>DB per Tenant</td><td>Enterprise Only</td><td><span class="tag bg-emerald-500/20 text-emerald-300">Full</span></td></tr>
+        </tbody>
+      </table>
+      <div class="mt-4 text-xs text-slate-400 space-y-2">
+        <p>📌 <strong class="text-white">Design Decision:</strong> Start with <code>tenant_id</code> row-level isolation. Every table carries <code>tenant_id UUID NOT NULL</code>. This costs nothing in Phase 1 but enables schema migration later.</p>
+        <p>📌 <strong class="text-white">Why not schema-per-tenant from day one?</strong> Migration complexity and Prisma limitations. Row-level with RLS (Row-Level Security) gives 95% of the isolation guarantees at 5% of the cost.</p>
+        <p>📌 <strong class="text-white">Future path:</strong> When an enterprise client requires full isolation, migrate their <code>tenant_id</code> rows into a dedicated schema using <code>pg_dump --schema</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-xl p-5">
+    <h3 class="font-semibold text-white mb-3">Role Hierarchy &amp; Permissions Matrix</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th><th>Scope</th><th>Users</th><th>Classrooms</th><th>Content</th><th>Analytics</th><th>Billing</th><th>Config</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag bg-red-500/20 text-red-300">Super Admin</span></td>
+          <td>Platform</td>
+          <td>✅ Full</td><td>✅ Full</td><td>✅ Full</td><td>✅ Full</td><td>✅ Full</td><td>✅ Full</td>
+        </tr>
+        <tr>
+          <td><span class="tag bg-orange-500/20 text-orange-300">Org Admin</span></td>
+          <td>Organization</td>
+          <td>✅ Org</td><td>✅ Org</td><td>✅ Org</td><td>✅ Org</td><td>⚡ View</td><td>✅ Org</td>
+        </tr>
+        <tr>
+          <td><span class="tag bg-blue-500/20 text-blue-300">Teacher</span></td>
+          <td>Classroom</td>
+          <td>⚡ Own</td><td>✅ Own</td><td>✅ Create</td><td>⚡ Own</td><td>❌</td><td>⚡ Own</td>
+        </tr>
+        <tr>
+          <td><span class="tag bg-emerald-500/20 text-emerald-300">Student</span></td>
+          <td>Enrolled</td>
+          <td>⚡ Self</td><td>⚡ View</td><td>⚡ Learn</td><td>⚡ Self</td><td>❌</td><td>❌</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== DATABASE DESIGN ===================== -->
+<section id="database-design">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-lg">🗄️</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Database Design</h2>
+      <p class="text-slate-500 text-sm">PostgreSQL schema designed for zero-migration scaling from classroom to enterprise</p>
+    </div>
+  </div>
+
+  <!-- ERD -->
+  <div class="glass-card rounded-xl p-6 mb-6">
+    <button onclick="toggleSection('erd-diagram')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">📊 Entity Relationship Diagram</h3>
+      <span class="text-slate-500 text-sm" id="erd-diagram-icon">▼ expand</span>
+    </button>
+    <div id="erd-diagram" class="collapsible-content mt-4">
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+erDiagram
+    TENANTS {
+        uuid id PK
+        varchar slug UK
+        varchar name
+        varchar plan
+        varchar status
+        jsonb settings
+        timestamptz created_at
+    }
+    ORGANIZATIONS {
+        uuid id PK
+        uuid tenant_id FK
+        varchar name
+        varchar slug
+        jsonb metadata
+    }
+    USERS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid org_id FK
+        varchar email UK
+        varchar password_hash
+        varchar first_name
+        varchar last_name
+        varchar avatar_url
+        varchar status
+        jsonb preferences
+        timestamptz created_at
+    }
+    ROLES {
+        uuid id PK
+        uuid tenant_id FK
+        varchar name
+        varchar scope
+    }
+    USER_ROLES {
+        uuid user_id FK
+        uuid role_id FK
+        uuid scope_id
+        varchar scope_type
+    }
+    CLASSROOMS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid org_id FK
+        uuid teacher_id FK
+        varchar name
+        varchar code UK
+        varchar status
+        jsonb settings
+    }
+    CLASSROOM_MEMBERS {
+        uuid classroom_id FK
+        uuid user_id FK
+        varchar role
+        timestamptz joined_at
+    }
+    COURSES {
+        uuid id PK
+        uuid tenant_id FK
+        uuid org_id FK
+        uuid created_by FK
+        varchar title
+        varchar language
+        varchar level
+        boolean is_public
+    }
+    LESSONS {
+        uuid id PK
+        uuid course_id FK
+        uuid tenant_id FK
+        varchar title
+        int order_index
+        varchar type
+        jsonb content
+    }
+    VOCABULARY_SETS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid created_by FK
+        varchar title
+        varchar language
+        boolean is_public
+    }
+    VOCABULARIES {
+        uuid id PK
+        uuid set_id FK
+        varchar term
+        varchar definition
+        varchar phonetic
+        varchar audio_url
+        varchar image_url
+        jsonb metadata
+    }
+    QUIZ_SETS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid created_by FK
+        varchar title
+        varchar type
+    }
+    QUESTIONS {
+        uuid id PK
+        uuid quiz_set_id FK
+        varchar type
+        text question_text
+        jsonb metadata
+        int points
+    }
+    QUESTION_OPTIONS {
+        uuid id PK
+        uuid question_id FK
+        varchar text
+        boolean is_correct
+    }
+    ASSIGNMENTS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid classroom_id FK
+        uuid created_by FK
+        varchar title
+        varchar type
+        uuid content_id
+        timestamptz due_at
+    }
+    SUBMISSIONS {
+        uuid id PK
+        uuid assignment_id FK
+        uuid user_id FK
+        varchar status
+        jsonb answers
+        int score
+        timestamptz submitted_at
+    }
+    PROGRESS_RECORDS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid user_id FK
+        varchar entity_type
+        uuid entity_id
+        int score
+        jsonb metadata
+        timestamptz recorded_at
+    }
+    GAME_SESSIONS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid user_id FK
+        varchar game_type
+        uuid content_id
+        int score
+        int duration_sec
+        jsonb state
+        timestamptz played_at
+    }
+    ACHIEVEMENTS {
+        uuid id PK
+        uuid tenant_id FK
+        varchar key UK
+        varchar title
+        varchar icon
+        jsonb criteria
+    }
+    USER_ACHIEVEMENTS {
+        uuid user_id FK
+        uuid achievement_id FK
+        timestamptz earned_at
+    }
+    LEADERBOARDS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid scope_id
+        varchar scope_type
+        varchar period
+        jsonb entries
+        timestamptz computed_at
+    }
+    AUDIT_LOGS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid actor_id FK
+        varchar action
+        varchar entity_type
+        uuid entity_id
+        jsonb diff
+        timestamptz created_at
+    }
+
+    TENANTS ||--o{ ORGANIZATIONS : "has"
+    TENANTS ||--o{ USERS : "has"
+    ORGANIZATIONS ||--o{ USERS : "belongs to"
+    ORGANIZATIONS ||--o{ CLASSROOMS : "has"
+    USERS ||--o{ USER_ROLES : "has"
+    ROLES ||--o{ USER_ROLES : "assigned"
+    CLASSROOMS ||--o{ CLASSROOM_MEMBERS : "has"
+    USERS ||--o{ CLASSROOM_MEMBERS : "in"
+    CLASSROOMS ||--o{ ASSIGNMENTS : "has"
+    COURSES ||--o{ LESSONS : "has"
+    VOCABULARY_SETS ||--o{ VOCABULARIES : "has"
+    QUIZ_SETS ||--o{ QUESTIONS : "has"
+    QUESTIONS ||--o{ QUESTION_OPTIONS : "has"
+    ASSIGNMENTS ||--o{ SUBMISSIONS : "receives"
+    USERS ||--o{ SUBMISSIONS : "submits"
+    USERS ||--o{ PROGRESS_RECORDS : "has"
+    USERS ||--o{ GAME_SESSIONS : "plays"
+    USERS ||--o{ USER_ACHIEVEMENTS : "earns"
+    ACHIEVEMENTS ||--o{ USER_ACHIEVEMENTS : "earned by"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schema DDL snippets -->
+  <div class="glass-card rounded-xl p-6 mb-6">
+    <button onclick="toggleSection('schema-ddl')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">📝 Core Schema (Annotated DDL)</h3>
+      <span class="text-slate-500 text-sm" id="schema-ddl-icon">▼ expand</span>
+    </button>
+    <div id="schema-ddl" class="collapsible-content mt-4 space-y-4">
+      <pre>
+-- ═══════════════════════════════════════════════════════
+-- TENANTS — Root of multi-tenancy. Every other table
+-- carries tenant_id to enable row-level scoping.
+-- ═══════════════════════════════════════════════════════
+CREATE TABLE tenants (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug        VARCHAR(63) UNIQUE NOT NULL, -- used in subdomain routing
+  name        VARCHAR(255) NOT NULL,
+  plan        VARCHAR(50) NOT NULL DEFAULT 'free', -- free|starter|pro|enterprise
+  status      VARCHAR(20) NOT NULL DEFAULT 'active',
+  settings    JSONB NOT NULL DEFAULT '{}', -- branding, feature flags, quotas
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX idx_tenants_slug ON tenants(slug);
+CREATE INDEX idx_tenants_plan ON tenants(plan);
+
+-- ═══════════════════════════════════════════════════════
+-- USERS — Unified user model across all roles.
+-- Role is NOT a column — it's a relationship via user_roles.
+-- This allows a user to be Teacher in one classroom,
+-- Student in another (cross-enrollment).
+-- ═══════════════════════════════════════════════════════
+CREATE TABLE users (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id      UUID NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+  org_id         UUID REFERENCES organizations(id),
+  email          VARCHAR(320) NOT NULL,
+  password_hash  VARCHAR(72) NOT NULL, -- bcrypt cost 12
+  first_name     VARCHAR(100) NOT NULL,
+  last_name      VARCHAR(100) NOT NULL,
+  avatar_url     TEXT,
+  status         VARCHAR(20) NOT NULL DEFAULT 'active',
+  preferences    JSONB NOT NULL DEFAULT '{}',
+  email_verified BOOLEAN NOT NULL DEFAULT false,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE(tenant_id, email) -- email unique per tenant, not globally
+);
+CREATE INDEX idx_users_tenant ON users(tenant_id);
+CREATE INDEX idx_users_email ON users(email); -- for auth lookup
+
+-- ═══════════════════════════════════════════════════════
+-- PROGRESS_RECORDS — Partitioned by recorded_at for
+-- high-volume writes. Entity-type polymorphic pattern
+-- allows tracking progress on vocab, quizzes, games,
+-- lessons without separate tables.
+-- ═══════════════════════════════════════════════════════
+CREATE TABLE progress_records (
+  id           UUID NOT NULL DEFAULT gen_random_uuid(),
+  tenant_id    UUID NOT NULL REFERENCES tenants(id),
+  user_id      UUID NOT NULL REFERENCES users(id),
+  entity_type  VARCHAR(50) NOT NULL, -- 'vocabulary'|'quiz'|'lesson'|'game'
+  entity_id    UUID NOT NULL,
+  score        SMALLINT,
+  metadata     JSONB NOT NULL DEFAULT '{}',
+  recorded_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (id, recorded_at)
+) PARTITION BY RANGE (recorded_at);
+
+-- Monthly partitions — created by migration or pg_partman
+CREATE TABLE progress_records_2024_01 PARTITION OF progress_records
+  FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
+
+CREATE INDEX idx_progress_user_tenant ON progress_records(tenant_id, user_id);
+CREATE INDEX idx_progress_entity ON progress_records(entity_type, entity_id);
+      </pre>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-2">Index Strategy</h4>
+          <table>
+            <thead><tr><th>Table</th><th>Index</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td>users</td><td><code>(tenant_id, email)</code></td><td>Auth lookup</td></tr>
+              <tr><td>classrooms</td><td><code>(tenant_id, code)</code></td><td>Join code lookup</td></tr>
+              <tr><td>progress_records</td><td><code>(tenant_id, user_id)</code></td><td>Dashboard queries</td></tr>
+              <tr><td>game_sessions</td><td><code>(tenant_id, user_id, played_at)</code></td><td>Timeline queries</td></tr>
+              <tr><td>audit_logs</td><td><code>(tenant_id, actor_id)</code></td><td>Audit queries</td></tr>
+              <tr><td>vocabularies</td><td><code>GIN(metadata)</code></td><td>JSON search</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-2">Partitioning Strategy</h4>
+          <table>
+            <thead><tr><th>Table</th><th>Strategy</th><th>Key</th></tr></thead>
+            <tbody>
+              <tr><td>progress_records</td><td>RANGE</td><td>recorded_at (monthly)</td></tr>
+              <tr><td>game_sessions</td><td>RANGE</td><td>played_at (monthly)</td></tr>
+              <tr><td>audit_logs</td><td>RANGE</td><td>created_at (monthly)</td></tr>
+              <tr><td>leaderboards</td><td>LIST</td><td>period (daily/weekly/all)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEACHER SYSTEM ===================== -->
+<section id="teacher-system">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-lg">👩‍🏫</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Teacher System Architecture</h2>
+      <p class="text-slate-500 text-sm">Complete folder structure, component breakdown, hooks, and API integration per module</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mb-6">
+    <!-- Each teacher module card -->
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📊</div>
+      <h4 class="font-bold text-white text-sm mb-1">dashboard/</h4>
+      <p class="text-xs text-slate-400 mb-2">Overview of all classrooms, recent student activity, pending assignments, and summary stats.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> StatsGrid, ActivityFeed, QuickActions, ClassroomSummaryCard</div>
+        <div><span class="text-violet-400">Hooks:</span> useDashboardStats, useRecentActivity</div>
+        <div><span class="text-pink-400">API:</span> GET /teacher/dashboard/stats</div>
+        <div><span class="text-emerald-400">State:</span> Zustand dashboardStore</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">🏫</div>
+      <h4 class="font-bold text-white text-sm mb-1">classrooms/</h4>
+      <p class="text-xs text-slate-400 mb-2">Create, manage classrooms. Generate join codes. Enroll/remove students. Bulk operations.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> ClassroomList, ClassroomCard, CreateClassroomModal, JoinCodeDisplay, StudentRoster</div>
+        <div><span class="text-violet-400">Hooks:</span> useClassrooms, useClassroomMembers, useJoinCode</div>
+        <div><span class="text-pink-400">API:</span> CRUD /classrooms, POST /classrooms/:id/members</div>
+        <div><span class="text-emerald-400">State:</span> React Query + optimistic updates</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📚</div>
+      <h4 class="font-bold text-white text-sm mb-1">courses/</h4>
+      <p class="text-xs text-slate-400 mb-2">Course builder with lesson ordering, level assignment, language tagging, and publishing controls.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> CourseBuilder, LessonList, DragDropLessonOrder, CoursePublishToggle</div>
+        <div><span class="text-violet-400">Hooks:</span> useCourse, useCourseBuilder, useLessons</div>
+        <div><span class="text-pink-400">API:</span> CRUD /courses, PATCH /courses/:id/publish</div>
+        <div><span class="text-emerald-400">State:</span> Zustand courseEditorStore (local draft)</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📝</div>
+      <h4 class="font-bold text-white text-sm mb-1">lessons/</h4>
+      <p class="text-xs text-slate-400 mb-2">Rich lesson editor with text, images, audio embeds, and linked vocabulary sets.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> LessonEditor, ContentBlockList, MediaUploader, VocabLinker</div>
+        <div><span class="text-violet-400">Hooks:</span> useLesson, useMediaUpload, useLinkedVocab</div>
+        <div><span class="text-pink-400">API:</span> CRUD /lessons, POST /lessons/:id/media</div>
+        <div><span class="text-emerald-400">State:</span> Zustand lessonEditorStore + optimistic saves</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">🔤</div>
+      <h4 class="font-bold text-white text-sm mb-1">vocabulary/</h4>
+      <p class="text-xs text-slate-400 mb-2">Create vocab sets. Bulk import CSV. Attach images/audio. Link sets to lessons or assignments.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> VocabSetList, VocabCard, VocabEditor, BulkImportModal, AudioRecorder</div>
+        <div><span class="text-violet-400">Hooks:</span> useVocabSets, useVocabEditor, useBulkImport</div>
+        <div><span class="text-pink-400">API:</span> CRUD /vocab-sets, /vocabularies, POST /vocab-sets/:id/import</div>
+        <div><span class="text-emerald-400">State:</span> React Query (server state) + Zustand (editor)</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📋</div>
+      <h4 class="font-bold text-white text-sm mb-1">assignments/</h4>
+      <p class="text-xs text-slate-400 mb-2">Create assignments linking vocab sets, quizzes, or games. Set due dates. View submission stats.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> AssignmentBuilder, AssignmentList, SubmissionTable, GradeModal</div>
+        <div><span class="text-violet-400">Hooks:</span> useAssignments, useSubmissions, useGrading</div>
+        <div><span class="text-pink-400">API:</span> CRUD /assignments, GET /assignments/:id/submissions</div>
+        <div><span class="text-emerald-400">State:</span> React Query + Zustand gradeStore</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">❓</div>
+      <h4 class="font-bold text-white text-sm mb-1">quizzes/</h4>
+      <p class="text-xs text-slate-400 mb-2">Quiz builder with multiple question types: MCQ, fill-blank, matching, ordering, image-select.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> QuizBuilder, QuestionCard, QuestionTypeSelector, PreviewModal</div>
+        <div><span class="text-violet-400">Hooks:</span> useQuizBuilder, useQuizPreview, useQuizStats</div>
+        <div><span class="text-pink-400">API:</span> CRUD /quiz-sets, /questions, /question-options</div>
+        <div><span class="text-emerald-400">State:</span> Zustand quizBuilderStore</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">🎮</div>
+      <h4 class="font-bold text-white text-sm mb-1">games/</h4>
+      <p class="text-xs text-slate-400 mb-2">Launch live game sessions. Select vocab set, game type. Real-time leaderboard via WebSocket.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> GameLauncher, GameLobby, LiveLeaderboard, GameTypeSelector</div>
+        <div><span class="text-violet-400">Hooks:</span> useGameSession, useGameWebSocket, useGameLeaderboard</div>
+        <div><span class="text-pink-400">API:</span> POST /game-sessions, WS /game-sessions/:id</div>
+        <div><span class="text-emerald-400">State:</span> Zustand gameSessionStore + WebSocket sync</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📈</div>
+      <h4 class="font-bold text-white text-sm mb-1">analytics/</h4>
+      <p class="text-xs text-slate-400 mb-2">Classroom performance charts. Individual student progress. Vocab mastery heatmaps. Quiz score trends.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> ProgressChart, MasteryHeatmap, ScoreTrendLine, ClassroomCompare</div>
+        <div><span class="text-violet-400">Hooks:</span> useClassroomAnalytics, useStudentProgress, useMastery</div>
+        <div><span class="text-pink-400">API:</span> GET /analytics/classroom/:id, /analytics/student/:id</div>
+        <div><span class="text-emerald-400">State:</span> React Query + date-range filters in URL params</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">📄</div>
+      <h4 class="font-bold text-white text-sm mb-1">reports/</h4>
+      <p class="text-xs text-slate-400 mb-2">Export PDF/CSV reports per student, classroom, or course. Schedule automated reports.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> ReportBuilder, ReportScheduler, ExportButton, ReportHistory</div>
+        <div><span class="text-violet-400">Hooks:</span> useReports, useScheduledReports, useExport</div>
+        <div><span class="text-pink-400">API:</span> POST /reports/generate (queued), GET /reports/:id/download</div>
+        <div><span class="text-emerald-400">State:</span> React Query + polling for async generation</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">👥</div>
+      <h4 class="font-bold text-white text-sm mb-1">students/</h4>
+      <p class="text-xs text-slate-400 mb-2">Student directory. Search and filter. View individual student profiles, progress, game scores.</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> StudentTable, StudentProfilePanel, ProgressSummary, ActivityTimeline</div>
+        <div><span class="text-violet-400">Hooks:</span> useStudents, useStudentProfile, useStudentProgress</div>
+        <div><span class="text-pink-400">API:</span> GET /classrooms/:id/members, /students/:id/progress</div>
+        <div><span class="text-emerald-400">State:</span> React Query + selected student in URL</div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-2xl mb-2">⚙️</div>
+      <h4 class="font-bold text-white text-sm mb-1">settings/</h4>
+      <p class="text-xs text-slate-400 mb-2">Profile settings, notification preferences, classroom defaults, integration config (future).</p>
+      <div class="text-xs space-y-1 text-slate-500">
+        <div><span class="text-blue-400">Components:</span> ProfileForm, NotificationSettings, ClassroomDefaults, SecurityPanel</div>
+        <div><span class="text-violet-400">Hooks:</span> useProfile, useNotificationSettings, useChangePassword</div>
+        <div><span class="text-pink-400">API:</span> PATCH /users/me, PATCH /users/me/notifications</div>
+        <div><span class="text-emerald-400">State:</span> React Hook Form + Zustand settingsStore</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teacher folder structure -->
+  <div class="glass-card rounded-xl p-6">
+    <button onclick="toggleSection('teacher-folder')" class="w-full flex items-center justify-between text-left">
+      <h3 class="font-bold text-white text-lg">📁 Frontend Folder Structure</h3>
+      <span class="text-slate-500 text-sm" id="teacher-folder-icon">▼ expand</span>
+    </button>
+    <div id="teacher-folder" class="collapsible-content mt-4">
+      <div class="grid md:grid-cols-2 gap-4">
+        <pre>
+apps/
+├── web/                        # React + Vite App
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── router.tsx      # React Router config
+│   │   │   ├── providers.tsx   # QueryClient, Auth, Theme
+│   │   │   └── App.tsx
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   │   ├── components/ (LoginForm, RegisterForm)
+│   │   │   │   ├── hooks/      (useAuth, useCurrentUser)
+│   │   │   │   ├── services/   (authApi.ts)
+│   │   │   │   └── store/      (authStore.ts)
+│   │   │   ├── teacher/
+│   │   │   │   ├── dashboard/
+│   │   │   │   ├── classrooms/
+│   │   │   │   ├── courses/
+│   │   │   │   ├── lessons/
+│   │   │   │   ├── vocabulary/
+│   │   │   │   ├── assignments/
+│   │   │   │   ├── quizzes/
+│   │   │   │   ├── games/
+│   │   │   │   ├── analytics/
+│   │   │   │   ├── reports/
+│   │   │   │   ├── students/
+│   │   │   │   └── settings/
+│   │   │   ├── student/
+│   │   │   │   ├── dashboard/
+│   │   │   │   ├── classrooms/
+│   │   │   │   ├── flashcards/
+│   │   │   │   ├── quizzes/
+│   │   │   │   ├── games/
+│   │   │   │   ├── achievements/
+│   │   │   │   ├── leaderboard/
+│   │   │   │   └── progress/
+│   │   │   └── admin/
+│   │   │       ├── tenants/
+│   │   │       ├── organizations/
+│   │   │       ├── users/
+│   │   │       ├── billing/
+│   │   │       └── system/
+        </pre>
+        <pre>
+│   │   ├── shared/
+│   │   │   ├── components/
+│   │   │   │   ├── ui/         (Button, Input, Modal)
+│   │   │   │   ├── layout/     (Sidebar, TopNav, Footer)
+│   │   │   │   ├── data-display/(Table, Chart, Badge)
+│   │   │   │   └── feedback/   (Toast, Alert, Skeleton)
+│   │   │   ├── hooks/
+│   │   │   │   ├── useWebSocket.ts
+│   │   │   │   ├── useUpload.ts
+│   │   │   │   ├── usePagination.ts
+│   │   │   │   └── useDebounce.ts
+│   │   │   ├── lib/
+│   │   │   │   ├── api.ts      (Axios instance + interceptors)
+│   │   │   │   ├── queryClient.ts
+│   │   │   │   └── utils.ts
+│   │   │   └── types/
+│   │   │       ├── api.types.ts
+│   │   │       └── models.types.ts
+│   │   ├── stores/
+│   │   │   └── globalStore.ts  (Zustand global slice)
+│   │   └── main.tsx
+│   ├── public/
+│   ├── index.html
+│   ├── vite.config.ts
+│   └── tailwind.config.ts
+apps/
+└── api/                        # Fastify + TS Backend
+    ├── src/
+    │   ├── app.ts              (Fastify factory)
+    │   ├── server.ts           (Entry point)
+    │   ├── config/             (env, constants)
+    │   ├── plugins/            (auth, multipart, redis)
+    │   ├── middleware/         (tenant, rbac, rateLimit)
+    │   ├── modules/
+    │   │   ├── auth/
+    │   │   ├── tenants/
+    │   │   ├── users/
+    │   │   ├── classrooms/
+    │   │   ├── courses/
+    │   │   ├── vocabulary/
+    │   │   ├── quiz/
+    │   │   ├── games/
+    │   │   ├── assignments/
+    │   │   ├── progress/
+    │   │   ├── analytics/
+    │   │   └── admin/
+    │   ├── workers/            (BullMQ queues)
+    │   ├── services/           (email, storage, ws)
+    │   └── prisma/             (schema.prisma, migrations)
+    └── tests/
+        </pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PHASES ===================== -->
+<section id="phases">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-lg">🗺️</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Implementation Phases</h2>
+      <p class="text-slate-500 text-sm">19 phases from discovery to enterprise expansion — each with full engineering detail</p>
+    </div>
+  </div>
+
+  <div class="relative pl-12 space-y-6">
+    <div class="timeline-line"></div>
+
+    <!-- ─── PHASE 0 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-blue-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-0')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-blue-500/20 text-blue-300">PHASE 0</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Product Discovery</h3>
+            <p class="text-xs text-slate-500 mt-0.5">User research · Domain mapping · Risk assessment</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 1–2</span>
+            <span class="text-slate-500 text-sm" id="phase-0-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-0" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Goal</h4>
+                <p class="text-sm text-slate-300">Validate the core problem space, define user personas, map domain entities, and identify technical risks before writing a single line of code.</p>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Business Value</h4>
+                <p class="text-sm text-slate-300">Prevents wasted engineering cycles. Aligns the team on vocabulary and boundaries. Produces a shared mental model that survives team growth.</p>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Key Activities</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Interview 3+ teachers about pain points</li>
+                  <li>Map domain using Event Storming</li>
+                  <li>Document bounded contexts (Learning, Identity, Content, Analytics)</li>
+                  <li>Identify feature flags needed from day 1</li>
+                  <li>Define non-functional requirements (latency, availability, data residency)</li>
+                  <li>Assess GDPR / COPPA compliance needs</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Bounded Contexts</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph TD
+    Identity["🔑 Identity\n(Auth, Users, Roles, Tenants)"]
+    Content["📖 Content\n(Courses, Lessons, Vocab)"]
+    Learning["🎓 Learning\n(Quizzes, Games, Flashcards)"]
+    Progress["📊 Progress\n(Tracking, Achievements)"]
+    Analytics["📈 Analytics\n(Reports, BI, Exports)"]
+    Billing["💳 Billing\n(Plans, Subscriptions)"]
+
+    Identity --> Content & Learning
+    Content --> Learning
+    Learning --> Progress
+    Progress --> Analytics
+    Billing --> Identity
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Definition of Done</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Domain glossary document written</li>
+                  <li>ERD draft approved</li>
+                  <li>Risk register created</li>
+                  <li>Tech stack decision record (ADR) written</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 1 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-violet-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-1')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-violet-500/20 text-violet-300">PHASE 1</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Domain Modeling</h3>
+            <p class="text-xs text-slate-500 mt-0.5">PostgreSQL schema · Prisma setup · Seed data</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 2–3</span>
+            <span class="text-slate-500 text-sm" id="phase-1-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-1" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Database Changes</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Create all 22 core tables with <code>tenant_id</code></li>
+                  <li>Set up UUID primary keys with <code>gen_random_uuid()</code></li>
+                  <li>Add all foreign keys, cascades</li>
+                  <li>Create core indexes (auth, tenant scoping)</li>
+                  <li>Seed: 1 tenant, 1 org, 1 teacher, 10 students</li>
+                  <li>Configure Prisma schema + generate client</li>
+                  <li>Enable <code>pgcrypto</code> extension</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Key Design Decisions</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>UUID everywhere (not integer IDs) — prevents enumeration attacks, works in distributed environments</li>
+                  <li>Soft deletes via <code>deleted_at</code> on core entities — audit trail required</li>
+                  <li><code>JSONB</code> for <code>settings</code> and <code>metadata</code> — avoids schema migrations for config changes</li>
+                  <li>Polymorphic <code>entity_type / entity_id</code> on progress_records — avoids explosion of progress tables</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Security Considerations</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Never return <code>password_hash</code> from any query</li>
+                  <li>All DB connections via connection pool (pg-pool) with connection limits</li>
+                  <li>Separate read-only DB user for analytics queries</li>
+                  <li>Prisma middleware to auto-inject tenant_id on all queries</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Definition of Done</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>All tables created via Prisma migrations</li>
+                  <li>Seed script runs without error</li>
+                  <li>All FK constraints verified</li>
+                  <li>ERD generated from schema matches design</li>
+                  <li>Prisma client generated and typed</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 2 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-pink-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-2')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-pink-500/20 text-pink-300">PHASE 2</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Monorepo Setup</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Turborepo · Shared packages · CI/CD pipeline</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 3–4</span>
+            <span class="text-slate-500 text-sm" id="phase-2-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-2" class="collapsible-content border-t border-white/5">
+          <div class="p-5 space-y-4">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Monorepo Structure</h4>
+                <pre>
+englisheveryday/               # Turborepo root
+├── apps/
+│   ├── web/                   # React + Vite
+│   ├── api/                   # Fastify + TS
+│   └── admin/                 # Admin React app (Phase 13)
+├── packages/
+│   ├── ui/                    # Shared Shadcn components
+│   ├── types/                 # Shared TypeScript types
+│   ├── config/                # ESLint, TSConfig, Tailwind
+│   ├── utils/                 # Shared utilities
+│   └── validations/           # Zod schemas (shared)
+├── turbo.json
+├── pnpm-workspace.yaml
+└── docker-compose.yml
+                </pre>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">CI/CD Pipeline (GitHub Actions)</h4>
+                  <pre>
+on: [push, pull_request]
+
+jobs:
+  lint-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - pnpm install
+      - turbo lint type-check
+
+  test:
+    services: postgres, redis
+    steps:
+      - pnpm install
+      - turbo test
+
+  build:
+    steps:
+      - turbo build
+
+  deploy:
+    if: branch == main
+    steps:
+      - docker build + push
+      - SSH to VPS + docker compose up
+                  </pre>
+                </div>
+                <div>
+                  <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Why Turborepo?</h4>
+                  <p class="text-xs text-slate-400">Remote caching cuts CI time by 60–80%. Task graph ensures correct build order. Type sharing eliminates API contract drift between frontend and backend. Scales to microservices by splitting apps/packages without restructuring.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 3 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-amber-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-3')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-amber-500/20 text-amber-300">PHASE 3</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Authentication System</h3>
+            <p class="text-xs text-slate-500 mt-0.5">JWT · Refresh tokens · Role-based access · Rate limiting</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 4–5</span>
+            <span class="text-slate-500 text-sm" id="phase-3-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-3" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">API Endpoints</h4>
+                <table>
+                  <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>POST</code></td><td>/auth/register</td><td>New user registration</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/login</td><td>Email + password login</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/refresh</td><td>Refresh access token</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/logout</td><td>Revoke refresh token</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/forgot-password</td><td>Send reset email</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/reset-password</td><td>Use reset token</td></tr>
+                    <tr><td><code>GET</code></td><td>/auth/me</td><td>Get current user</td></tr>
+                    <tr><td><code>POST</code></td><td>/auth/verify-email</td><td>Verify email token</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Token Design</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Access token: <strong class="text-white">15 minutes</strong>, JWT RS256 signed</li>
+                  <li>Refresh token: <strong class="text-white">7 days</strong>, stored in Redis + httpOnly cookie</li>
+                  <li>JWT payload: <code>{sub, tenantId, orgId, role, permissions}</code></li>
+                  <li>Token rotation on every refresh (sliding window)</li>
+                  <li>Revocation list in Redis for logout-all-devices</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Security Considerations</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>bcrypt cost factor 12 for password hashing</li>
+                  <li>Rate limit: 5 failed logins → 15min lockout</li>
+                  <li>CORS configured per-tenant domain whitelist</li>
+                  <li>Helmet.js security headers (CSP, HSTS, nosniff)</li>
+                  <li>Argon2id for password reset tokens</li>
+                  <li>All auth events written to audit_logs</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">RBAC Implementation</h4>
+                <pre>
+// Fastify plugin — preHandler hook
+const rbac = (requiredPermission: string) => {
+  return async (req: Request) => {
+    const { permissions } = req.user;
+    if (!permissions.includes(requiredPermission)) {
+      throw new ForbiddenError();
+    }
+  }
+}
+
+// Route registration
+app.get('/classrooms', {
+  preHandler: [authenticate, rbac('classroom:read')]
+}, classroomHandler);
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 4 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-emerald-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-4')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-emerald-500/20 text-emerald-300">PHASE 4</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Multi-Tenant Foundation</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Tenant resolution · Row-level security · Feature flags</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 5–6</span>
+            <span class="text-slate-500 text-sm" id="phase-4-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-4" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Tenant Resolution Strategies</h4>
+                <table>
+                  <thead><tr><th>Strategy</th><th>Example</th><th>Phase</th></tr></thead>
+                  <tbody>
+                    <tr><td>Subdomain</td><td>school.englisheveryday.com</td><td>SaaS</td></tr>
+                    <tr><td>Path Prefix</td><td>/t/school-slug/api</td><td>MVP</td></tr>
+                    <tr><td>Custom Domain</td><td>learn.school.edu</td><td>Enterprise</td></tr>
+                    <tr><td>Header</td><td>X-Tenant-ID: uuid</td><td>Internal API</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Prisma Tenant Middleware</h4>
+                <pre>
+// Auto-inject tenant_id on all writes/reads
+prisma.$use(async (params, next) => {
+  const tenantId = context.getTenantId();
+
+  if (params.action === 'create') {
+    params.args.data.tenant_id = tenantId;
+  }
+
+  if (['findMany','findFirst'].includes(params.action)) {
+    params.args.where = {
+      ...params.args.where,
+      tenant_id: tenantId,
+    };
+  }
+
+  return next(params);
+});
+                </pre>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Feature Flags System</h4>
+                <p class="text-xs text-slate-400 mb-2">Feature flags stored in <code>tenants.settings JSONB</code>. Checked at request time from Redis cache. Allows per-tenant enablement without deploys.</p>
+                <pre>
+// tenants.settings structure
+{
+  "features": {
+    "games_enabled": true,
+    "speaking_practice": false,
+    "ai_suggestions": false,
+    "analytics_advanced": false
+  },
+  "quotas": {
+    "max_classrooms": 5,
+    "max_students_per_classroom": 40,
+    "max_vocab_sets": 100
+  },
+  "branding": {
+    "logo_url": null,
+    "primary_color": "#3b82f6"
+  }
+}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 5 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-blue-400" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-5')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-blue-400/20 text-blue-300">PHASE 5</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Teacher MVP</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Classrooms · Courses · Students · Assignments</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 6–9</span>
+            <span class="text-slate-500 text-sm" id="phase-5-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-5" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Features</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Teacher can create/edit/delete classrooms</li>
+                  <li>Generate unique join codes for students</li>
+                  <li>View and manage student roster per classroom</li>
+                  <li>Create and publish courses with ordered lessons</li>
+                  <li>Assign courses/content to classrooms</li>
+                  <li>View basic student activity</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">API Endpoints</h4>
+                <table>
+                  <thead><tr><th>Method</th><th>Endpoint</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>GET/POST</code></td><td>/classrooms</td></tr>
+                    <tr><td><code>GET/PATCH/DELETE</code></td><td>/classrooms/:id</td></tr>
+                    <tr><td><code>POST</code></td><td>/classrooms/:id/join-code</td></tr>
+                    <tr><td><code>GET/POST</code></td><td>/classrooms/:id/members</td></tr>
+                    <tr><td><code>GET/POST</code></td><td>/courses</td></tr>
+                    <tr><td><code>GET/POST</code></td><td>/courses/:id/lessons</td></tr>
+                    <tr><td><code>POST</code></td><td>/classrooms/:id/assignments</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Teacher Workflow</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph TD
+    A["Login as Teacher"] --> B["Create Classroom"]
+    B --> C["Get Join Code"]
+    C --> D["Share Code with Students"]
+    D --> E["Create Course"]
+    E --> F["Add Lessons"]
+    F --> G["Assign Vocabulary Set"]
+    G --> H["Create Assignment"]
+    H --> I["Set Due Date & Publish"]
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 6 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-violet-400" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-6')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-violet-400/20 text-violet-300">PHASE 6</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Student MVP</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Join classroom · View assignments · Basic flashcards</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 9–11</span>
+            <span class="text-slate-500 text-sm" id="phase-6-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-6" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Features</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Join classroom via 6-digit join code</li>
+                  <li>View assigned courses and lessons</li>
+                  <li>Study flashcards (front/back flip animation)</li>
+                  <li>View upcoming assignments and due dates</li>
+                  <li>Submit quiz answers</li>
+                  <li>View own scores and progress summary</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Student Workflow</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph TD
+    A["Register / Login"] --> B["Enter Join Code"]
+    B --> C["Access Classroom"]
+    C --> D["View Assignments"]
+    D --> E["Study Flashcards"]
+    E --> F["Take Quiz"]
+    F --> G["View Score"]
+    G --> H["View Progress Dashboard"]
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Performance Considerations</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Flashcard sets cached in Redis (TTL 1hr)</li>
+                  <li>Progressive loading — first 20 cards, paginate</li>
+                  <li>Audio files served from CDN, not API</li>
+                  <li>Lazy load images in flashcard deck</li>
+                  <li>Submission debounced — prevent double-submit</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Frontend State</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>React Query for server state (classrooms, assignments)</li>
+                  <li>Zustand for flashcard session state (current card index, flipped)</li>
+                  <li>Local storage for offline flashcard progress (Phase 14)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 7 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-pink-400" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-7')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-pink-400/20 text-pink-300">PHASE 7</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Vocabulary Engine</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Sets · Spaced repetition · Audio · Images · Bulk import</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 11–13</span>
+            <span class="text-slate-500 text-sm" id="phase-7-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-7" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Features</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Teacher creates vocabulary sets (term + definition + phonetic)</li>
+                  <li>Attach audio (upload or TTS via external API)</li>
+                  <li>Attach images (upload to S3)</li>
+                  <li>Bulk import via CSV (term, definition, phonetic)</li>
+                  <li>Student SRS (Spaced Repetition System) with SM-2 algorithm</li>
+                  <li>Public vs. private vocabulary sets</li>
+                  <li>Content library — share sets across classrooms</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">SM-2 Algorithm (SRS)</h4>
+                <pre>
+// Simplified SM-2 implementation
+function calculateNextReview(card: VocabCard, quality: 0|1|2|3|4|5) {
+  if (quality < 3) {
+    // Reset — review again soon
+    return { interval: 1, ease: card.ease };
+  }
+  const ease = Math.max(1.3,
+    card.ease + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)
+  );
+  const interval = card.interval === 0 ? 1
+    : card.interval === 1 ? 6
+    : Math.round(card.interval * ease);
+  return { interval, ease, nextReview: addDays(now(), interval) };
+}
+                </pre>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Storage Strategy</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Audio files: <code>s3://media/vocab/{tenantId}/{setId}/{vocabId}.mp3</code></li>
+                  <li>Images: <code>s3://media/vocab/{tenantId}/{setId}/{vocabId}.webp</code></li>
+                  <li>Convert all images to WebP on upload (sharp.js)</li>
+                  <li>Strip EXIF metadata for privacy</li>
+                  <li>Max file sizes: audio 5MB, image 2MB</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">API Endpoints</h4>
+                <table>
+                  <thead><tr><th>Method</th><th>Endpoint</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>GET/POST</code></td><td>/vocab-sets</td></tr>
+                    <tr><td><code>GET/PATCH/DELETE</code></td><td>/vocab-sets/:id</td></tr>
+                    <tr><td><code>POST</code></td><td>/vocab-sets/:id/import</td></tr>
+                    <tr><td><code>GET/POST</code></td><td>/vocab-sets/:id/vocabularies</td></tr>
+                    <tr><td><code>GET</code></td><td>/vocab-sets/:id/study</td></tr>
+                    <tr><td><code>POST</code></td><td>/vocab-sets/:id/review</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 8 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-amber-400" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-8')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-amber-400/20 text-amber-300">PHASE 8</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Quiz Engine</h3>
+            <p class="text-xs text-slate-500 mt-0.5">MCQ · Fill-blank · Matching · Ordering · Auto-grading</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 13–15</span>
+            <span class="text-slate-500 text-sm" id="phase-8-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-8" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Question Types</h4>
+                <table>
+                  <thead><tr><th>Type</th><th>Description</th><th>Auto-Grade</th></tr></thead>
+                  <tbody>
+                    <tr><td>MCQ</td><td>Single correct answer</td><td>✅</td></tr>
+                    <tr><td>Multiple Select</td><td>Multiple correct</td><td>✅</td></tr>
+                    <tr><td>Fill Blank</td><td>Type the answer</td><td>✅ (fuzzy)</td></tr>
+                    <tr><td>Matching</td><td>Drag to match pairs</td><td>✅</td></tr>
+                    <tr><td>Ordering</td><td>Sort items correctly</td><td>✅</td></tr>
+                    <tr><td>Image Select</td><td>Choose correct image</td><td>✅</td></tr>
+                    <tr><td>Audio MCQ</td><td>Listen then choose</td><td>✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Quiz Session Flow</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+sequenceDiagram
+    participant S as Student
+    participant API as Quiz API
+    participant Q as BullMQ
+
+    S->>API: POST /quiz-sessions/start {quizSetId}
+    API->>API: Shuffle questions + options
+    API-->>S: {sessionId, questions}
+    S->>API: POST /quiz-sessions/:id/answer {questionId, answer}
+    API-->>S: {correct, explanation, points}
+    S->>API: POST /quiz-sessions/:id/finish
+    API->>Q: Enqueue ProgressRecord job
+    Q->>API: Write progress_records + update leaderboard
+    API-->>S: {score, rank, xpGained, breakdown}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Scoring System</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Base points per question (configurable per quiz)</li>
+                  <li>Time bonus: extra points for fast correct answers</li>
+                  <li>Streak bonus: consecutive correct = multiplier</li>
+                  <li>Partial credit for partially-correct matching</li>
+                  <li>XP system: feeds into achievement checks</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Performance Considerations</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Quiz sessions stored in Redis during active play</li>
+                  <li>Persist to DB only on completion (not per-answer)</li>
+                  <li>Question shuffling happens server-side (prevent inspect-element cheating)</li>
+                  <li>Time limits enforced server-side, not client-side</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 9 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-emerald-400" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-9')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-emerald-400/20 text-emerald-300">PHASE 9</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Game Engine</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Real-time games · WebSocket · Leaderboards · Live sessions</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 15–18</span>
+            <span class="text-slate-500 text-sm" id="phase-9-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-9" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Game Types (MVP)</h4>
+                <table>
+                  <thead><tr><th>Game</th><th>Description</th><th>Players</th></tr></thead>
+                  <tbody>
+                    <tr><td>Word Match</td><td>Match term → definition race</td><td>1-30</td></tr>
+                    <tr><td>Flashcard Race</td><td>Speed flashcard review</td><td>Solo</td></tr>
+                    <tr><td>Spelling Bee</td><td>Type the word correctly</td><td>1-30</td></tr>
+                    <tr><td>Word Hunt</td><td>Find words in a grid</td><td>Solo</td></tr>
+                    <tr><td>Live Quiz Battle</td><td>Kahoot-style live quiz</td><td>2-50</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibond text-violet-400 uppercase tracking-wider mb-2">WebSocket Protocol</h4>
+                <pre>
+// Client → Server events
+{ type: 'JOIN_GAME', gameId: string, playerId: string }
+{ type: 'SUBMIT_ANSWER', questionId: string, answer: string }
+{ type: 'PING' }
+
+// Server → Client events
+{ type: 'GAME_STARTED', questions: Question[], timeLimit: number }
+{ type: 'ANSWER_RESULT', correct: boolean, points: number }
+{ type: 'LEADERBOARD_UPDATE', rankings: PlayerRank[] }
+{ type: 'GAME_ENDED', finalRankings: PlayerRank[] }
+{ type: 'PLAYER_JOINED', player: Player }
+                </pre>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Real-Time Architecture</h4>
+                <p class="text-xs text-slate-400 mb-2">Game sessions use a Redis pub/sub channel per game room. Multiple API server instances subscribe to the same channel, enabling horizontal scaling of WebSocket connections.</p>
+                <pre>
+// Redis pub/sub for multi-instance WS sync
+const gameChannel = `game:${gameId}`;
+redis.subscribe(gameChannel);
+redis.on('message', (channel, message) => {
+  const event = JSON.parse(message);
+  // Broadcast to all WS clients in this game
+  broadcastToGame(gameId, event);
+});
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 10 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-blue-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-10')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-blue-500/20 text-blue-300">PHASE 10</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Assignment System</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Assignments · Submissions · Auto-grading · Notifications</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 18–20</span>
+            <span class="text-slate-500 text-sm" id="phase-10-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-10" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Assignment Types</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Vocabulary Study (complete flashcard set)</li>
+                  <li>Quiz (complete quiz set, score recorded)</li>
+                  <li>Game (play game session)</li>
+                  <li>Reading (complete lesson / course)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Due Date Enforcement</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>BullMQ scheduled job checks overdue assignments hourly</li>
+                  <li>Email + in-app notification 24hrs before due date</li>
+                  <li>Late submissions marked as <code>late</code> not <code>failed</code></li>
+                  <li>Teacher can configure late submission policy per assignment</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Notification Queue Design</h4>
+                <pre>
+// BullMQ queue for notifications
+const notifQueue = new Queue('notifications', { connection: redis });
+
+// Add job when assignment created
+await notifQueue.add('assignment-reminder', {
+  assignmentId: assignment.id,
+  classroomId: classroom.id,
+  dueAt: assignment.due_at,
+}, {
+  delay: ms(assignment.due_at) - ms('24h') - Date.now(),
+  jobId: `reminder:${assignment.id}`,
+  removeOnComplete: true,
+});
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 11 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-violet-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-11')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-violet-500/20 text-violet-300">PHASE 11</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Progress Tracking</h3>
+            <p class="text-xs text-slate-500 mt-0.5">XP · Streaks · Mastery levels · Achievements · Badges</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 20–22</span>
+            <span class="text-slate-500 text-sm" id="phase-11-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-11" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Progress Metrics</h4>
+                <table>
+                  <thead><tr><th>Metric</th><th>Tracked On</th><th>Storage</th></tr></thead>
+                  <tbody>
+                    <tr><td>XP Points</td><td>Every activity</td><td>users.xp column</td></tr>
+                    <tr><td>Daily Streak</td><td>Daily login + activity</td><td>users.streak</td></tr>
+                    <tr><td>Vocab Mastery</td><td>SRS reviews</td><td>progress_records</td></tr>
+                    <tr><td>Quiz Scores</td><td>Per submission</td><td>submissions table</td></tr>
+                    <tr><td>Game Scores</td><td>Per session</td><td>game_sessions table</td></tr>
+                    <tr><td>Completion Rate</td><td>Per course/lesson</td><td>progress_records</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Achievement System</h4>
+                <pre>
+// Achievement criteria (stored in JSONB)
+{
+  "key": "first_perfect_quiz",
+  "title": "Perfect Score!",
+  "criteria": {
+    "type": "quiz_score",
+    "operator": "equals",
+    "value": 100
+  }
+}
+
+// Achievement checker runs as BullMQ worker
+// triggered after every activity completion
+async function checkAchievements(userId, event) {
+  const pending = await getUnlockedAchievements(userId);
+  for (const ach of pending) {
+    if (evaluateCriteria(ach.criteria, event)) {
+      await grantAchievement(userId, ach.id);
+      await notifyUser(userId, ach);
+    }
+  }
+}
+                </pre>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Leaderboard Design</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Redis Sorted Sets for real-time leaderboards</li>
+                  <li>Scopes: Classroom, Course, Global per tenant</li>
+                  <li>Periods: Daily, Weekly, All-time</li>
+                  <li>Materialized to <code>leaderboards</code> table daily via cron job</li>
+                  <li>Historical snapshots preserved for teacher reports</li>
+                </ul>
+                <pre>
+// Redis leaderboard operations
+await redis.zadd(`lb:classroom:${classroomId}:weekly`,
+  score, userId);
+await redis.zrevrange(`lb:classroom:${classroomId}:weekly`,
+  0, 9, 'WITHSCORES'); // top 10
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 12 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-pink-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-12')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-pink-500/20 text-pink-300">PHASE 12</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Analytics Pipeline</h3>
+            <p class="text-xs text-slate-500 mt-0.5">ClickHouse · Event ingestion · Reports · Exports</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 22–25</span>
+            <span class="text-slate-500 text-sm" id="phase-12-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-12" class="collapsible-content border-t border-white/5">
+          <div class="p-5 space-y-4">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Analytics Pipeline</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph LR
+    API["API Layer\n(Events emitted)"]
+    BQ["BullMQ\nAnalytics Queue"]
+    Worker["Analytics Worker"]
+    PG["PostgreSQL\n(Operational)"]
+    CH["ClickHouse\n(Analytics OLAP)"]
+    Cache["Redis\n(Dashboard Cache)"]
+    Report["Report Service\n(PDF/CSV)"]
+
+    API -->|emit event| BQ
+    BQ --> Worker
+    Worker -->|batch insert| CH
+    Worker -->|update aggregates| PG
+    CH -->|query| Cache
+    Cache -->|serve| API
+    CH -->|export| Report
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Key Metrics by Role</h4>
+                <table>
+                  <thead><tr><th>Role</th><th>Key Metrics</th></tr></thead>
+                  <tbody>
+                    <tr><td>Teacher</td><td>Avg score, completion rate, time-on-task, vocab mastery %</td></tr>
+                    <tr><td>Org Admin</td><td>Active users/day, classrooms, engagement heatmap</td></tr>
+                    <tr><td>Student</td><td>XP, streak, rank, vocab learned, quiz history</td></tr>
+                    <tr><td>Super Admin</td><td>MAU, DAU, churn rate, revenue per tenant</td></tr>
+                  </tbody>
+                </table>
+                <div>
+                  <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Why ClickHouse?</h4>
+                  <p class="text-xs text-slate-400">Columnar storage makes aggregation queries (SUM, AVG, COUNT over millions of progress records) 10–100× faster than PostgreSQL. ClickHouse handles 10B rows with sub-second queries. PostgreSQL remains the source of truth for transactional data.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 13 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-amber-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-13')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-amber-500/20 text-amber-300">PHASE 13</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Admin System</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Super admin · Org admin · Tenant management · User management</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 25–27</span>
+            <span class="text-slate-500 text-sm" id="phase-13-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-13" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Admin Modules</h4>
+              <table>
+                <thead><tr><th>Module</th><th>Super Admin</th><th>Org Admin</th></tr></thead>
+                <tbody>
+                  <tr><td>Tenant Management</td><td>✅</td><td>❌</td></tr>
+                  <tr><td>Organization Management</td><td>✅</td><td>✅ (own)</td></tr>
+                  <tr><td>User Management</td><td>✅</td><td>✅ (org)</td></tr>
+                  <tr><td>Classroom Overview</td><td>✅</td><td>✅ (org)</td></tr>
+                  <tr><td>Feature Flags</td><td>✅</td><td>❌</td></tr>
+                  <tr><td>Billing</td><td>✅</td><td>⚡ view</td></tr>
+                  <tr><td>Audit Logs</td><td>✅</td><td>✅ (org)</td></tr>
+                  <tr><td>System Health</td><td>✅</td><td>❌</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Audit Log Design</h4>
+              <p class="text-xs text-slate-400 mb-2">Every CREATE, UPDATE, DELETE on sensitive tables writes to <code>audit_logs</code> with before/after diff stored as JSONB. Immutable — no UPDATE/DELETE on audit_logs ever.</p>
+              <pre>
+// Audit log middleware (Prisma)
+prisma.$use(async (params, next) => {
+  const before = await fetchBefore(params);
+  const result = await next(params);
+  const after = result;
+
+  if (['create','update','delete'].includes(params.action)) {
+    await prisma.auditLog.create({
+      data: {
+        tenant_id: context.tenantId,
+        actor_id: context.userId,
+        action: params.action,
+        entity_type: params.model,
+        entity_id: result.id,
+        diff: { before, after },
+      }
+    });
+  }
+  return result;
+});
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 14 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-emerald-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-14')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-emerald-500/20 text-emerald-300">PHASE 14</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Performance Optimization</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Caching strategy · DB query optimization · Bundle splitting · CDN</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 27–29</span>
+            <span class="text-slate-500 text-sm" id="phase-14-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-14" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Caching Strategy</h4>
+                <table>
+                  <thead><tr><th>Data</th><th>Cache Layer</th><th>TTL</th><th>Invalidation</th></tr></thead>
+                  <tbody>
+                    <tr><td>Tenant config</td><td>Redis</td><td>1hr</td><td>On update</td></tr>
+                    <tr><td>User session</td><td>Redis</td><td>15min</td><td>On logout</td></tr>
+                    <tr><td>Vocab set</td><td>Redis</td><td>30min</td><td>On edit</td></tr>
+                    <tr><td>Leaderboard</td><td>Redis</td><td>5min</td><td>On score</td></tr>
+                    <tr><td>Analytics data</td><td>Redis</td><td>1hr</td><td>On batch run</td></tr>
+                    <tr><td>Static assets</td><td>CDN</td><td>1yr</td><td>Content hash</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Query Optimization</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Add <code>EXPLAIN ANALYZE</code> on all slow queries (threshold: 100ms)</li>
+                  <li>N+1 query elimination via Prisma <code>include</code> strategy</li>
+                  <li>Pagination on all list endpoints (cursor-based for deep pages)</li>
+                  <li>Materialized views for expensive analytics aggregates</li>
+                  <li>Read replica for all analytics and report queries</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Frontend Performance</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Route-based code splitting (React.lazy + Suspense)</li>
+                  <li>React Query staleTime tuning per query type</li>
+                  <li>Virtualized lists for 100+ item collections (TanStack Virtual)</li>
+                  <li>WebP images everywhere + lazy loading</li>
+                  <li>Preload critical chunks on hover (Link prefetch)</li>
+                  <li>Service Worker for offline flashcard study</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">Performance Targets</h4>
+                <table>
+                  <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+                  <tbody>
+                    <tr><td>API P50 latency</td><td>&lt; 50ms</td></tr>
+                    <tr><td>API P95 latency</td><td>&lt; 200ms</td></tr>
+                    <tr><td>LCP (Core Web Vital)</td><td>&lt; 2.5s</td></tr>
+                    <tr><td>First Contentful Paint</td><td>&lt; 1.2s</td></tr>
+                    <tr><td>Lighthouse score</td><td>&gt; 90</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 15 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-blue-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-15')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-blue-500/20 text-blue-300">PHASE 15</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Production Deployment</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Docker · VPS setup · SSL · Backups · Health checks</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 29–31</span>
+            <span class="text-slate-500 text-sm" id="phase-15-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-15" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Docker Compose (Production)</h4>
+                <pre>
+services:
+  nginx:
+    image: nginx:alpine
+    ports: ["80:80", "443:443"]
+    volumes: [./nginx.conf:/etc/nginx/nginx.conf]
+
+  api:
+    image: ghcr.io/org/ee-api:${TAG}
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+    deploy:
+      replicas: 2
+      restart_policy: { condition: on-failure }
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+
+  worker:
+    image: ghcr.io/org/ee-api:${TAG}
+    command: ["node", "dist/worker.js"]
+    environment: { DATABASE_URL, REDIS_URL }
+
+  postgres:
+    image: postgres:16-alpine
+    volumes: [pgdata:/var/lib/postgresql/data]
+    environment: { POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD }
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    volumes: [minio_data:/data]
+                </pre>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Backup Strategy</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>PG: <code>pg_dump</code> daily to S3, WAL archiving for PITR</li>
+                  <li>Redis: RDB snapshots every 15min + AOF enabled</li>
+                  <li>S3/MinIO: Cross-region replication (production)</li>
+                  <li>Retention: 7 daily, 4 weekly, 12 monthly backups</li>
+                  <li>Test restores monthly — untested backups aren't backups</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Zero-Downtime Deployments</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Blue-green via Docker Compose with nginx upstream swap</li>
+                  <li>Database migrations run before API deploy (backward compatible)</li>
+                  <li>Health check endpoint at <code>GET /health</code></li>
+                  <li>Graceful shutdown: drain existing connections, then stop</li>
+                  <li>Rollback: <code>docker compose up api --image previous-tag</code></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">SSL / TLS</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Certbot + Let's Encrypt for free SSL</li>
+                  <li>Auto-renewal via systemd timer</li>
+                  <li>HTTP → HTTPS redirect enforced</li>
+                  <li>HSTS header with 1-year max-age</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 16 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-violet-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-16')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-violet-500/20 text-violet-300">PHASE 16</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Observability</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Prometheus · Grafana · OpenTelemetry · Structured logging · Alerting</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 31–33</span>
+            <span class="text-slate-500 text-sm" id="phase-16-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-16" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Metrics to Track</h4>
+                <table>
+                  <thead><tr><th>Metric</th><th>Type</th><th>Alert Threshold</th></tr></thead>
+                  <tbody>
+                    <tr><td>http_request_duration_seconds</td><td>Histogram</td><td>P95 &gt; 500ms</td></tr>
+                    <tr><td>http_requests_total</td><td>Counter</td><td>Error rate &gt; 1%</td></tr>
+                    <tr><td>active_websocket_connections</td><td>Gauge</td><td>&gt; 1000</td></tr>
+                    <tr><td>postgres_query_duration</td><td>Histogram</td><td>P95 &gt; 200ms</td></tr>
+                    <tr><td>redis_memory_usage</td><td>Gauge</td><td>&gt; 80%</td></tr>
+                    <tr><td>bullmq_job_failures_total</td><td>Counter</td><td>&gt; 10/min</td></tr>
+                    <tr><td>active_users_per_tenant</td><td>Gauge</td><td>Business metric</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Structured Logging</h4>
+                <pre>
+// Pino structured logging in Fastify
+const log = logger.child({ requestId, tenantId, userId });
+log.info({
+  event: 'quiz.completed',
+  quizId,
+  score,
+  durationMs: Date.now() - startTime,
+  questionCount,
+});
+                </pre>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Grafana Dashboards</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>System Overview: CPU, memory, disk, network per VPS</li>
+                  <li>API Performance: Latency percentiles, throughput, error rates</li>
+                  <li>Database: Connection pool, slow queries, replication lag</li>
+                  <li>Business: DAU, MAU, quizzes/hr, vocab studied/hr</li>
+                  <li>Worker: Queue depth, job processing rate, failures</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 17 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-pink-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-17')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-pink-500/20 text-pink-300">PHASE 17</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">SaaS Monetization</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Stripe · Plans · Quotas · Self-serve onboarding · Trials</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 33–37</span>
+            <span class="text-slate-500 text-sm" id="phase-17-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-17" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Pricing Plans</h4>
+                <table>
+                  <thead><tr><th>Plan</th><th>Price</th><th>Classrooms</th><th>Students</th><th>Storage</th></tr></thead>
+                  <tbody>
+                    <tr><td>Free</td><td>$0/mo</td><td>1</td><td>30</td><td>100MB</td></tr>
+                    <tr><td>Starter</td><td>$19/mo</td><td>5</td><td>150</td><td>2GB</td></tr>
+                    <tr><td>Pro</td><td>$49/mo</td><td>20</td><td>600</td><td>20GB</td></tr>
+                    <tr><td>School</td><td>$149/mo</td><td>Unlimited</td><td>2000</td><td>100GB</td></tr>
+                    <tr><td>Enterprise</td><td>Custom</td><td>Unlimited</td><td>Unlimited</td><td>Custom</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Stripe Integration</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>Stripe Checkout for subscription creation</li>
+                  <li>Stripe Customer Portal for self-serve billing management</li>
+                  <li>Webhooks: <code>subscription.created/updated/deleted</code></li>
+                  <li>Quota enforcement on every API request (not just billing events)</li>
+                  <li>14-day free trial with credit card (reduces churn)</li>
+                  <li>Usage-based billing for enterprise (per-student pricing)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">Quota Enforcement</h4>
+                <pre>
+// Middleware — check quota before resource creation
+async function checkQuota(tenantId: string, resource: string) {
+  const tenant = await getTenantFromCache(tenantId);
+  const quota = tenant.settings.quotas[resource];
+  const current = await countResource(tenantId, resource);
+
+  if (current >= quota) {
+    throw new QuotaExceededError({
+      resource,
+      limit: quota,
+      current,
+      upgradeUrl: '/billing',
+    });
+  }
+}
+                </pre>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Onboarding Flow</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph LR
+    A["Landing Page"] --> B["Sign Up"]
+    B --> C["Choose Plan"]
+    C --> D["14-day Trial"]
+    D --> E["Onboarding Wizard"]
+    E --> F["Create First Classroom"]
+    F --> G["Invite Students"]
+    G --> H["First Lesson"]
+    H --> I["Email: Day 3 Check-in"]
+    I --> J["Email: Day 12 Trial Ending"]
+    J --> K["Convert to Paid"]
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 18 ─── -->
+    <div class="relative">
+      <div class="timeline-dot border-amber-500" style="top:20px;"></div>
+      <div class="glass-card rounded-xl overflow-hidden">
+        <button onclick="toggleSection('phase-18')" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/3 transition-colors">
+          <div class="phase-badge tag bg-amber-500/20 text-amber-300">PHASE 18</div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white">Enterprise Expansion</h3>
+            <p class="text-xs text-slate-500 mt-0.5">White-label · SSO/SAML · Dedicated infra · Custom domains · SLAs</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="tag bg-slate-700 text-slate-300 text-xs">Week 37–45</span>
+            <span class="text-slate-500 text-sm" id="phase-18-icon">▼</span>
+          </div>
+        </button>
+        <div id="phase-18" class="collapsible-content border-t border-white/5">
+          <div class="p-5 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Enterprise Features</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>White-label UI: custom logo, colors, domain</li>
+                  <li>SSO via SAML 2.0 (Google Workspace, Azure AD, Okta)</li>
+                  <li>Dedicated PostgreSQL cluster per enterprise tenant</li>
+                  <li>Data residency: EU/US region selection</li>
+                  <li>Custom SLA agreements (99.9% uptime)</li>
+                  <li>Dedicated analytics dashboard</li>
+                  <li>API access for LMS integration (Canvas, Moodle, Blackboard)</li>
+                  <li>Priority support SLA (4hr response)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">White-Label Architecture</h4>
+                <div class="mermaid-wrap">
+                  <div class="mermaid">
+graph TD
+    Req["Request: learn.school.edu"] --> DNS["Cloudflare DNS\nProxied to Platform"]
+    DNS --> Router["Tenant Router\n(Domain → Tenant ID)"]
+    Router --> Cache["Cache: domain:{host}"]
+    Cache -->|miss| DB["tenants.custom_domain lookup"]
+    Router --> App["Platform App\n(inject tenant branding)"]
+    App --> Branding["Fetch tenant branding\nfrom tenants.settings"]
+    Branding --> Render["Render white-labeled UI"]
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">SAML SSO Flow</h4>
+                <pre>
+// SAML SP-initiated flow
+POST /auth/saml/login
+  → Redirect to IdP (Google/Azure/Okta)
+  → User authenticates with org credentials
+  → IdP sends SAML response
+POST /auth/saml/callback
+  → Validate SAML assertion
+  → Map IdP attributes → platform user
+  → Create/update user in DB
+  → Issue JWT tokens
+  → Redirect to app
+                </pre>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">LMS Integration API</h4>
+                <ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+                  <li>LTI 1.3 compliance for Canvas/Moodle embedding</li>
+                  <li>REST API with API keys for external integrations</li>
+                  <li>Webhook delivery for grade sync</li>
+                  <li>SCORM-compatible progress export</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end timeline -->
+</section>
+
+<!-- ===================== RISK MATRIX ===================== -->
+<section id="risk-matrix">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-lg">⚠️</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Risk Matrix</h2>
+      <p class="text-slate-500 text-sm">Identified risks, likelihood, impact, and mitigation strategies</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <div class="glass-card rounded-xl p-5 border risk-critical">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-red-500/20 text-red-300">🔴 CRITICAL</span>
+        <span class="text-white font-semibold">Data Breach / Tenant Cross-Contamination</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> A bug in tenant_id filtering exposes one tenant's data to another.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> Catastrophic</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Prisma middleware auto-injects tenant_id. PostgreSQL RLS as second layer. Integration tests assert cross-tenant isolation. Security audit before each major release.</p>
+    </div>
+    <div class="glass-card rounded-xl p-5 border risk-high">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-orange-500/20 text-orange-300">🟠 HIGH</span>
+        <span class="text-white font-semibold">Database Becomes the Bottleneck</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> PostgreSQL can't handle 100K concurrent users on a single server.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> High (if no action) | <strong>Impact:</strong> High</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Read replica from Phase 12. Aggressive caching. Partition high-volume tables from Phase 1. ClickHouse for analytics offload. Connection pooling with PgBouncer.</p>
+    </div>
+    <div class="glass-card rounded-xl p-5 border risk-high">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-orange-500/20 text-orange-300">🟠 HIGH</span>
+        <span class="text-white font-semibold">WebSocket Scaling Under Game Load</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> Live game sessions with 50+ students per game overwhelm a single server.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> High</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Redis pub/sub for cross-instance WS message routing. Sticky sessions for WS connections. Load test with k6 before launch. Consider dedicated WS service at scale.</p>
+    </div>
+    <div class="glass-card rounded-xl p-5 border risk-medium">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-yellow-500/20 text-yellow-300">🟡 MEDIUM</span>
+        <span class="text-white font-semibold">Vendor Lock-In (S3, Payment)</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> Hard dependency on AWS S3 or Stripe makes migration painful.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> Low | <strong>Impact:</strong> Medium</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Use S3-compatible interface (MinIO locally, any S3-compat cloud). Abstract storage behind a service class. Stripe abstracted behind PaymentService interface.</p>
+    </div>
+    <div class="glass-card rounded-xl p-5 border risk-medium">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-yellow-500/20 text-yellow-300">🟡 MEDIUM</span>
+        <span class="text-white font-semibold">GDPR / COPPA Non-Compliance</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> Processing children's data (students under 13) without consent mechanisms.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> High if not planned | <strong>Impact:</strong> Legal/Financial</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Teacher is the responsible adult who enrolls students. No direct student marketing. Data export/delete API. Parental consent flow for under-13. DPA with EU customers.</p>
+    </div>
+    <div class="glass-card rounded-xl p-5 border risk-low">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-emerald-500/20 text-emerald-300">🟢 LOW</span>
+        <span class="text-white font-semibold">TypeScript / Prisma Migration Pain</span>
+      </div>
+      <p class="text-xs text-slate-400 mb-2"><strong>Risk:</strong> Prisma schema changes require careful migration management as the team grows.</p>
+      <p class="text-xs text-slate-400 mb-2"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> Low (manageable)</p>
+      <p class="text-xs text-emerald-400"><strong>Mitigation:</strong> Enforce backward-compatible migrations only. Never add NOT NULL without a default. Test all migrations on a clone of production before applying.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCALING ROADMAP ===================== -->
+<section id="scaling">
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-lg">📈</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Scaling Roadmap</h2>
+      <p class="text-slate-500 text-sm">Architecture evolution by user growth milestones</p>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-xl p-6 mb-6">
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+graph LR
+    subgraph U100["👤 0–500 Users"]
+        A1["1x VPS\nSingle Compose\nShared PG + Redis"]
+    end
+    subgraph U1K["👥 500–5K Users"]
+        B1["2x API VPS\nLoad Balanced\nPG Read Replica\nRedis Sentinel"]
+    end
+    subgraph U10K["👥 5K–50K Users"]
+        C1["4x API Pods\nPG Connection Pool\n(PgBouncer)\nClickHouse Analytics\nCDN Assets"]
+    end
+    subgraph U100K["🌍 50K–200K Users"]
+        D1["8+ API Pods\nPG Partitioned\nRedis Cluster\nDedicated WS Service\nK8s / Container Orch"]
+    end
+    subgraph Enterprise["🏢 200K+ Users"]
+        E1["Multi-region\nPG Citus Sharding\nPer-Tenant Isolation\nGlobal CDN\nMulti-DB Cluster"]
+    end
+    U100 --> U1K --> U10K --> U100K --> Enterprise
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-4 gap-4">
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-lg font-black text-blue-400 mb-1">0–500</div>
+      <h4 class="text-sm font-semibold text-white mb-2">Users</h4>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• Single VPS (4 CPU, 8GB RAM)</li>
+        <li>• Docker Compose deployment</li>
+        <li>• Local MinIO storage</li>
+        <li>• No Redis cluster needed</li>
+        <li>• GitHub Actions CI/CD</li>
+        <li>• Manual backup script</li>
+      </ul>
+      <div class="mt-3 text-xs text-slate-500 font-mono">~$40–80/mo infra</div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-lg font-black text-violet-400 mb-1">500–10K</div>
+      <h4 class="text-sm font-semibold text-white mb-2">Users</h4>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• 2x App VPS + 1x DB VPS</li>
+        <li>• Nginx load balancer</li>
+        <li>• PG read replica</li>
+        <li>• Redis Sentinel (HA)</li>
+        <li>• S3 cloud storage</li>
+        <li>• BunnyCDN for assets</li>
+      </ul>
+      <div class="mt-3 text-xs text-slate-500 font-mono">~$200–400/mo infra</div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-lg font-black text-pink-400 mb-1">10K–100K</div>
+      <h4 class="text-sm font-semibold text-white mb-2">Users</h4>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• 4–8x API containers</li>
+        <li>• PgBouncer connection pool</li>
+        <li>• ClickHouse for analytics</li>
+        <li>• Redis Cluster (3 nodes)</li>
+        <li>• Cloudflare CDN + WAF</li>
+        <li>• Automated PG backups</li>
+      </ul>
+      <div class="mt-3 text-xs text-slate-500 font-mono">~$800–2K/mo infra</div>
+    </div>
+    <div class="glass-card rounded-xl p-4">
+      <div class="text-lg font-black text-emerald-400 mb-1">100K+</div>
+      <h4 class="text-sm font-semibold text-white mb-2">Users</h4>
+      <ul class="text-xs text-slate-400 space-y-1">
+        <li>• K8s cluster (managed)</li>
+        <li>• PG Citus / sharding</li>
+        <li>• Multi-region deployment</li>
+        <li>• Dedicated WS service</li>
+        <li>• ML-powered recommendations</li>
+        <li>• 24/7 on-call rotation</li>
+      </ul>
+      <div class="mt-3 text-xs text-slate-500 font-mono">~$5K–20K/mo infra</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEARNING ENGINE DIAGRAM ===================== -->
+<section>
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-lg">🎓</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Learning Engine Architecture</h2>
+      <p class="text-slate-500 text-sm">How content flows from creation to student learning to analytics</p>
+    </div>
+  </div>
+  <div class="glass-card rounded-xl p-6">
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+graph TB
+    subgraph Teacher["👩‍🏫 Teacher (Content Creation)"]
+        TC["Create Course"] --> TL["Add Lessons"]
+        TL --> TV["Link Vocab Sets"]
+        TV --> TQ["Build Quizzes"]
+        TQ --> TA["Create Assignment"]
+    end
+    subgraph ContentStore["📦 Content Store"]
+        CS_C["Courses DB"]
+        CS_V["Vocabulary DB\n+ S3 Media"]
+        CS_Q["Quiz Bank"]
+    end
+    subgraph LearningEngine["⚡ Learning Engine"]
+        LE_F["Flashcard Engine\n(SM-2 SRS)"]
+        LE_Q["Quiz Runner\n(Auto-grading)"]
+        LE_G["Game Engine\n(WebSocket)"]
+        LE_S["Speaking Engine\n(Audio/TTS)"]
+    end
+    subgraph Student["👩‍🎓 Student (Learning)"]
+        ST_D["Dashboard\n(Due + Recommendations)"]
+        ST_S["Study Mode\n(Flashcards)"]
+        ST_Q["Quiz Mode"]
+        ST_G["Game Mode\n(Live)"]
+    end
+    subgraph Progress["📊 Progress Layer"]
+        PR_W["Progress Worker\n(BullMQ)"]
+        PR_DB["progress_records"]
+        PR_SRS["SRS Schedule Update"]
+        PR_ACH["Achievement Checker"]
+        PR_LB["Leaderboard Update\n(Redis)"]
+    end
+    subgraph Analytics["📈 Analytics"]
+        AN_CH["ClickHouse\nOLAP"]
+        AN_D["Teacher Dashboard"]
+        AN_R["Reports & Exports"]
+    end
+
+    TC --> CS_C
+    TV --> CS_V
+    TQ --> CS_Q
+    TA --> ST_D
+    CS_V --> LE_F
+    CS_Q --> LE_Q
+    CS_V --> LE_G
+    ST_D --> ST_S & ST_Q & ST_G
+    ST_S --> LE_F
+    ST_Q --> LE_Q
+    ST_G --> LE_G
+    LE_F & LE_Q & LE_G --> PR_W
+    PR_W --> PR_DB & PR_SRS & PR_ACH & PR_LB
+    PR_DB --> AN_CH
+    AN_CH --> AN_D & AN_R
+    AN_D --> Teacher
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPTIMIZATION CHECKLIST ===================== -->
+<section>
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center text-lg">✅</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Phase Gate Optimization Checklist</h2>
+      <p class="text-slate-500 text-sm">Required checks before advancing to the next phase</p>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">🛡️ Security Checklist</h3>
+      <ul class="text-sm text-slate-400 space-y-1">
+        <li>☐ OWASP Top 10 audit completed</li>
+        <li>☐ All inputs sanitized and validated (Zod schemas)</li>
+        <li>☐ SQL injection impossible (Prisma parameterized only)</li>
+        <li>☐ XSS protection: CSP headers set, React escapes by default</li>
+        <li>☐ Rate limiting on all auth endpoints</li>
+        <li>☐ Secrets in environment variables, never in code</li>
+        <li>☐ HTTPS enforced everywhere</li>
+        <li>☐ Audit logs capturing all sensitive changes</li>
+        <li>☐ Tenant isolation test suite passing</li>
+        <li>☐ Dependency vulnerability scan (npm audit)</li>
+      </ul>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">⚡ Performance Checklist</h3>
+      <ul class="text-sm text-slate-400 space-y-1">
+        <li>☐ All list endpoints paginated (cursor or offset)</li>
+        <li>☐ N+1 queries eliminated (EXPLAIN ANALYZE verified)</li>
+        <li>☐ Redis cache hit rate &gt; 70% for hot data</li>
+        <li>☐ API P95 latency &lt; 200ms under load</li>
+        <li>☐ Lighthouse score &gt; 90 on main pages</li>
+        <li>☐ Media files served via CDN (not API)</li>
+        <li>☐ Database connection pool configured correctly</li>
+        <li>☐ BullMQ job concurrency tuned</li>
+        <li>☐ Load test run for expected peak load</li>
+        <li>☐ Memory leaks checked in long-running processes</li>
+      </ul>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">🗄️ Database Checklist</h3>
+      <ul class="text-sm text-slate-400 space-y-1">
+        <li>☐ All foreign keys indexed</li>
+        <li>☐ Composite indexes for common query patterns</li>
+        <li>☐ JSONB columns indexed where queried (GIN)</li>
+        <li>☐ Partitioned tables have correct partition key</li>
+        <li>☐ Migration is backward compatible (no breaking changes)</li>
+        <li>☐ Backup tested and restore verified</li>
+        <li>☐ Read replica lag &lt; 1 second</li>
+        <li>☐ Connection pool limits set appropriately</li>
+        <li>☐ Dead tuples / bloat monitored and autovacuum running</li>
+      </ul>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h3 class="font-semibold text-white mb-3">🧪 Testing Checklist</h3>
+      <ul class="text-sm text-slate-400 space-y-1">
+        <li>☐ Unit tests for all service functions (&gt; 80% coverage)</li>
+        <li>☐ Integration tests for all API endpoints</li>
+        <li>☐ E2E tests for critical user flows (Playwright)</li>
+        <li>☐ Tenant isolation tests (cross-tenant access = 403)</li>
+        <li>☐ Load tests for game sessions (50 concurrent players)</li>
+        <li>☐ Migration tested on production data clone</li>
+        <li>☐ Error boundary tests for React components</li>
+        <li>☐ CI runs all tests on every PR</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TECH STACK SUMMARY ===================== -->
+<section>
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-lg">🛠️</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Technology Stack — Decision Records</h2>
+      <p class="text-slate-500 text-sm">Every choice with rationale and rejected alternatives</p>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="glass-card rounded-xl p-5">
+      <h4 class="font-bold text-white mb-3 text-sm">Backend</h4>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Fastify</code></div>
+          <div class="text-slate-400">vs Express — 2× faster, built-in schema validation, TypeScript first</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>TypeScript</code></div>
+          <div class="text-slate-400">Shared types across frontend/backend, prevents runtime errors</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Prisma</code></div>
+          <div class="text-slate-400">vs TypeORM — better DX, auto migrations, generated types</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>BullMQ</code></div>
+          <div class="text-slate-400">vs agenda — Redis-native, better concurrency, observability</div>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h4 class="font-bold text-white mb-3 text-sm">Frontend</h4>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between items-start gap-2">
+          <div><code>React + Vite</code></div>
+          <div class="text-slate-400">vs Next.js — simpler, faster dev, SPA sufficient for this use case</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>React Query</code></div>
+          <div class="text-slate-400">vs SWR — richer API, better caching, mutations + optimistic updates</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Zustand</code></div>
+          <div class="text-slate-400">vs Redux — minimal boilerplate, TypeScript native, lightweight</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Shadcn/UI</code></div>
+          <div class="text-slate-400">vs MUI — copy-paste ownership, not a dependency, fully customizable</div>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-5">
+      <h4 class="font-bold text-white mb-3 text-sm">Infrastructure</h4>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between items-start gap-2">
+          <div><code>PostgreSQL</code></div>
+          <div class="text-slate-400">vs MySQL — JSONB, partitioning, RLS, full SQL standard support</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Redis</code></div>
+          <div class="text-slate-400">Sorted sets for leaderboards, pub/sub for WS, fast TTL caching</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>Docker + VPS</code></div>
+          <div class="text-slate-400">vs Kubernetes — cost effective for MVP. Migrate to K8s at 10K+ users</div>
+        </div>
+        <div class="flex justify-between items-start gap-2">
+          <div><code>ClickHouse</code></div>
+          <div class="text-slate-400">vs BigQuery — self-hosted, 100× faster aggregations than PostgreSQL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FUTURE ENTERPRISE ARCHITECTURE ===================== -->
+<section>
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center text-lg">🌐</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Future Enterprise Architecture</h2>
+      <p class="text-slate-500 text-sm">Target state for 100K+ users with full enterprise capabilities</p>
+    </div>
+  </div>
+  <div class="glass-card rounded-xl p-6">
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+graph TB
+    subgraph Edge["🌐 Global Edge"]
+        CF["Cloudflare\n(WAF + CDN + DNS)"]
+        RL["Rate Limiter\n(Cloudflare Workers)"]
+    end
+    subgraph Gateway["🔀 API Gateway Layer"]
+        GW["Kong / Nginx\n(Multi-region Gateway)"]
+        TR["Tenant Router\n(Subdomain / Domain Resolver)"]
+        Auth["Auth Service\n(Standalone Pod)"]
+    end
+    subgraph Services["⚙️ Microservices (Future)"]
+        CoreAPI["Core API\n(Users, Tenants, Orgs)"]
+        LearningAPI["Learning Service\n(Vocab, Quiz, Games)"]
+        AnalyticsAPI["Analytics Service"]
+        NotifAPI["Notification Service"]
+        MediaAPI["Media Service"]
+        BillingAPI["Billing Service"]
+    end
+    subgraph Data["🗄 Data Tier"]
+        PG_Shared["PG Shared Pool\n(SMB Tenants)"]
+        PG_Ent["PG Dedicated\n(Enterprise Tenant A)"]
+        PG_Ent2["PG Dedicated\n(Enterprise Tenant B)"]
+        CH["ClickHouse Cluster\n(Analytics)"]
+        Redis["Redis Cluster\n(Cache + Pub/Sub)"]
+        S3["S3 Multi-Region\n(Media Storage)"]
+    end
+    subgraph Observability["📊 Observability"]
+        OTEL["OpenTelemetry\nCollector"]
+        Grafana["Grafana\n(Metrics + Logs)"]
+        Alertmanager["Alertmanager\n(PagerDuty)"]
+    end
+
+    CF --> RL --> GW
+    GW --> TR --> Auth
+    TR --> CoreAPI & LearningAPI & AnalyticsAPI
+    TR --> NotifAPI & MediaAPI & BillingAPI
+    CoreAPI --> PG_Shared
+    LearningAPI --> PG_Shared & PG_Ent & PG_Ent2
+    AnalyticsAPI --> CH
+    Services --> Redis & S3
+    Services --> OTEL --> Grafana
+    Grafana --> Alertmanager
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TIMELINE SUMMARY ===================== -->
+<section>
+  <div class="section-divider"></div>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-lg">📅</div>
+    <div>
+      <h2 class="text-2xl font-bold text-white">Consolidated Timeline</h2>
+      <p class="text-slate-500 text-sm">Full 18-month roadmap with milestones</p>
+    </div>
+  </div>
+
+  <div class="glass-card rounded-xl overflow-hidden">
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Name</th>
+          <th>Duration</th>
+          <th>Cumulative</th>
+          <th>Key Milestone</th>
+          <th>Era</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>P0</code></td><td>Product Discovery</td><td>2 wks</td><td>Month 0.5</td><td>Domain Glossary ✅</td><td><span class="tag bg-slate-700 text-slate-300">Pre-build</span></td></tr>
+        <tr><td><code>P1</code></td><td>Domain Modeling</td><td>1.5 wks</td><td>Month 1</td><td>Schema Finalized ✅</td><td><span class="tag bg-slate-700 text-slate-300">Pre-build</span></td></tr>
+        <tr><td><code>P2</code></td><td>Monorepo Setup</td><td>1 wk</td><td>Month 1.5</td><td>CI/CD Live ✅</td><td><span class="tag bg-slate-700 text-slate-300">Foundation</span></td></tr>
+        <tr><td><code>P3</code></td><td>Authentication</td><td>1.5 wks</td><td>Month 2</td><td>Login/Register Working ✅</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P4</code></td><td>Multi-Tenant Foundation</td><td>1.5 wks</td><td>Month 2.5</td><td>Tenant Isolation Verified ✅</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P5</code></td><td>Teacher MVP</td><td>3 wks</td><td>Month 3.5</td><td>🎯 First Classroom Created</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P6</code></td><td>Student MVP</td><td>2.5 wks</td><td>Month 4.5</td><td>🎯 Students Join &amp; Study</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P7</code></td><td>Vocabulary Engine</td><td>2.5 wks</td><td>Month 5.5</td><td>SRS Flashcards Live ✅</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P8</code></td><td>Quiz Engine</td><td>2.5 wks</td><td>Month 6.5</td><td>🎯 First Quizzes Completed</td><td><span class="tag bg-blue-500/20 text-blue-300">Era 1</span></td></tr>
+        <tr><td><code>P9</code></td><td>Game Engine</td><td>3 wks</td><td>Month 8</td><td>🎮 Live Game Sessions</td><td><span class="tag bg-violet-500/20 text-violet-300">Era 2</span></td></tr>
+        <tr><td><code>P10</code></td><td>Assignment System</td><td>2.5 wks</td><td>Month 9</td><td>Assignments + Submissions ✅</td><td><span class="tag bg-violet-500/20 text-violet-300">Era 2</span></td></tr>
+        <tr><td><code>P11</code></td><td>Progress Tracking</td><td>2.5 wks</td><td>Month 10</td><td>🏆 Achievements + Leaderboards</td><td><span class="tag bg-violet-500/20 text-violet-300">Era 2</span></td></tr>
+        <tr><td><code>P12</code></td><td>Analytics Pipeline</td><td>3 wks</td><td>Month 11.5</td><td>📊 Analytics Dashboard Live</td><td><span class="tag bg-pink-500/20 text-pink-300">Era 3</span></td></tr>
+        <tr><td><code>P13</code></td><td>Admin System</td><td>2.5 wks</td><td>Month 12.5</td><td>🏫 Multi-org Management</td><td><span class="tag bg-pink-500/20 text-pink-300">Era 3</span></td></tr>
+        <tr><td><code>P14</code></td><td>Performance Optimization</td><td>2.5 wks</td><td>Month 13.5</td><td>P95 &lt; 200ms ✅</td><td><span class="tag bg-pink-500/20 text-pink-300">Era 3</span></td></tr>
+        <tr><td><code>P15</code></td><td>Production Deployment</td><td>2 wks</td><td>Month 14</td><td>🚀 Public Launch</td><td><span class="tag bg-amber-500/20 text-amber-300">Era 4</span></td></tr>
+        <tr><td><code>P16</code></td><td>Observability</td><td>2 wks</td><td>Month 15</td><td>Grafana Dashboards ✅</td><td><span class="tag bg-amber-500/20 text-amber-300">Era 4</span></td></tr>
+        <tr><td><code>P17</code></td><td>SaaS Monetization</td><td>4 wks</td><td>Month 16</td><td>💳 First Paid Subscription</td><td><span class="tag bg-amber-500/20 text-amber-300">Era 4</span></td></tr>
+        <tr><td><code>P18</code></td><td>Enterprise Expansion</td><td>8 wks</td><td>Month 18</td><td>🏢 First Enterprise Client</td><td><span class="tag bg-emerald-500/20 text-emerald-300">Era 5</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<div class="section-divider mt-16"></div>
+<footer class="text-center py-10 text-slate-600 text-xs space-y-2">
+  <div class="text-slate-400 font-semibold text-sm">EnglishEveryday — Production SaaS Roadmap</div>
+  <div>Designed for a team of 3–8 engineers · MVP to 100,000+ users · 18-month full execution</div>
+  <div class="font-mono">v1.0 · Generated 2026 · Principal Architecture Document</div>
+</footer>
+
+</div><!-- end max-w container -->
+
+<script>
+  // Initialize Mermaid
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#1e3a8a',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#4b5563',
+      secondaryColor: '#1a2340',
+      tertiaryColor: '#0f1629',
+      background: '#0a0e1a',
+      mainBkg: '#141c35',
+      nodeBorder: '#3b82f6',
+      clusterBkg: '#0f1629',
+      titleColor: '#60a5fa',
+      edgeLabelBackground: '#0a0e1a',
+      actorBkg: '#141c35',
+      actorBorder: '#3b82f6',
+      actorTextColor: '#e2e8f0',
+      actorLineColor: '#4b5563',
+      signalColor: '#60a5fa',
+      signalTextColor: '#e2e8f0',
+      labelBoxBkgColor: '#141c35',
+      labelBoxBorderColor: '#3b82f6',
+      labelTextColor: '#e2e8f0',
+      loopTextColor: '#e2e8f0',
+      noteBorderColor: '#3b82f6',
+      noteBkgColor: '#0f1629',
+      noteTextColor: '#e2e8f0',
+      activationBorderColor: '#8b5cf6',
+      activationBkgColor: '#1a2340',
+    },
+    flowchart: { curve: 'basis', htmlLabels: true },
+    sequence: { actorMargin: 40, messageMargin: 30 },
+    er: { diagramPadding: 20 },
+  });
+
+  function toggleSection(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id + '-icon');
+    if (!el) return;
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+    if (icon) icon.textContent = isOpen ? '▼ expand' : '▲ collapse';
+    // Re-render mermaid diagrams inside
+    if (!isOpen) {
+      setTimeout(() => {
+        el.querySelectorAll('.mermaid').forEach(m => {
+          if (!m.hasAttribute('data-processed')) {
+            mermaid.run({ nodes: [m] });
+          }
+        });
+      }, 50);
+    }
+  }
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const pills = document.querySelectorAll('.nav-pill');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    pills.forEach(p => {
+      const href = p.getAttribute('href');
+      p.classList.toggle('active', href === '#' + current);
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
