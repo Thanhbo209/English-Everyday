@@ -11,7 +11,11 @@ import {
 } from "./classroom.controller.js";
 
 export async function classroomRoutes(app: any) {
-  app.get("/:id/members", getMembersController);
+  app.get(
+    "/:id/members",
+    { preHandler: [app.authenticate] },
+    getMembersController,
+  );
   app.get("/:id", { preHandler: [app.authenticate] }, getClassById);
   app.get(
     "/",
