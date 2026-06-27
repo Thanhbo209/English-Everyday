@@ -82,43 +82,28 @@ export class VocabItemRepository {
     return created;
   }
 
-  async updateOrder(entries: OrderEntry[]): Promise<void> {
+  async updateOrder(entries: OrderEntry[], tx?: any): Promise<void> {
     if (entries.length === 0) return;
 
-    // 1. Fetch current database state for these items
-    const currentItems = await prisma.vocabItem.findMany({
-      where: { id: { in: entries.map((e) => e.id) } },
-      select: { id: true, orderIndex: true },
-    });
+    const client = tx || prisma;
 
-    const currentMap = new Map(
-      currentItems.map((item) => [item.id, item.orderIndex]),
-    );
-
-    // 2. Filter down to entries that actually changed orderIndex
-    const changedEntries = entries.filter((e) => {
-      const current = currentMap.get(e.id);
-      return current !== undefined && current !== e.orderIndex;
-    });
-
-    if (changedEntries.length === 0) return;
-
-    // 3. Set temporary negative indexes to avoid unique constraint violations
-    for (const e of changedEntries) {
-      await prisma.vocabItem.updateMany({
+    // 1. Set temporary negative indexes for ALL entries to avoid unique constraint violations
+    for (const e of entries) {
+      await client.vocabItem.updateMany({
         where: { id: e.id },
         data: { orderIndex: -(e.orderIndex + 1) },
       });
     }
 
-    // 4. Set the final positive indexes
-    for (const e of changedEntries) {
-      await prisma.vocabItem.updateMany({
+    // 2. Set the final positive indexes for ALL entries
+    for (const e of entries) {
+      await client.vocabItem.updateMany({
         where: { id: e.id },
         data: { orderIndex: e.orderIndex },
       });
     }
   }
+
   private async findByIdOrThrow(id: string): Promise<VocabItem> {
     const item = await prisma.vocabItem.findFirst({ where: { id } });
     if (!item) throw new Error(`VocabItem not found after update: ${id}`);
