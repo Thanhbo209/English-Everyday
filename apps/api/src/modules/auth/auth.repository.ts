@@ -15,6 +15,12 @@ export function createUser(data: {
 }) {
   return prisma.user.create({
     data,
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+    },
   });
 }
 
