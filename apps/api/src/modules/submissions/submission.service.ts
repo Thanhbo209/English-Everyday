@@ -74,31 +74,39 @@ export class SubmissionService {
 
     if (!candidates) return [];
 
-    return candidates
-      .map((entry) => {
-        const vocabItemId = String(
-          entry.vocabItemId ?? entry.itemId ?? entry.id ?? "",
-        );
-        if (!vocabItemIdSet.has(vocabItemId)) return null;
+    const updates = new Map<string, MasteryUpdateInput>();
 
-        const rawStatus = String(entry.status ?? "").toUpperCase();
-        let status: MasteryUpdateInput["status"] | null = null;
+    for (const entry of candidates) {
+      const vocabItemId = String(
+        entry.vocabItemId ?? entry.itemId ?? entry.id ?? "",
+      );
+      if (!vocabItemIdSet.has(vocabItemId)) continue;
 
-        if (rawStatus === "KNOWN" || entry.known === true || entry.correct === true) {
-          status = "KNOWN";
-        } else if (
-          rawStatus === "LEARNING" ||
-          rawStatus === "STILL_LEARNING" ||
-          entry.known === false ||
-          entry.correct === false
-        ) {
-          status = "LEARNING";
-        } else if (rawStatus === "NEW") {
-          status = "NEW";
-        }
+      const rawStatus = String(entry.status ?? "").toUpperCase();
+      let status: MasteryUpdateInput["status"] | null = null;
 
-        return status ? { vocabItemId, status } : null;
-      })
-      .filter((entry): entry is MasteryUpdateInput => Boolean(entry));
+      if (
+        rawStatus === "KNOWN" ||
+        entry.known === true ||
+        entry.correct === true
+      ) {
+        status = "KNOWN";
+      } else if (
+        rawStatus === "LEARNING" ||
+        rawStatus === "STILL_LEARNING" ||
+        entry.known === false ||
+        entry.correct === false
+      ) {
+        status = "LEARNING";
+      } else if (rawStatus === "NEW") {
+        status = "NEW";
+      }
+
+      if (status) {
+        updates.set(vocabItemId, { vocabItemId, status });
+      }
+    }
+
+    return [...updates.values()];
   }
 }
