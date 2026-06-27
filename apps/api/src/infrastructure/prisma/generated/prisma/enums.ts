@@ -23,3 +23,18 @@ export const ClassroomStatus = {
 } as const
 
 export type ClassroomStatus = (typeof ClassroomStatus)[keyof typeof ClassroomStatus]
+
+
+export const PartOfSpeech = {
+  NOUN: 'NOUN',
+  VERB: 'VERB',
+  ADJECTIVE: 'ADJECTIVE',
+  ADVERB: 'ADVERB',
+  PRONOUN: 'PRONOUN',
+  PREPOSITION: 'PREPOSITION',
+  CONJUNCTION: 'CONJUNCTION',
+  INTERJECTION: 'INTERJECTION',
+  DETERMINER: 'DETERMINER'
+} as const
+
+export type PartOfSpeech = (typeof PartOfSpeech)[keyof typeof PartOfSpeech]

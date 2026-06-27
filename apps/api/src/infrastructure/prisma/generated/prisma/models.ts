@@ -8,7 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
-export type * from './models/Classroom.ts'
-export type * from './models/ClassroomsMember.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/User'
+export type * from './models/Classroom'
+export type * from './models/ClassroomsMember'
+export type * from './models/VocabularySet'
+export type * from './models/VocabItem'
+export type * from './commonInputTypes'

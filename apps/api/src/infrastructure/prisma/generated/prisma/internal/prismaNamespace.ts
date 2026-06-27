@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.ts"
-import { type PrismaClient } from "./class.ts"
+import type * as Prisma from "../models"
+import { type PrismaClient } from "./class"
 
-export type * from '../models.ts'
+export type * from '../models'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Classroom: 'Classroom',
-  ClassroomsMember: 'ClassroomsMember'
+  ClassroomsMember: 'ClassroomsMember',
+  VocabularySet: 'VocabularySet',
+  VocabItem: 'VocabItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "classroom" | "classroomsMember"
+    modelProps: "user" | "classroom" | "classroomsMember" | "vocabularySet" | "vocabItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +630,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VocabularySet: {
+      payload: Prisma.$VocabularySetPayload<ExtArgs>
+      fields: Prisma.VocabularySetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VocabularySetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VocabularySetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        findFirst: {
+          args: Prisma.VocabularySetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VocabularySetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        findMany: {
+          args: Prisma.VocabularySetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>[]
+        }
+        create: {
+          args: Prisma.VocabularySetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        createMany: {
+          args: Prisma.VocabularySetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VocabularySetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>[]
+        }
+        delete: {
+          args: Prisma.VocabularySetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        update: {
+          args: Prisma.VocabularySetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        deleteMany: {
+          args: Prisma.VocabularySetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VocabularySetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VocabularySetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>[]
+        }
+        upsert: {
+          args: Prisma.VocabularySetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabularySetPayload>
+        }
+        aggregate: {
+          args: Prisma.VocabularySetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVocabularySet>
+        }
+        groupBy: {
+          args: Prisma.VocabularySetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VocabularySetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VocabularySetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VocabularySetCountAggregateOutputType> | number
+        }
+      }
+    }
+    VocabItem: {
+      payload: Prisma.$VocabItemPayload<ExtArgs>
+      fields: Prisma.VocabItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VocabItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VocabItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        findFirst: {
+          args: Prisma.VocabItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VocabItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        findMany: {
+          args: Prisma.VocabItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>[]
+        }
+        create: {
+          args: Prisma.VocabItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        createMany: {
+          args: Prisma.VocabItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VocabItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>[]
+        }
+        delete: {
+          args: Prisma.VocabItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        update: {
+          args: Prisma.VocabItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.VocabItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VocabItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VocabItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.VocabItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VocabItemPayload>
+        }
+        aggregate: {
+          args: Prisma.VocabItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVocabItem>
+        }
+        groupBy: {
+          args: Prisma.VocabItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VocabItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VocabItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VocabItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -705,6 +855,38 @@ export const ClassroomsMemberScalarFieldEnum = {
 } as const
 
 export type ClassroomsMemberScalarFieldEnum = (typeof ClassroomsMemberScalarFieldEnum)[keyof typeof ClassroomsMemberScalarFieldEnum]
+
+
+export const VocabularySetScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  teacherId: 'teacherId',
+  title: 'title',
+  language: 'language',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VocabularySetScalarFieldEnum = (typeof VocabularySetScalarFieldEnum)[keyof typeof VocabularySetScalarFieldEnum]
+
+
+export const VocabItemScalarFieldEnum = {
+  id: 'id',
+  setId: 'setId',
+  term: 'term',
+  definition: 'definition',
+  phonetic: 'phonetic',
+  partOfSpeech: 'partOfSpeech',
+  exampleSentence: 'exampleSentence',
+  imageUrl: 'imageUrl',
+  audioUrl: 'audioUrl',
+  orderIndex: 'orderIndex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VocabItemScalarFieldEnum = (typeof VocabItemScalarFieldEnum)[keyof typeof VocabItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -933,6 +1115,8 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   classroom?: Prisma.ClassroomOmit
   classroomsMember?: Prisma.ClassroomsMemberOmit
+  vocabularySet?: Prisma.VocabularySetOmit
+  vocabItem?: Prisma.VocabItemOmit
 }
 
 /* Types for Logging */
