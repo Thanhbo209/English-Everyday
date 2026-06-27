@@ -36,14 +36,17 @@ export function StudentDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { data: classrooms, isLoading: loadingClassrooms } = useClassrooms();
-  const { data: vocabSets } = useVocabSets();
+  const { data: vocabSets, isLoading: loadingVocabSets } = useVocabSets();
+
   const { data: assignments, isLoading: loadingAssignments } =
     useStudentAssignments();
   const { data: progress, isLoading: loadingProgress } = useProgress();
   const { data: mastery, isLoading: loadingMastery } = useMastery();
   const primaryClassroomId = classrooms?.[0]?.id;
-  const { data: leaderboard } = useLeaderboard(primaryClassroomId);
-  const { data: liveSessions } = useLiveSessions();
+  const { data: leaderboard, isLoading: loadingLeaderboard } =
+    useLeaderboard(primaryClassroomId);
+  const { data: liveSessions, isLoading: loadingLiveSessions } =
+    useLiveSessions();
 
   const [practiceOpen, setPracticeOpen] = useState(false);
   const [selectedPracticeSet, setSelectedPracticeSet] =
@@ -53,7 +56,10 @@ export function StudentDashboard() {
     loadingClassrooms ||
     loadingAssignments ||
     loadingProgress ||
-    loadingMastery;
+    loadingMastery ||
+    loadingVocabSets ||
+    loadingLeaderboard ||
+    loadingLiveSessions;
 
   if (isLoading) {
     return (
