@@ -20,6 +20,7 @@ model User {
   updatedAt        DateTime           @updatedAt
   classrooms       Classroom[]        @relation("TeacherClassrooms")
   classroomMembers ClassroomsMember[]
+  vocabularySets   VocabularySet[]    @relation("TeacherVocabularySets")
 }
 
 model Classroom {
@@ -33,6 +34,7 @@ model Classroom {
   updatedAt         DateTime           @updatedAt
   teacher           User               @relation("TeacherClassrooms", fields: [teacherId], references: [id])
   classroomsMembers ClassroomsMember[]
+  vocabularySets    VocabularySet[]
 }
 
 model ClassroomsMember {
@@ -54,4 +56,64 @@ enum UserRole {
 enum ClassroomStatus {
   INACTIVE
   ACTIVE
+}
+
+enum PartOfSpeech {
+  NOUN
+  VERB
+  ADJECTIVE
+  ADVERB
+  PRONOUN
+  PREPOSITION
+  CONJUNCTION
+  INTERJECTION
+  DETERMINER
+}
+
+model VocabularySet {
+  id          String @id @default(uuid())
+  classroomId String
+  teacherId   String
+
+  title       String
+  language    String
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  teacher   User      @relation("TeacherVocabularySets", fields: [teacherId], references: [id], onDelete: Cascade)
+
+  vocabItems VocabItem[]
+
+  @@index([classroomId])
+  @@index([teacherId])
+  @@map("vocab_sets")
+}
+
+model VocabItem {
+  id    String @default(uuid())
+  setId String
+
+  term       String
+  definition String
+
+  phonetic     String?
+  partOfSpeech String
+
+  exampleSentence String?
+  imageUrl        String?
+  audioUrl        String?
+
+  orderIndex Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vocabSet VocabularySet @relation(fields: [setId], references: [id], onDelete: Cascade)
+
+  @@unique([setId, orderIndex])
+  @@index([setId])
+  @@map("vocab_items")
 }
