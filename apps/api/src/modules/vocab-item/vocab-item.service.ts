@@ -73,9 +73,9 @@ export class VocabItemService {
       }
     }
 
-    await prisma.$transaction(
-      async (tx) => {
-        await this.repository.updateOrder(data.items, tx);
+    await (prisma as any).$transaction(
+      async () => {
+        await this.repository.updateOrder(data.items);
       },
       {
         maxWait: 10000,

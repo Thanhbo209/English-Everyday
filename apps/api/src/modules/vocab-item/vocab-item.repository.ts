@@ -91,7 +91,9 @@ export class VocabItemRepository {
       select: { id: true, orderIndex: true },
     });
 
-    const currentMap = new Map(currentItems.map((item) => [item.id, item.orderIndex]));
+    const currentMap = new Map(
+      currentItems.map((item) => [item.id, item.orderIndex]),
+    );
 
     // 2. Filter down to entries that actually changed orderIndex
     const changedEntries = entries.filter((e) => {

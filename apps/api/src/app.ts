@@ -52,7 +52,11 @@ export default function buildApp() {
   app.register(prismaPlugin);
   app.register(jwtPlugin);
   app.register(auth);
-  app.register(multipart);
+  app.register(multipart, {
+    limits: {
+      fileSize: 20 * 1024 * 1024, // 20 MB max file size
+    },
+  });
   app.register(minioPlugin);
 
   // Routes
