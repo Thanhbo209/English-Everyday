@@ -1,5 +1,5 @@
-import { ChartLineUp } from '@phosphor-icons/react';
-import { EmptyState } from '../../components/ui';
+import { ChartLineUp } from "@phosphor-icons/react";
+import { EmptyState } from "../../../components/ui";
 
 export default function ProgressPage() {
   return (

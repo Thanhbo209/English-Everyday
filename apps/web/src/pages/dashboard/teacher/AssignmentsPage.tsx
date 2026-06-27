@@ -1,5 +1,5 @@
-import { ClipboardText, Plus } from '@phosphor-icons/react';
-import { EmptyState, Button } from '../../components/ui';
+import { ClipboardText, Plus } from "@phosphor-icons/react";
+import { EmptyState, Button } from "../../../components/ui";
 
 export default function AssignmentsPage() {
   return (

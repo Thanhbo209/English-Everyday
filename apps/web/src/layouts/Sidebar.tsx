@@ -35,6 +35,11 @@ const TEACHER_NAV: NavItem[] = [
     label: "Classrooms",
     icon: <ChalkboardTeacher size={19} />,
   },
+  {
+    to: "/dashboard/vocab-sets",
+    label: "Vocab Sets",
+    icon: <Books size={19} />,
+  },
   { to: "/dashboard/students", label: "Students", icon: <Users size={19} /> },
   {
     to: "/dashboard/assignments",

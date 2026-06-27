@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.ts'
-export type * from './prismaNamespace.ts'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Classroom: 'Classroom',
-  ClassroomsMember: 'ClassroomsMember'
+  ClassroomsMember: 'ClassroomsMember',
+  VocabularySet: 'VocabularySet',
+  VocabItem: 'VocabItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -110,6 +112,38 @@ export const ClassroomsMemberScalarFieldEnum = {
 } as const
 
 export type ClassroomsMemberScalarFieldEnum = (typeof ClassroomsMemberScalarFieldEnum)[keyof typeof ClassroomsMemberScalarFieldEnum]
+
+
+export const VocabularySetScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  teacherId: 'teacherId',
+  title: 'title',
+  language: 'language',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VocabularySetScalarFieldEnum = (typeof VocabularySetScalarFieldEnum)[keyof typeof VocabularySetScalarFieldEnum]
+
+
+export const VocabItemScalarFieldEnum = {
+  id: 'id',
+  setId: 'setId',
+  term: 'term',
+  definition: 'definition',
+  phonetic: 'phonetic',
+  partOfSpeech: 'partOfSpeech',
+  exampleSentence: 'exampleSentence',
+  imageUrl: 'imageUrl',
+  audioUrl: 'audioUrl',
+  orderIndex: 'orderIndex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VocabItemScalarFieldEnum = (typeof VocabItemScalarFieldEnum)[keyof typeof VocabItemScalarFieldEnum]
 
 
 export const SortOrder = {

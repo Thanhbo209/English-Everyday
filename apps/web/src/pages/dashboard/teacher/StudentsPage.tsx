@@ -1,5 +1,5 @@
-import { Users, UserPlus } from '@phosphor-icons/react';
-import { EmptyState, Button } from '../../components/ui';
+import { Users, UserPlus } from "@phosphor-icons/react";
+import { EmptyState, Button } from "../../../components/ui";
 
 export default function StudentsPage() {
   return (

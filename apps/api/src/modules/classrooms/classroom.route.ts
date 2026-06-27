@@ -1,5 +1,4 @@
-import { UserRole } from "../../infrastructure/prisma/generated/prisma/enums";
-import { authorize } from "../../shared/middlewares/authorize.js";
+import { middlewareHandler } from "../../shared/middlewares/preHandlers";
 import {
   createClassroomController,
   deleteClassroomController,
@@ -11,39 +10,20 @@ import {
 } from "./classroom.controller.js";
 
 export async function classroomRoutes(app: any) {
-  app.get(
-    "/:id/members",
-    { preHandler: [app.authenticate] },
-    getMembersController,
-  );
-  app.get("/:id", { preHandler: [app.authenticate] }, getClassById);
-  app.get(
-    "/",
-    {
-      preHandler: [app.authenticate],
-    },
-    getClassroomsController,
-  );
+  const { teacherPreHandler, authPreHandler, studentPreHandler } =
+    middlewareHandler(app);
 
-  app.post(
-    "/",
-    {
-      preHandler: [app.authenticate, authorize(UserRole.TEACHER)],
-    },
-    createClassroomController,
-  );
-  app.post(
-    "/join",
-    {
-      preHandler: [app.authenticate, authorize(UserRole.STUDENT)],
-    },
-    joinClassroomController,
-  );
+  app.get("/:id/members", { preHandler: authPreHandler }, getMembersController);
+  app.get("/:id", { preHandler: authPreHandler }, getClassById);
+  app.get("/", { preHandler: authPreHandler }, getClassroomsController);
+
+  app.post("/", { preHandler: teacherPreHandler }, createClassroomController);
+  app.post("/join", { preHandler: studentPreHandler }, joinClassroomController);
 
   app.patch(
     "/:id",
     {
-      preHandler: [app.authenticate, authorize(UserRole.TEACHER)],
+      preHandler: teacherPreHandler,
     },
     updateClassroomController,
   );
@@ -51,7 +31,7 @@ export async function classroomRoutes(app: any) {
   app.delete(
     "/:id",
     {
-      preHandler: [app.authenticate, authorize(UserRole.TEACHER)],
+      preHandler: teacherPreHandler,
     },
     deleteClassroomController,
   );

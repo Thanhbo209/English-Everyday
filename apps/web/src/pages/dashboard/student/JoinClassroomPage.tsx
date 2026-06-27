@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Key, ArrowLeft, ArrowRight, WarningCircle } from "@phosphor-icons/react";
-import { Card, Button, Input, useToast } from "../../components/ui";
-import { useJoinClassroom } from "../../features/classroom/hooks/useClassrooms";
+import { Card, Button, Input, useToast } from "../../../components/ui";
+import { useJoinClassroom } from "../../../features/classroom/hooks/useClassrooms";
 
 export default function JoinClassroomPage() {
   const navigate = useNavigate();
