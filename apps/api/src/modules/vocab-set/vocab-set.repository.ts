@@ -4,16 +4,21 @@ import {
 } from "./vocab-set.schema";
 import {
   Classroom,
-  PrismaClient,
   VocabularySet,
 } from "../../infrastructure/prisma/generated/prisma/client";
 
 import { prisma } from "../../config/prisma.js";
 export class VocabSetRepository {
-  async findAllByTeacher(teacherId: string, classroomId?: string) {
+  async findAllByStudent(studentId: string, classroomId?: string) {
     return prisma.vocabularySet.findMany({
       where: {
-        teacherId,
+        classroom: {
+          classroomsMembers: {
+            some: {
+              studentId,
+            },
+          },
+        },
         ...(classroomId ? { classroomId } : {}),
       },
       include: {
@@ -21,6 +26,15 @@ export class VocabSetRepository {
         _count: {
           select: { vocabItems: true },
         },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+  async findAllByTeacher(teacherId: string, classroomId?: string) {
+    return prisma.vocabularySet.findMany({
+      where: {
+        teacherId,
+        ...(classroomId ? { classroomId } : {}),
       },
       orderBy: { createdAt: "desc" },
     });

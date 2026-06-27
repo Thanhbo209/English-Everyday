@@ -8,11 +8,11 @@ export async function vocabSetRoutes(app: any): Promise<void> {
   const service = new VocabSetService(repository);
   const controller = new VocabSetController(service);
 
-  const { teacherPreHandler } = middlewareHandler(app);
+  const { teacherPreHandler, authPreHandler } = middlewareHandler(app);
 
-  app.get("/", { preHandler: teacherPreHandler }, controller.getVocabularySets);
+  app.get("/", { preHandler: authPreHandler }, controller.getVocabularySets);
   app.post("/", { preHandler: teacherPreHandler }, controller.createVocabularySet);
-  app.get("/:id", { preHandler: teacherPreHandler }, controller.getVocabularySet);
+  app.get("/:id", { preHandler: authPreHandler }, controller.getVocabularySet);
   app.patch("/:id", { preHandler: teacherPreHandler }, controller.updateVocabularySet);
   app.delete("/:id", { preHandler: teacherPreHandler }, controller.deleteVocabularySet);
 }

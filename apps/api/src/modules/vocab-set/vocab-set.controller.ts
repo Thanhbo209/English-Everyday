@@ -15,10 +15,9 @@ export class VocabSetController {
     reply: FastifyReply,
   ): Promise<void> => {
     const query = VocabularySetQuerySchema.parse(request.query);
-    const teacherId = request.user.id;
-
     const sets = await this.service.getVocabularySets(
-      teacherId,
+      request.user.id,
+      request.user.role,
       query.classroomId,
     );
 
@@ -30,9 +29,7 @@ export class VocabSetController {
     reply: FastifyReply,
   ): Promise<void> => {
     const { id } = VocabularySetParamsSchema.parse(request.params);
-    const teacherId = request.user.id;
-
-    const vocabSet = await this.service.getVocabularySet(id, teacherId);
+    const vocabSet = await this.service.getVocabularySet(id, request.user.id, request.user.role);
 
     reply.status(200).send(vocabSet);
   };

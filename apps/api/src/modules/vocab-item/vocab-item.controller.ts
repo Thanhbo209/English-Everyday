@@ -17,7 +17,7 @@ export class VocabItemController {
     reply: FastifyReply,
   ): Promise<void> => {
     const { id: setId } = VocabSetItemParamsSchema.parse(request.params);
-    const items = await this.service.getItems(setId, request.user.id);
+    const items = await this.service.getItems(setId, request.user.id, request.user.role);
     reply.status(200).send(items);
   };
 

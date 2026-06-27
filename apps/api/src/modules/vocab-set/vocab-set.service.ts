@@ -1,5 +1,6 @@
 import { AppError, ErrorCode } from "../../shared/errors/app.error";
 import { VocabSetRepository } from "./vocab-set.repository";
+import { prisma } from "../../config/prisma.js";
 import {
   CreateVocabularySetInput,
   UpdateVocabularySetInput,
@@ -8,35 +9,22 @@ import {
 export class VocabSetService {
   constructor(private readonly repository: VocabSetRepository) {}
 
-  async getVocabularySets(teacherId: string, classroomId?: string) {
+  async getVocabularySets(userId: string, userRole?: string, classroomId?: string) {
+    if (userRole === "STUDENT") {
+      return this.repository.findAllByStudent(userId, classroomId);
+    }
+
     if (classroomId) {
       await this.ensureClassroomExists(classroomId);
-      await this.ensureTeacherOwnsClassroom(classroomId, teacherId);
+      await this.ensureTeacherOwnsClassroom(classroomId, userId);
     }
 
-    return this.repository.findAllByTeacher(teacherId, classroomId);
+    return this.repository.findAllByTeacher(userId, classroomId);
   }
 
-  async getVocabularySet(id: string, teacherId: string) {
-    const vocabSet = await this.repository.findById(id);
-
-    if (!vocabSet) {
-      throw new AppError(
-        404,
-        ErrorCode.VOCAB_NOT_FOUND,
-        "Vocabulary set not found",
-      );
-    }
-
-    if (vocabSet.teacherId !== teacherId) {
-      throw new AppError(
-        403,
-        ErrorCode.FORBIDDEN,
-        "You do not own this vocabulary set",
-      );
-    }
-
-    return vocabSet;
+  async getVocabularySet(id: string, userId: string, userRole?: string) {
+    await this.ensureVocabSetExistsAndOwned(id, userId, userRole);
+    return this.repository.findById(id);
   }
 
   async createVocabularySet(teacherId: string, data: CreateVocabularySetInput) {
@@ -64,7 +52,7 @@ export class VocabSetService {
 
   // ── Shared guard — public so VocabItemService can call it ─────────────────
 
-  async ensureVocabSetExistsAndOwned(id: string, teacherId: string) {
+  async ensureVocabSetExistsAndOwned(id: string, userId: string, userRole?: string) {
     const vocabSet = await this.repository.findById(id);
 
     if (!vocabSet) {
@@ -75,7 +63,24 @@ export class VocabSetService {
       );
     }
 
-    if (vocabSet.teacherId !== teacherId) {
+    if (userRole === "STUDENT") {
+      const isMember = await prisma.classroomsMember.findFirst({
+        where: {
+          classroomId: vocabSet.classroomId,
+          studentId: userId,
+        },
+      });
+      if (!isMember) {
+        throw new AppError(
+          403,
+          ErrorCode.FORBIDDEN,
+          "You are not enrolled in this vocabulary set's classroom",
+        );
+      }
+      return;
+    }
+
+    if (vocabSet.teacherId !== userId) {
       throw new AppError(
         403,
         ErrorCode.FORBIDDEN,

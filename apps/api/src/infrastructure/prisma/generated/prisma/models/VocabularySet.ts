@@ -209,6 +209,9 @@ export type VocabularySetWhereInput = {
   classroom?: Prisma.XOR<Prisma.ClassroomScalarRelationFilter, Prisma.ClassroomWhereInput>
   teacher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   vocabItems?: Prisma.VocabItemListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  progressRecords?: Prisma.ProgressRecordListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
 }
 
 export type VocabularySetOrderByWithRelationInput = {
@@ -223,6 +226,9 @@ export type VocabularySetOrderByWithRelationInput = {
   classroom?: Prisma.ClassroomOrderByWithRelationInput
   teacher?: Prisma.UserOrderByWithRelationInput
   vocabItems?: Prisma.VocabItemOrderByRelationAggregateInput
+  assignments?: Prisma.AssignmentOrderByRelationAggregateInput
+  progressRecords?: Prisma.ProgressRecordOrderByRelationAggregateInput
+  liveSessions?: Prisma.LiveSessionOrderByRelationAggregateInput
 }
 
 export type VocabularySetWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +246,9 @@ export type VocabularySetWhereUniqueInput = Prisma.AtLeast<{
   classroom?: Prisma.XOR<Prisma.ClassroomScalarRelationFilter, Prisma.ClassroomWhereInput>
   teacher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   vocabItems?: Prisma.VocabItemListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  progressRecords?: Prisma.ProgressRecordListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
 }, "id">
 
 export type VocabularySetOrderByWithAggregationInput = {
@@ -280,6 +289,9 @@ export type VocabularySetCreateInput = {
   classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
   teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
   vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetUncheckedCreateInput = {
@@ -292,6 +304,9 @@ export type VocabularySetUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetUpdateInput = {
@@ -304,6 +319,9 @@ export type VocabularySetUpdateInput = {
   classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
   teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
   vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateInput = {
@@ -316,6 +334,9 @@ export type VocabularySetUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetCreateManyInput = {
@@ -495,6 +516,48 @@ export type VocabularySetUpdateOneRequiredWithoutVocabItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VocabularySetUpdateToOneWithWhereWithoutVocabItemsInput, Prisma.VocabularySetUpdateWithoutVocabItemsInput>, Prisma.VocabularySetUncheckedUpdateWithoutVocabItemsInput>
 }
 
+export type VocabularySetCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+}
+
+export type VocabularySetUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.VocabularySetUpsertWithoutAssignmentsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VocabularySetUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.VocabularySetUpdateWithoutAssignmentsInput>, Prisma.VocabularySetUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type VocabularySetCreateNestedOneWithoutProgressRecordsInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedCreateWithoutProgressRecordsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutProgressRecordsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+}
+
+export type VocabularySetUpdateOneRequiredWithoutProgressRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedCreateWithoutProgressRecordsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutProgressRecordsInput
+  upsert?: Prisma.VocabularySetUpsertWithoutProgressRecordsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VocabularySetUpdateToOneWithWhereWithoutProgressRecordsInput, Prisma.VocabularySetUpdateWithoutProgressRecordsInput>, Prisma.VocabularySetUncheckedUpdateWithoutProgressRecordsInput>
+}
+
+export type VocabularySetCreateNestedOneWithoutLiveSessionsInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutLiveSessionsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+}
+
+export type VocabularySetUpdateOneRequiredWithoutLiveSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.VocabularySetCreateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.VocabularySetCreateOrConnectWithoutLiveSessionsInput
+  upsert?: Prisma.VocabularySetUpsertWithoutLiveSessionsInput
+  connect?: Prisma.VocabularySetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VocabularySetUpdateToOneWithWhereWithoutLiveSessionsInput, Prisma.VocabularySetUpdateWithoutLiveSessionsInput>, Prisma.VocabularySetUncheckedUpdateWithoutLiveSessionsInput>
+}
+
 export type VocabularySetCreateWithoutTeacherInput = {
   id?: string
   title: string
@@ -504,6 +567,9 @@ export type VocabularySetCreateWithoutTeacherInput = {
   updatedAt?: Date | string
   classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
   vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetUncheckedCreateWithoutTeacherInput = {
@@ -515,6 +581,9 @@ export type VocabularySetUncheckedCreateWithoutTeacherInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetCreateOrConnectWithoutTeacherInput = {
@@ -566,6 +635,9 @@ export type VocabularySetCreateWithoutClassroomInput = {
   updatedAt?: Date | string
   teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
   vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetUncheckedCreateWithoutClassroomInput = {
@@ -577,6 +649,9 @@ export type VocabularySetUncheckedCreateWithoutClassroomInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetCreateOrConnectWithoutClassroomInput = {
@@ -614,6 +689,9 @@ export type VocabularySetCreateWithoutVocabItemsInput = {
   updatedAt?: Date | string
   classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
   teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetUncheckedCreateWithoutVocabItemsInput = {
@@ -625,6 +703,9 @@ export type VocabularySetUncheckedCreateWithoutVocabItemsInput = {
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
 }
 
 export type VocabularySetCreateOrConnectWithoutVocabItemsInput = {
@@ -652,6 +733,9 @@ export type VocabularySetUpdateWithoutVocabItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
   teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateWithoutVocabItemsInput = {
@@ -663,6 +747,225 @@ export type VocabularySetUncheckedUpdateWithoutVocabItemsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetCreateWithoutAssignmentsInput = {
+  id?: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
+  teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
+  vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetUncheckedCreateWithoutAssignmentsInput = {
+  id?: string
+  classroomId: string
+  teacherId: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetCreateOrConnectWithoutAssignmentsInput = {
+  where: Prisma.VocabularySetWhereUniqueInput
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedCreateWithoutAssignmentsInput>
+}
+
+export type VocabularySetUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.VocabularySetUpdateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedCreateWithoutAssignmentsInput>
+  where?: Prisma.VocabularySetWhereInput
+}
+
+export type VocabularySetUpdateToOneWithWhereWithoutAssignmentsInput = {
+  where?: Prisma.VocabularySetWhereInput
+  data: Prisma.XOR<Prisma.VocabularySetUpdateWithoutAssignmentsInput, Prisma.VocabularySetUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type VocabularySetUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
+  teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
+  vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetUncheckedUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  classroomId?: Prisma.StringFieldUpdateOperationsInput | string
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetCreateWithoutProgressRecordsInput = {
+  id?: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
+  teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
+  vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetUncheckedCreateWithoutProgressRecordsInput = {
+  id?: string
+  classroomId: string
+  teacherId: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetCreateOrConnectWithoutProgressRecordsInput = {
+  where: Prisma.VocabularySetWhereUniqueInput
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedCreateWithoutProgressRecordsInput>
+}
+
+export type VocabularySetUpsertWithoutProgressRecordsInput = {
+  update: Prisma.XOR<Prisma.VocabularySetUpdateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedUpdateWithoutProgressRecordsInput>
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedCreateWithoutProgressRecordsInput>
+  where?: Prisma.VocabularySetWhereInput
+}
+
+export type VocabularySetUpdateToOneWithWhereWithoutProgressRecordsInput = {
+  where?: Prisma.VocabularySetWhereInput
+  data: Prisma.XOR<Prisma.VocabularySetUpdateWithoutProgressRecordsInput, Prisma.VocabularySetUncheckedUpdateWithoutProgressRecordsInput>
+}
+
+export type VocabularySetUpdateWithoutProgressRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
+  teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
+  vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetUncheckedUpdateWithoutProgressRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  classroomId?: Prisma.StringFieldUpdateOperationsInput | string
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetCreateWithoutLiveSessionsInput = {
+  id?: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroom: Prisma.ClassroomCreateNestedOneWithoutVocabularySetsInput
+  teacher: Prisma.UserCreateNestedOneWithoutVocabularySetsInput
+  vocabItems?: Prisma.VocabItemCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetUncheckedCreateWithoutLiveSessionsInput = {
+  id?: string
+  classroomId: string
+  teacherId: string
+  title: string
+  language: string
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  vocabItems?: Prisma.VocabItemUncheckedCreateNestedManyWithoutVocabSetInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutVocabSetInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutVocabSetInput
+}
+
+export type VocabularySetCreateOrConnectWithoutLiveSessionsInput = {
+  where: Prisma.VocabularySetWhereUniqueInput
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedCreateWithoutLiveSessionsInput>
+}
+
+export type VocabularySetUpsertWithoutLiveSessionsInput = {
+  update: Prisma.XOR<Prisma.VocabularySetUpdateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedUpdateWithoutLiveSessionsInput>
+  create: Prisma.XOR<Prisma.VocabularySetCreateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedCreateWithoutLiveSessionsInput>
+  where?: Prisma.VocabularySetWhereInput
+}
+
+export type VocabularySetUpdateToOneWithWhereWithoutLiveSessionsInput = {
+  where?: Prisma.VocabularySetWhereInput
+  data: Prisma.XOR<Prisma.VocabularySetUpdateWithoutLiveSessionsInput, Prisma.VocabularySetUncheckedUpdateWithoutLiveSessionsInput>
+}
+
+export type VocabularySetUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
+  teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
+  vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+}
+
+export type VocabularySetUncheckedUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  classroomId?: Prisma.StringFieldUpdateOperationsInput | string
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetCreateManyTeacherInput = {
@@ -684,6 +987,9 @@ export type VocabularySetUpdateWithoutTeacherInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroom?: Prisma.ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput
   vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateWithoutTeacherInput = {
@@ -695,6 +1001,9 @@ export type VocabularySetUncheckedUpdateWithoutTeacherInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateManyWithoutTeacherInput = {
@@ -726,6 +1035,9 @@ export type VocabularySetUpdateWithoutClassroomInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneRequiredWithoutVocabularySetsNestedInput
   vocabItems?: Prisma.VocabItemUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateWithoutClassroomInput = {
@@ -737,6 +1049,9 @@ export type VocabularySetUncheckedUpdateWithoutClassroomInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vocabItems?: Prisma.VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutVocabSetNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutVocabSetNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutVocabSetNestedInput
 }
 
 export type VocabularySetUncheckedUpdateManyWithoutClassroomInput = {
@@ -756,10 +1071,16 @@ export type VocabularySetUncheckedUpdateManyWithoutClassroomInput = {
 
 export type VocabularySetCountOutputType = {
   vocabItems: number
+  assignments: number
+  progressRecords: number
+  liveSessions: number
 }
 
 export type VocabularySetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   vocabItems?: boolean | VocabularySetCountOutputTypeCountVocabItemsArgs
+  assignments?: boolean | VocabularySetCountOutputTypeCountAssignmentsArgs
+  progressRecords?: boolean | VocabularySetCountOutputTypeCountProgressRecordsArgs
+  liveSessions?: boolean | VocabularySetCountOutputTypeCountLiveSessionsArgs
 }
 
 /**
@@ -779,6 +1100,27 @@ export type VocabularySetCountOutputTypeCountVocabItemsArgs<ExtArgs extends runt
   where?: Prisma.VocabItemWhereInput
 }
 
+/**
+ * VocabularySetCountOutputType without action
+ */
+export type VocabularySetCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssignmentWhereInput
+}
+
+/**
+ * VocabularySetCountOutputType without action
+ */
+export type VocabularySetCountOutputTypeCountProgressRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProgressRecordWhereInput
+}
+
+/**
+ * VocabularySetCountOutputType without action
+ */
+export type VocabularySetCountOutputTypeCountLiveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveSessionWhereInput
+}
+
 
 export type VocabularySetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -792,6 +1134,9 @@ export type VocabularySetSelect<ExtArgs extends runtime.Types.Extensions.Interna
   classroom?: boolean | Prisma.ClassroomDefaultArgs<ExtArgs>
   teacher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   vocabItems?: boolean | Prisma.VocabularySet$vocabItemsArgs<ExtArgs>
+  assignments?: boolean | Prisma.VocabularySet$assignmentsArgs<ExtArgs>
+  progressRecords?: boolean | Prisma.VocabularySet$progressRecordsArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.VocabularySet$liveSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.VocabularySetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vocabularySet"]>
 
@@ -837,6 +1182,9 @@ export type VocabularySetInclude<ExtArgs extends runtime.Types.Extensions.Intern
   classroom?: boolean | Prisma.ClassroomDefaultArgs<ExtArgs>
   teacher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   vocabItems?: boolean | Prisma.VocabularySet$vocabItemsArgs<ExtArgs>
+  assignments?: boolean | Prisma.VocabularySet$assignmentsArgs<ExtArgs>
+  progressRecords?: boolean | Prisma.VocabularySet$progressRecordsArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.VocabularySet$liveSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.VocabularySetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VocabularySetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -854,6 +1202,9 @@ export type $VocabularySetPayload<ExtArgs extends runtime.Types.Extensions.Inter
     classroom: Prisma.$ClassroomPayload<ExtArgs>
     teacher: Prisma.$UserPayload<ExtArgs>
     vocabItems: Prisma.$VocabItemPayload<ExtArgs>[]
+    assignments: Prisma.$AssignmentPayload<ExtArgs>[]
+    progressRecords: Prisma.$ProgressRecordPayload<ExtArgs>[]
+    liveSessions: Prisma.$LiveSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1261,6 +1612,9 @@ export interface Prisma__VocabularySetClient<T, Null = never, ExtArgs extends ru
   classroom<T extends Prisma.ClassroomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassroomDefaultArgs<ExtArgs>>): Prisma.Prisma__ClassroomClient<runtime.Types.Result.GetResult<Prisma.$ClassroomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   teacher<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   vocabItems<T extends Prisma.VocabularySet$vocabItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabularySet$vocabItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VocabItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.VocabularySet$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabularySet$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  progressRecords<T extends Prisma.VocabularySet$progressRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabularySet$progressRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProgressRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveSessions<T extends Prisma.VocabularySet$liveSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabularySet$liveSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1720,6 +2074,78 @@ export type VocabularySet$vocabItemsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.VocabItemScalarFieldEnum | Prisma.VocabItemScalarFieldEnum[]
+}
+
+/**
+ * VocabularySet.assignments
+ */
+export type VocabularySet$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Assignment
+   */
+  select?: Prisma.AssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Assignment
+   */
+  omit?: Prisma.AssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssignmentWhereInput
+  orderBy?: Prisma.AssignmentOrderByWithRelationInput | Prisma.AssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssignmentScalarFieldEnum | Prisma.AssignmentScalarFieldEnum[]
+}
+
+/**
+ * VocabularySet.progressRecords
+ */
+export type VocabularySet$progressRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProgressRecord
+   */
+  select?: Prisma.ProgressRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProgressRecord
+   */
+  omit?: Prisma.ProgressRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProgressRecordInclude<ExtArgs> | null
+  where?: Prisma.ProgressRecordWhereInput
+  orderBy?: Prisma.ProgressRecordOrderByWithRelationInput | Prisma.ProgressRecordOrderByWithRelationInput[]
+  cursor?: Prisma.ProgressRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProgressRecordScalarFieldEnum | Prisma.ProgressRecordScalarFieldEnum[]
+}
+
+/**
+ * VocabularySet.liveSessions
+ */
+export type VocabularySet$liveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveSession
+   */
+  select?: Prisma.LiveSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveSession
+   */
+  omit?: Prisma.LiveSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveSessionInclude<ExtArgs> | null
+  where?: Prisma.LiveSessionWhereInput
+  orderBy?: Prisma.LiveSessionOrderByWithRelationInput | Prisma.LiveSessionOrderByWithRelationInput[]
+  cursor?: Prisma.LiveSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveSessionScalarFieldEnum | Prisma.LiveSessionScalarFieldEnum[]
 }
 
 /**

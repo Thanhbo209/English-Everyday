@@ -22,8 +22,8 @@ export class VocabItemService {
 
   // ── Phase 2: Item CRUD ────────────────────────────────────────────────────
 
-  async getItems(setId: string, teacherId: string): Promise<VocabItem[]> {
-    await this.vocabSetService.ensureVocabSetExistsAndOwned(setId, teacherId);
+  async getItems(setId: string, userId: string, userRole?: string): Promise<VocabItem[]> {
+    await this.vocabSetService.ensureVocabSetExistsAndOwned(setId, userId, userRole);
     return this.repository.findBySetId(setId);
   }
 

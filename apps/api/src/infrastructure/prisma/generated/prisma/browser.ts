@@ -42,3 +42,38 @@ export type VocabularySet = Prisma.VocabularySetModel
  * 
  */
 export type VocabItem = Prisma.VocabItemModel
+/**
+ * Model Assignment
+ * 
+ */
+export type Assignment = Prisma.AssignmentModel
+/**
+ * Model Submission
+ * 
+ */
+export type Submission = Prisma.SubmissionModel
+/**
+ * Model ProgressRecord
+ * 
+ */
+export type ProgressRecord = Prisma.ProgressRecordModel
+/**
+ * Model VocabMastery
+ * 
+ */
+export type VocabMastery = Prisma.VocabMasteryModel
+/**
+ * Model LiveSession
+ * 
+ */
+export type LiveSession = Prisma.LiveSessionModel
+/**
+ * Model LiveSessionPlayer
+ * 
+ */
+export type LiveSessionPlayer = Prisma.LiveSessionPlayerModel
+/**
+ * Model LeaderboardSnapshot
+ * 
+ */
+export type LeaderboardSnapshot = Prisma.LeaderboardSnapshotModel

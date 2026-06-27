@@ -209,6 +209,9 @@ export type ClassroomWhereInput = {
   teacher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   classroomsMembers?: Prisma.ClassroomsMemberListRelationFilter
   vocabularySets?: Prisma.VocabularySetListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotListRelationFilter
 }
 
 export type ClassroomOrderByWithRelationInput = {
@@ -223,6 +226,9 @@ export type ClassroomOrderByWithRelationInput = {
   teacher?: Prisma.UserOrderByWithRelationInput
   classroomsMembers?: Prisma.ClassroomsMemberOrderByRelationAggregateInput
   vocabularySets?: Prisma.VocabularySetOrderByRelationAggregateInput
+  assignments?: Prisma.AssignmentOrderByRelationAggregateInput
+  liveSessions?: Prisma.LiveSessionOrderByRelationAggregateInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotOrderByRelationAggregateInput
 }
 
 export type ClassroomWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +246,9 @@ export type ClassroomWhereUniqueInput = Prisma.AtLeast<{
   teacher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   classroomsMembers?: Prisma.ClassroomsMemberListRelationFilter
   vocabularySets?: Prisma.VocabularySetListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotListRelationFilter
 }, "id" | "joinCode">
 
 export type ClassroomOrderByWithAggregationInput = {
@@ -281,6 +290,9 @@ export type ClassroomCreateInput = {
   teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
   classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomUncheckedCreateInput = {
@@ -294,6 +306,9 @@ export type ClassroomUncheckedCreateInput = {
   updatedAt?: Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomUpdateInput = {
@@ -307,6 +322,9 @@ export type ClassroomUpdateInput = {
   teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
   classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomUncheckedUpdateInput = {
@@ -320,6 +338,9 @@ export type ClassroomUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomCreateManyInput = {
@@ -480,6 +501,48 @@ export type ClassroomUpdateOneRequiredWithoutVocabularySetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClassroomUpdateToOneWithWhereWithoutVocabularySetsInput, Prisma.ClassroomUpdateWithoutVocabularySetsInput>, Prisma.ClassroomUncheckedUpdateWithoutVocabularySetsInput>
 }
 
+export type ClassroomCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutAssignmentsInput, Prisma.ClassroomUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+}
+
+export type ClassroomUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutAssignmentsInput, Prisma.ClassroomUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.ClassroomUpsertWithoutAssignmentsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClassroomUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.ClassroomUpdateWithoutAssignmentsInput>, Prisma.ClassroomUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type ClassroomCreateNestedOneWithoutLiveSessionsInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutLiveSessionsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+}
+
+export type ClassroomUpdateOneRequiredWithoutLiveSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutLiveSessionsInput
+  upsert?: Prisma.ClassroomUpsertWithoutLiveSessionsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClassroomUpdateToOneWithWhereWithoutLiveSessionsInput, Prisma.ClassroomUpdateWithoutLiveSessionsInput>, Prisma.ClassroomUncheckedUpdateWithoutLiveSessionsInput>
+}
+
+export type ClassroomCreateNestedOneWithoutLeaderboardSnapshotsInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedCreateWithoutLeaderboardSnapshotsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutLeaderboardSnapshotsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+}
+
+export type ClassroomUpdateOneRequiredWithoutLeaderboardSnapshotsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassroomCreateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedCreateWithoutLeaderboardSnapshotsInput>
+  connectOrCreate?: Prisma.ClassroomCreateOrConnectWithoutLeaderboardSnapshotsInput
+  upsert?: Prisma.ClassroomUpsertWithoutLeaderboardSnapshotsInput
+  connect?: Prisma.ClassroomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClassroomUpdateToOneWithWhereWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUpdateWithoutLeaderboardSnapshotsInput>, Prisma.ClassroomUncheckedUpdateWithoutLeaderboardSnapshotsInput>
+}
+
 export type ClassroomCreateWithoutTeacherInput = {
   id?: string
   name: string
@@ -490,6 +553,9 @@ export type ClassroomCreateWithoutTeacherInput = {
   updatedAt?: Date | string
   classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomUncheckedCreateWithoutTeacherInput = {
@@ -502,6 +568,9 @@ export type ClassroomUncheckedCreateWithoutTeacherInput = {
   updatedAt?: Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomCreateOrConnectWithoutTeacherInput = {
@@ -554,6 +623,9 @@ export type ClassroomCreateWithoutClassroomsMembersInput = {
   updatedAt?: Date | string
   teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomUncheckedCreateWithoutClassroomsMembersInput = {
@@ -566,6 +638,9 @@ export type ClassroomUncheckedCreateWithoutClassroomsMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomCreateOrConnectWithoutClassroomsMembersInput = {
@@ -594,6 +669,9 @@ export type ClassroomUpdateWithoutClassroomsMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomUncheckedUpdateWithoutClassroomsMembersInput = {
@@ -606,6 +684,9 @@ export type ClassroomUncheckedUpdateWithoutClassroomsMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomCreateWithoutVocabularySetsInput = {
@@ -618,6 +699,9 @@ export type ClassroomCreateWithoutVocabularySetsInput = {
   updatedAt?: Date | string
   teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
   classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomUncheckedCreateWithoutVocabularySetsInput = {
@@ -630,6 +714,9 @@ export type ClassroomUncheckedCreateWithoutVocabularySetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
 }
 
 export type ClassroomCreateOrConnectWithoutVocabularySetsInput = {
@@ -658,6 +745,9 @@ export type ClassroomUpdateWithoutVocabularySetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
   classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomUncheckedUpdateWithoutVocabularySetsInput = {
@@ -670,6 +760,237 @@ export type ClassroomUncheckedUpdateWithoutVocabularySetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomCreateWithoutAssignmentsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
+  classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomUncheckedCreateWithoutAssignmentsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  teacherId: string
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomCreateOrConnectWithoutAssignmentsInput = {
+  where: Prisma.ClassroomWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutAssignmentsInput, Prisma.ClassroomUncheckedCreateWithoutAssignmentsInput>
+}
+
+export type ClassroomUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.ClassroomUpdateWithoutAssignmentsInput, Prisma.ClassroomUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutAssignmentsInput, Prisma.ClassroomUncheckedCreateWithoutAssignmentsInput>
+  where?: Prisma.ClassroomWhereInput
+}
+
+export type ClassroomUpdateToOneWithWhereWithoutAssignmentsInput = {
+  where?: Prisma.ClassroomWhereInput
+  data: Prisma.XOR<Prisma.ClassroomUpdateWithoutAssignmentsInput, Prisma.ClassroomUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type ClassroomUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
+  classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomUncheckedUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomCreateWithoutLiveSessionsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
+  classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomUncheckedCreateWithoutLiveSessionsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  teacherId: string
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomCreateOrConnectWithoutLiveSessionsInput = {
+  where: Prisma.ClassroomWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedCreateWithoutLiveSessionsInput>
+}
+
+export type ClassroomUpsertWithoutLiveSessionsInput = {
+  update: Prisma.XOR<Prisma.ClassroomUpdateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedUpdateWithoutLiveSessionsInput>
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedCreateWithoutLiveSessionsInput>
+  where?: Prisma.ClassroomWhereInput
+}
+
+export type ClassroomUpdateToOneWithWhereWithoutLiveSessionsInput = {
+  where?: Prisma.ClassroomWhereInput
+  data: Prisma.XOR<Prisma.ClassroomUpdateWithoutLiveSessionsInput, Prisma.ClassroomUncheckedUpdateWithoutLiveSessionsInput>
+}
+
+export type ClassroomUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
+  classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomUncheckedUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomCreateWithoutLeaderboardSnapshotsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teacher: Prisma.UserCreateNestedOneWithoutClassroomsInput
+  classroomsMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomUncheckedCreateWithoutLeaderboardSnapshotsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  teacherId: string
+  joinCode: string
+  status?: $Enums.ClassroomStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutClassroomInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutClassroomInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutClassroomInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutClassroomInput
+}
+
+export type ClassroomCreateOrConnectWithoutLeaderboardSnapshotsInput = {
+  where: Prisma.ClassroomWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedCreateWithoutLeaderboardSnapshotsInput>
+}
+
+export type ClassroomUpsertWithoutLeaderboardSnapshotsInput = {
+  update: Prisma.XOR<Prisma.ClassroomUpdateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedUpdateWithoutLeaderboardSnapshotsInput>
+  create: Prisma.XOR<Prisma.ClassroomCreateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedCreateWithoutLeaderboardSnapshotsInput>
+  where?: Prisma.ClassroomWhereInput
+}
+
+export type ClassroomUpdateToOneWithWhereWithoutLeaderboardSnapshotsInput = {
+  where?: Prisma.ClassroomWhereInput
+  data: Prisma.XOR<Prisma.ClassroomUpdateWithoutLeaderboardSnapshotsInput, Prisma.ClassroomUncheckedUpdateWithoutLeaderboardSnapshotsInput>
+}
+
+export type ClassroomUpdateWithoutLeaderboardSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teacher?: Prisma.UserUpdateOneRequiredWithoutClassroomsNestedInput
+  classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+}
+
+export type ClassroomUncheckedUpdateWithoutLeaderboardSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherId?: Prisma.StringFieldUpdateOperationsInput | string
+  joinCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumClassroomStatusFieldUpdateOperationsInput | $Enums.ClassroomStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomCreateManyTeacherInput = {
@@ -692,6 +1013,9 @@ export type ClassroomUpdateWithoutTeacherInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUpdateManyWithoutClassroomNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomUncheckedUpdateWithoutTeacherInput = {
@@ -704,6 +1028,9 @@ export type ClassroomUncheckedUpdateWithoutTeacherInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomsMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutClassroomNestedInput
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutClassroomNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutClassroomNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutClassroomNestedInput
+  leaderboardSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutClassroomNestedInput
 }
 
 export type ClassroomUncheckedUpdateManyWithoutTeacherInput = {
@@ -724,11 +1051,17 @@ export type ClassroomUncheckedUpdateManyWithoutTeacherInput = {
 export type ClassroomCountOutputType = {
   classroomsMembers: number
   vocabularySets: number
+  assignments: number
+  liveSessions: number
+  leaderboardSnapshots: number
 }
 
 export type ClassroomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   classroomsMembers?: boolean | ClassroomCountOutputTypeCountClassroomsMembersArgs
   vocabularySets?: boolean | ClassroomCountOutputTypeCountVocabularySetsArgs
+  assignments?: boolean | ClassroomCountOutputTypeCountAssignmentsArgs
+  liveSessions?: boolean | ClassroomCountOutputTypeCountLiveSessionsArgs
+  leaderboardSnapshots?: boolean | ClassroomCountOutputTypeCountLeaderboardSnapshotsArgs
 }
 
 /**
@@ -755,6 +1088,27 @@ export type ClassroomCountOutputTypeCountVocabularySetsArgs<ExtArgs extends runt
   where?: Prisma.VocabularySetWhereInput
 }
 
+/**
+ * ClassroomCountOutputType without action
+ */
+export type ClassroomCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssignmentWhereInput
+}
+
+/**
+ * ClassroomCountOutputType without action
+ */
+export type ClassroomCountOutputTypeCountLiveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveSessionWhereInput
+}
+
+/**
+ * ClassroomCountOutputType without action
+ */
+export type ClassroomCountOutputTypeCountLeaderboardSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeaderboardSnapshotWhereInput
+}
+
 
 export type ClassroomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -768,6 +1122,9 @@ export type ClassroomSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   teacher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   classroomsMembers?: boolean | Prisma.Classroom$classroomsMembersArgs<ExtArgs>
   vocabularySets?: boolean | Prisma.Classroom$vocabularySetsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Classroom$assignmentsArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.Classroom$liveSessionsArgs<ExtArgs>
+  leaderboardSnapshots?: boolean | Prisma.Classroom$leaderboardSnapshotsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassroomCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classroom"]>
 
@@ -811,6 +1168,9 @@ export type ClassroomInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   teacher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   classroomsMembers?: boolean | Prisma.Classroom$classroomsMembersArgs<ExtArgs>
   vocabularySets?: boolean | Prisma.Classroom$vocabularySetsArgs<ExtArgs>
+  assignments?: boolean | Prisma.Classroom$assignmentsArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.Classroom$liveSessionsArgs<ExtArgs>
+  leaderboardSnapshots?: boolean | Prisma.Classroom$leaderboardSnapshotsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassroomCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClassroomIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -826,6 +1186,9 @@ export type $ClassroomPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     teacher: Prisma.$UserPayload<ExtArgs>
     classroomsMembers: Prisma.$ClassroomsMemberPayload<ExtArgs>[]
     vocabularySets: Prisma.$VocabularySetPayload<ExtArgs>[]
+    assignments: Prisma.$AssignmentPayload<ExtArgs>[]
+    liveSessions: Prisma.$LiveSessionPayload<ExtArgs>[]
+    leaderboardSnapshots: Prisma.$LeaderboardSnapshotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1233,6 +1596,9 @@ export interface Prisma__ClassroomClient<T, Null = never, ExtArgs extends runtim
   teacher<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   classroomsMembers<T extends Prisma.Classroom$classroomsMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Classroom$classroomsMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassroomsMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vocabularySets<T extends Prisma.Classroom$vocabularySetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Classroom$vocabularySetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VocabularySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.Classroom$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Classroom$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveSessions<T extends Prisma.Classroom$liveSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Classroom$liveSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leaderboardSnapshots<T extends Prisma.Classroom$leaderboardSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Classroom$leaderboardSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeaderboardSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1716,6 +2082,78 @@ export type Classroom$vocabularySetsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.VocabularySetScalarFieldEnum | Prisma.VocabularySetScalarFieldEnum[]
+}
+
+/**
+ * Classroom.assignments
+ */
+export type Classroom$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Assignment
+   */
+  select?: Prisma.AssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Assignment
+   */
+  omit?: Prisma.AssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssignmentWhereInput
+  orderBy?: Prisma.AssignmentOrderByWithRelationInput | Prisma.AssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssignmentScalarFieldEnum | Prisma.AssignmentScalarFieldEnum[]
+}
+
+/**
+ * Classroom.liveSessions
+ */
+export type Classroom$liveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveSession
+   */
+  select?: Prisma.LiveSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveSession
+   */
+  omit?: Prisma.LiveSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveSessionInclude<ExtArgs> | null
+  where?: Prisma.LiveSessionWhereInput
+  orderBy?: Prisma.LiveSessionOrderByWithRelationInput | Prisma.LiveSessionOrderByWithRelationInput[]
+  cursor?: Prisma.LiveSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveSessionScalarFieldEnum | Prisma.LiveSessionScalarFieldEnum[]
+}
+
+/**
+ * Classroom.leaderboardSnapshots
+ */
+export type Classroom$leaderboardSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeaderboardSnapshot
+   */
+  select?: Prisma.LeaderboardSnapshotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeaderboardSnapshot
+   */
+  omit?: Prisma.LeaderboardSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeaderboardSnapshotInclude<ExtArgs> | null
+  where?: Prisma.LeaderboardSnapshotWhereInput
+  orderBy?: Prisma.LeaderboardSnapshotOrderByWithRelationInput | Prisma.LeaderboardSnapshotOrderByWithRelationInput[]
+  cursor?: Prisma.LeaderboardSnapshotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeaderboardSnapshotScalarFieldEnum | Prisma.LeaderboardSnapshotScalarFieldEnum[]
 }
 
 /**
