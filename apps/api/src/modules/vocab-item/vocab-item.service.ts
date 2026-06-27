@@ -33,8 +33,14 @@ export class VocabItemService {
     data: CreateVocabItemInput,
   ): Promise<VocabItem> {
     await this.vocabSetService.ensureVocabSetExistsAndOwned(setId, teacherId);
-    const nextIndex = await this.repository.countBySetId(setId);
-    return this.repository.create(setId, nextIndex, data);
+
+    return await (prisma as any).$transaction(async (tx: any) => {
+      // Row-lock the parent VocabularySet to serialize concurrent item additions and avoid unique constraint collisions
+      await tx.$queryRaw`SELECT id FROM "vocab_sets" WHERE id = ${setId} FOR UPDATE`;
+
+      const nextIndex = await this.repository.countBySetId(setId, tx);
+      return this.repository.create(setId, nextIndex, data, tx);
+    });
   }
 
   async updateItem(

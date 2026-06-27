@@ -18,16 +18,19 @@ export class VocabItemRepository {
     return prisma.vocabItem.findFirst({ where: { id } });
   }
 
-  async countBySetId(setId: string): Promise<number> {
-    return prisma.vocabItem.count({ where: { setId } });
+  async countBySetId(setId: string, tx?: any): Promise<number> {
+    const client = tx || prisma;
+    return client.vocabItem.count({ where: { setId } });
   }
 
   async create(
     setId: string,
     orderIndex: number,
     data: CreateVocabItemInput,
+    tx?: any,
   ): Promise<VocabItem> {
-    return prisma.vocabItem.create({
+    const client = tx || prisma;
+    return client.vocabItem.create({
       data: {
         setId,
         orderIndex,
