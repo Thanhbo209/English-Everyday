@@ -31,8 +31,18 @@ export default function VocabSetsPage() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const { data: classrooms, isLoading: loadingClassrooms } = useClassrooms();
-  const { data: vocabSets, isLoading: loadingSets, error } = useVocabSets();
+  const {
+    data: classrooms,
+    isLoading: loadingClassrooms,
+    error: classroomsError,
+  } = useClassrooms();
+  const {
+    data: vocabSets,
+    isLoading: loadingSets,
+    error: vocabSetsError,
+  } = useVocabSets();
+
+  const pageError = classroomsError ?? vocabSetsError;
 
   const createMutation = useCreateVocabSet();
   const updateMutation = useUpdateVocabSet();
@@ -143,12 +153,14 @@ export default function VocabSetsPage() {
     return <PageSpinner />;
   }
 
-  if (error) {
+  if (pageError) {
     return (
       <EmptyState
         icon={<Books size={26} className="text-destructive" />}
         title="Failed to load vocabulary sets"
-        description={error.message ?? "An error occurred while fetching sets."}
+        description={
+          pageError.message ?? "An error occurred while fetching data."
+        }
         action={<Button onClick={() => window.location.reload()}>Retry</Button>}
       />
     );
@@ -186,7 +198,8 @@ export default function VocabSetsPage() {
           <div>
             <p className="font-semibold">No classrooms configured</p>
             <p className="text-xs text-muted-foreground">
-              You must create at least one classroom before you can construct vocabulary sets.{" "}
+              You must create at least one classroom before you can construct
+              vocabulary sets.{" "}
               <button
                 onClick={() => navigate("/dashboard/classrooms")}
                 className="underline hover:text-foreground font-semibold"
@@ -206,7 +219,11 @@ export default function VocabSetsPage() {
           description="Build decks of words, phonetic keys, and audio samples to share with your students."
           action={
             hasClassrooms ? (
-              <Button leftIcon={<Plus size={16} />} onClick={handleCreateClick} variant="primary">
+              <Button
+                leftIcon={<Plus size={16} />}
+                onClick={handleCreateClick}
+                variant="primary"
+              >
                 Create Vocabulary Set
               </Button>
             ) : undefined
@@ -226,7 +243,10 @@ export default function VocabSetsPage() {
                   <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors line-clamp-1">
                     {set.title}
                   </h3>
-                  <Badge variant="default" className="shrink-0 flex items-center gap-1">
+                  <Badge
+                    variant="default"
+                    className="shrink-0 flex items-center gap-1"
+                  >
                     <Globe size={12} />
                     {set.language}
                   </Badge>
@@ -237,10 +257,16 @@ export default function VocabSetsPage() {
                 </p>
 
                 <div className="flex flex-wrap gap-2 pt-1">
-                  <Badge variant="info" className="text-[10px] py-0.5 px-2 bg-secondary/50">
+                  <Badge
+                    variant="info"
+                    className="text-[10px] py-0.5 px-2 bg-secondary/50"
+                  >
                     Class: {set.classroom?.name || "Unknown"}
                   </Badge>
-                  <Badge variant="info" className="text-[10px] py-0.5 px-2 bg-secondary/50">
+                  <Badge
+                    variant="info"
+                    className="text-[10px] py-0.5 px-2 bg-secondary/50"
+                  >
                     {set._count?.vocabItems ?? 0} Cards
                   </Badge>
                 </div>
@@ -312,7 +338,10 @@ export default function VocabSetsPage() {
           {/* Select classroom - only editable on create */}
           {!editingSet && (
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="classroom-select" className="text-sm font-medium text-foreground">
+              <label
+                htmlFor="classroom-select"
+                className="text-sm font-medium text-foreground"
+              >
                 Classroom
               </label>
               <select
@@ -332,7 +361,10 @@ export default function VocabSetsPage() {
           )}
 
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="description-textarea" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="description-textarea"
+              className="text-sm font-medium text-foreground"
+            >
               Description
             </label>
             <textarea
@@ -348,7 +380,11 @@ export default function VocabSetsPage() {
           {formError && <p className="text-xs text-destructive">{formError}</p>}
 
           <div className="flex justify-end gap-3 pt-3 border-t border-border">
-            <Button type="button" variant="ghost" onClick={() => setModalOpen(false)}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setModalOpen(false)}
+            >
               Cancel
             </Button>
             <Button
@@ -363,10 +399,20 @@ export default function VocabSetsPage() {
       </Modal>
 
       {/* Delete Confirmation Modal */}
-      <Modal open={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete Vocabulary Set" size="sm">
+      <Modal
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete Vocabulary Set"
+        size="sm"
+      >
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Are you sure you want to delete <span className="font-semibold text-foreground">"{setToDelete?.title}"</span>? This will permanently delete all the vocabulary items contained inside this set.
+            Are you sure you want to delete{" "}
+            <span className="font-semibold text-foreground">
+              "{setToDelete?.title}"
+            </span>
+            ? This will permanently delete all the vocabulary items contained
+            inside this set.
           </p>
           <div className="flex justify-end gap-3 pt-3 border-t border-border">
             <Button variant="ghost" onClick={() => setDeleteOpen(false)}>
