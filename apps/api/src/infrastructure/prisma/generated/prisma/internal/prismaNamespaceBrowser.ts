@@ -55,7 +55,14 @@ export const ModelName = {
   Classroom: 'Classroom',
   ClassroomsMember: 'ClassroomsMember',
   VocabularySet: 'VocabularySet',
-  VocabItem: 'VocabItem'
+  VocabItem: 'VocabItem',
+  Assignment: 'Assignment',
+  Submission: 'Submission',
+  ProgressRecord: 'ProgressRecord',
+  VocabMastery: 'VocabMastery',
+  LiveSession: 'LiveSession',
+  LiveSessionPlayer: 'LiveSessionPlayer',
+  LeaderboardSnapshot: 'LeaderboardSnapshot'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -146,12 +153,113 @@ export const VocabItemScalarFieldEnum = {
 export type VocabItemScalarFieldEnum = (typeof VocabItemScalarFieldEnum)[keyof typeof VocabItemScalarFieldEnum]
 
 
+export const AssignmentScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  teacherId: 'teacherId',
+  title: 'title',
+  activityType: 'activityType',
+  vocabSetId: 'vocabSetId',
+  config: 'config',
+  dueAt: 'dueAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AssignmentScalarFieldEnum = (typeof AssignmentScalarFieldEnum)[keyof typeof AssignmentScalarFieldEnum]
+
+
+export const SubmissionScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  studentId: 'studentId',
+  answers: 'answers',
+  score: 'score',
+  accuracy: 'accuracy',
+  timeTakenSec: 'timeTakenSec',
+  status: 'status',
+  submittedAt: 'submittedAt'
+} as const
+
+export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
+
+
+export const ProgressRecordScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  vocabSetId: 'vocabSetId',
+  activityType: 'activityType',
+  score: 'score',
+  accuracy: 'accuracy',
+  recordedAt: 'recordedAt'
+} as const
+
+export type ProgressRecordScalarFieldEnum = (typeof ProgressRecordScalarFieldEnum)[keyof typeof ProgressRecordScalarFieldEnum]
+
+
+export const VocabMasteryScalarFieldEnum = {
+  studentId: 'studentId',
+  vocabItemId: 'vocabItemId',
+  status: 'status',
+  attempts: 'attempts',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type VocabMasteryScalarFieldEnum = (typeof VocabMasteryScalarFieldEnum)[keyof typeof VocabMasteryScalarFieldEnum]
+
+
+export const LiveSessionScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  teacherId: 'teacherId',
+  activityType: 'activityType',
+  vocabSetId: 'vocabSetId',
+  config: 'config',
+  status: 'status',
+  pin: 'pin',
+  scores: 'scores',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type LiveSessionScalarFieldEnum = (typeof LiveSessionScalarFieldEnum)[keyof typeof LiveSessionScalarFieldEnum]
+
+
+export const LiveSessionPlayerScalarFieldEnum = {
+  sessionId: 'sessionId',
+  studentId: 'studentId',
+  score: 'score',
+  answers: 'answers',
+  joinedAt: 'joinedAt',
+  rank: 'rank'
+} as const
+
+export type LiveSessionPlayerScalarFieldEnum = (typeof LiveSessionPlayerScalarFieldEnum)[keyof typeof LiveSessionPlayerScalarFieldEnum]
+
+
+export const LeaderboardSnapshotScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  period: 'period',
+  entries: 'entries',
+  computedAt: 'computedAt'
+} as const
+
+export type LeaderboardSnapshotScalarFieldEnum = (typeof LeaderboardSnapshotScalarFieldEnum)[keyof typeof LeaderboardSnapshotScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -168,4 +276,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

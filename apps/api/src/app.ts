@@ -8,6 +8,15 @@ import cors from "@fastify/cors";
 import { classroomRoutes } from "./modules/classrooms/classroom.route.js";
 import { vocabSetRoutes } from "./modules/vocab-set/vocab-set.route.js";
 import { vocabItemRoutes } from "./modules/vocab-item/vocab-item.route.js";
+import {
+  assignmentRoutes,
+  studentAssignmentRoutes,
+} from "./modules/assignments/assignment.route.js";
+import { submissionRoutes } from "./modules/submissions/submission.route.js";
+import { progressRoutes } from "./modules/progress/progress.route.js";
+import { masteryRoutes } from "./modules/mastery/mastery.route.js";
+import { liveSessionRoutes } from "./modules/live-session/live-session.route.js";
+import { leaderboardRoutes } from "./modules/leaderboard/leaderboard.route.js";
 import multipart from "@fastify/multipart";
 import minioPlugin from "./plugins/minio.js";
 import fs from "fs/promises";
@@ -72,6 +81,27 @@ export default function buildApp() {
 
   app.register(vocabItemRoutes, {
     prefix: "/api/vocabitems",
+  });
+  app.register(assignmentRoutes, {
+    prefix: "/api/assignments",
+  });
+  app.register(submissionRoutes, {
+    prefix: "/api/assignments",
+  });
+  app.register(studentAssignmentRoutes, {
+    prefix: "/api/students/assignments",
+  });
+  app.register(progressRoutes, {
+    prefix: "/api/progress",
+  });
+  app.register(masteryRoutes, {
+    prefix: "/api/mastery",
+  });
+  app.register(liveSessionRoutes, {
+    prefix: "/api/live-sessions",
+  });
+  app.register(leaderboardRoutes, {
+    prefix: "/api/leaderboard",
   });
 
   // Local static file serving fallback for uploads when MinIO is down

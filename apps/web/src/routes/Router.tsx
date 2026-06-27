@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { DashboardRouter } from "../features/dashboard/DashboardRouter";
 import ProtectedRoute from "./ProtectedRoute";
@@ -16,6 +16,14 @@ import SettingsPage from "../pages/dashboard/shared/SettingsPage";
 import RoleGuard from "./RoleGuard";
 import VocabSetsPage from "../pages/dashboard/teacher/VocabSetsPage";
 import VocabSetDetailPage from "../pages/dashboard/teacher/VocabSetDetailPage";
+
+/* Student Flashcard Suite Pages */
+import LearnCardsPage from "../modules/flashcards/pages/LearnCardsPage";
+import FlipCardsPage from "../modules/flashcards/pages/FlipCardsPage";
+import SelfLearningPage from "../modules/flashcards/pages/SelfLearningPage";
+import ListeningPage from "../modules/flashcards/pages/ListeningPage";
+import HiddenMeaningPage from "../modules/flashcards/pages/HiddenMeaningPage";
+import SpeakingCardsPage from "../modules/flashcards/pages/SpeakingCardsPage";
 
 export const router = createBrowserRouter([
   /* ── Public auth ── */
@@ -50,7 +58,7 @@ export const router = createBrowserRouter([
       {
         path: "vocab-sets",
         element: (
-          <RoleGuard roles={["TEACHER"]}>
+          <RoleGuard roles={["TEACHER", "STUDENT"]}>
             <VocabSetsPage />
           </RoleGuard>
         ),
@@ -67,6 +75,36 @@ export const router = createBrowserRouter([
       { path: "assignments", element: <AssignmentsPage /> },
       /* Student only */
       { path: "progress", element: <ProgressPage /> },
+    ],
+  },
+
+  /* ── Student Immersive Flashcard Activities ── */
+  {
+    path: "/student/activities",
+    element: (
+      <ProtectedRoute>
+        <RoleGuard roles={["STUDENT"]}>
+          <div className="min-h-screen bg-background text-foreground flex flex-col">
+            <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+              <Outlet />
+            </main>
+          </div>
+        </RoleGuard>
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: "a1/assignments/:assignmentId", element: <LearnCardsPage /> },
+      { path: "a2/assignments/:assignmentId", element: <FlipCardsPage /> },
+      { path: "a3/assignments/:assignmentId", element: <SelfLearningPage /> },
+      { path: "a4/assignments/:assignmentId", element: <ListeningPage /> },
+      { path: "a5/assignments/:assignmentId", element: <HiddenMeaningPage /> },
+      { path: "a6/assignments/:assignmentId", element: <SpeakingCardsPage /> },
+      { path: "a1/:vocabSetId", element: <LearnCardsPage /> },
+      { path: "a2/:vocabSetId", element: <FlipCardsPage /> },
+      { path: "a3/:vocabSetId", element: <SelfLearningPage /> },
+      { path: "a4/:vocabSetId", element: <ListeningPage /> },
+      { path: "a5/:vocabSetId", element: <HiddenMeaningPage /> },
+      { path: "a6/:vocabSetId", element: <SpeakingCardsPage /> },
     ],
   },
 

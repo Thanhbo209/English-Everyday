@@ -26,10 +26,15 @@ import {
   useDeleteVocabSet,
 } from "../../../features/vocab/hooks/useVocabs";
 import type { VocabSet } from "../../../api/vocab.api";
+import { useAuth } from "../../../features/auth/hooks/useAuth";
+import { PracticeModal } from "../../../modules/flashcards/components/PracticeModal";
 
 export default function VocabSetsPage() {
   const navigate = useNavigate();
   const toast = useToast();
+  const { user } = useAuth();
+
+  const isTeacher = user?.role === "TEACHER";
 
   const {
     data: classrooms,
@@ -47,6 +52,9 @@ export default function VocabSetsPage() {
   const createMutation = useCreateVocabSet();
   const updateMutation = useUpdateVocabSet();
   const deleteMutation = useDeleteVocabSet();
+
+  const [practiceOpen, setPracticeOpen] = useState(false);
+  const [selectedPracticeSet, setSelectedPracticeSet] = useState<VocabSet | null>(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingSet, setEditingSet] = useState<VocabSet | null>(null);
@@ -180,19 +188,21 @@ export default function VocabSetsPage() {
           </p>
         </div>
 
-        <Button
-          leftIcon={<Plus size={16} />}
-          onClick={handleCreateClick}
-          variant="primary"
-          size="sm"
-          disabled={!hasClassrooms}
-          title={!hasClassrooms ? "Create a classroom first" : undefined}
-        >
-          Create Set
-        </Button>
+        {isTeacher && (
+          <Button
+            leftIcon={<Plus size={16} />}
+            onClick={handleCreateClick}
+            variant="primary"
+            size="sm"
+            disabled={!hasClassrooms}
+            title={!hasClassrooms ? "Create a classroom first" : undefined}
+          >
+            Create Set
+          </Button>
+        )}
       </div>
 
-      {!hasClassrooms && (
+      {isTeacher && !hasClassrooms && (
         <Card className="border-warning/30 bg-warning/5 text-warning-foreground text-sm flex items-center gap-3 p-4">
           <ChalkboardTeacher size={20} className="text-warning shrink-0" />
           <div>
@@ -235,8 +245,15 @@ export default function VocabSetsPage() {
             <Card
               key={set.id}
               hover
-              onClick={() => navigate(`/dashboard/vocab-sets/${set.id}`)}
-              className="flex flex-col justify-between group h-52"
+              onClick={() => {
+                if (isTeacher) {
+                  navigate(`/dashboard/vocab-sets/${set.id}`);
+                } else {
+                  setSelectedPracticeSet(set);
+                  setPracticeOpen(true);
+                }
+              }}
+              className="flex flex-col justify-between group h-52 cursor-pointer"
             >
               <div className="space-y-3">
                 <div className="flex justify-between items-start gap-2">
@@ -273,38 +290,55 @@ export default function VocabSetsPage() {
               </div>
 
               <div className="flex items-center justify-between border-t border-border/60 pt-3 mt-4 gap-2">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="w-full text-xs font-semibold py-1.5"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/dashboard/vocab-sets/${set.id}`);
-                  }}
-                >
-                  Manage Items
-                </Button>
+                {isTeacher ? (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="w-full text-xs font-semibold py-1.5"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/dashboard/vocab-sets/${set.id}`);
+                      }}
+                    >
+                      Manage Items
+                    </Button>
 
-                <div className="flex items-center gap-1 shrink-0">
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="p-2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                        onClick={(e) => handleEditClick(e, set)}
+                        aria-label="Edit set"
+                      >
+                        <PencilSimple size={16} />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="p-2 h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={(e) => handleDeleteClick(e, set)}
+                        aria-label="Delete set"
+                      >
+                        <Trash size={16} />
+                      </Button>
+                    </div>
+                  </>
+                ) : (
                   <Button
                     size="sm"
-                    variant="ghost"
-                    className="p-2 h-8 w-8 text-muted-foreground hover:text-foreground"
-                    onClick={(e) => handleEditClick(e, set)}
-                    aria-label="Edit set"
+                    variant="primary"
+                    className="w-full text-xs font-semibold py-1.5"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPracticeSet(set);
+                      setPracticeOpen(true);
+                    }}
                   >
-                    <PencilSimple size={16} />
+                    Practice Suite
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="p-2 h-8 w-8 text-muted-foreground hover:text-destructive"
-                    onClick={(e) => handleDeleteClick(e, set)}
-                    aria-label="Delete set"
-                  >
-                    <Trash size={16} />
-                  </Button>
-                </div>
+                )}
               </div>
             </Card>
           ))}
@@ -429,6 +463,16 @@ export default function VocabSetsPage() {
           </div>
         </div>
       </Modal>
+
+      {/* Practice activities picker modal for student */}
+      <PracticeModal
+        open={practiceOpen}
+        onClose={() => {
+          setPracticeOpen(false);
+          setSelectedPracticeSet(null);
+        }}
+        vocabSet={selectedPracticeSet}
+      />
     </div>
   );
 }

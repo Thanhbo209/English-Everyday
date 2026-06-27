@@ -263,6 +263,12 @@ export type UserWhereInput = {
   classrooms?: Prisma.ClassroomListRelationFilter
   classroomMembers?: Prisma.ClassroomsMemberListRelationFilter
   vocabularySets?: Prisma.VocabularySetListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
+  progressRecords?: Prisma.ProgressRecordListRelationFilter
+  vocabMasteries?: Prisma.VocabMasteryListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
+  liveSessionPlayers?: Prisma.LiveSessionPlayerListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -279,6 +285,12 @@ export type UserOrderByWithRelationInput = {
   classrooms?: Prisma.ClassroomOrderByRelationAggregateInput
   classroomMembers?: Prisma.ClassroomsMemberOrderByRelationAggregateInput
   vocabularySets?: Prisma.VocabularySetOrderByRelationAggregateInput
+  assignments?: Prisma.AssignmentOrderByRelationAggregateInput
+  submissions?: Prisma.SubmissionOrderByRelationAggregateInput
+  progressRecords?: Prisma.ProgressRecordOrderByRelationAggregateInput
+  vocabMasteries?: Prisma.VocabMasteryOrderByRelationAggregateInput
+  liveSessions?: Prisma.LiveSessionOrderByRelationAggregateInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -298,6 +310,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   classrooms?: Prisma.ClassroomListRelationFilter
   classroomMembers?: Prisma.ClassroomsMemberListRelationFilter
   vocabularySets?: Prisma.VocabularySetListRelationFilter
+  assignments?: Prisma.AssignmentListRelationFilter
+  submissions?: Prisma.SubmissionListRelationFilter
+  progressRecords?: Prisma.ProgressRecordListRelationFilter
+  vocabMasteries?: Prisma.VocabMasteryListRelationFilter
+  liveSessions?: Prisma.LiveSessionListRelationFilter
+  liveSessionPlayers?: Prisma.LiveSessionPlayerListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -348,6 +366,12 @@ export type UserCreateInput = {
   classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
   classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -364,6 +388,12 @@ export type UserUncheckedCreateInput = {
   classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
   classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type UserUpdateInput = {
@@ -380,6 +410,12 @@ export type UserUpdateInput = {
   classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
   classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -396,6 +432,12 @@ export type UserUncheckedUpdateInput = {
   classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
   classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -553,6 +595,90 @@ export type UserUpdateOneRequiredWithoutVocabularySetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVocabularySetsInput, Prisma.UserUpdateWithoutVocabularySetsInput>, Prisma.UserUncheckedUpdateWithoutVocabularySetsInput>
 }
 
+export type UserCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.UserUpdateWithoutAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type UserCreateNestedOneWithoutSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.UserUpdateWithoutSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type UserCreateNestedOneWithoutProgressRecordsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProgressRecordsInput, Prisma.UserUncheckedCreateWithoutProgressRecordsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProgressRecordsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProgressRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProgressRecordsInput, Prisma.UserUncheckedCreateWithoutProgressRecordsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProgressRecordsInput
+  upsert?: Prisma.UserUpsertWithoutProgressRecordsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProgressRecordsInput, Prisma.UserUpdateWithoutProgressRecordsInput>, Prisma.UserUncheckedUpdateWithoutProgressRecordsInput>
+}
+
+export type UserCreateNestedOneWithoutVocabMasteriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVocabMasteriesInput, Prisma.UserUncheckedCreateWithoutVocabMasteriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVocabMasteriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVocabMasteriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVocabMasteriesInput, Prisma.UserUncheckedCreateWithoutVocabMasteriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVocabMasteriesInput
+  upsert?: Prisma.UserUpsertWithoutVocabMasteriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVocabMasteriesInput, Prisma.UserUpdateWithoutVocabMasteriesInput>, Prisma.UserUncheckedUpdateWithoutVocabMasteriesInput>
+}
+
+export type UserCreateNestedOneWithoutLiveSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionsInput, Prisma.UserUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLiveSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLiveSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionsInput, Prisma.UserUncheckedCreateWithoutLiveSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLiveSessionsInput
+  upsert?: Prisma.UserUpsertWithoutLiveSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLiveSessionsInput, Prisma.UserUpdateWithoutLiveSessionsInput>, Prisma.UserUncheckedUpdateWithoutLiveSessionsInput>
+}
+
+export type UserCreateNestedOneWithoutLiveSessionPlayersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedCreateWithoutLiveSessionPlayersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLiveSessionPlayersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLiveSessionPlayersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedCreateWithoutLiveSessionPlayersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLiveSessionPlayersInput
+  upsert?: Prisma.UserUpsertWithoutLiveSessionPlayersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLiveSessionPlayersInput, Prisma.UserUpdateWithoutLiveSessionPlayersInput>, Prisma.UserUncheckedUpdateWithoutLiveSessionPlayersInput>
+}
+
 export type UserCreateWithoutClassroomsInput = {
   id?: string
   email: string
@@ -566,6 +692,12 @@ export type UserCreateWithoutClassroomsInput = {
   updatedAt?: Date | string
   classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
 }
 
 export type UserUncheckedCreateWithoutClassroomsInput = {
@@ -581,6 +713,12 @@ export type UserUncheckedCreateWithoutClassroomsInput = {
   updatedAt?: Date | string
   classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type UserCreateOrConnectWithoutClassroomsInput = {
@@ -612,6 +750,12 @@ export type UserUpdateWithoutClassroomsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClassroomsInput = {
@@ -627,6 +771,12 @@ export type UserUncheckedUpdateWithoutClassroomsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type UserCreateWithoutClassroomMembersInput = {
@@ -642,6 +792,12 @@ export type UserCreateWithoutClassroomMembersInput = {
   updatedAt?: Date | string
   classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
   vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
 }
 
 export type UserUncheckedCreateWithoutClassroomMembersInput = {
@@ -657,6 +813,12 @@ export type UserUncheckedCreateWithoutClassroomMembersInput = {
   updatedAt?: Date | string
   classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
   vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type UserCreateOrConnectWithoutClassroomMembersInput = {
@@ -688,6 +850,12 @@ export type UserUpdateWithoutClassroomMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
   vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClassroomMembersInput = {
@@ -703,6 +871,12 @@ export type UserUncheckedUpdateWithoutClassroomMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
   vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type UserCreateWithoutVocabularySetsInput = {
@@ -718,6 +892,12 @@ export type UserCreateWithoutVocabularySetsInput = {
   updatedAt?: Date | string
   classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
   classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
 }
 
 export type UserUncheckedCreateWithoutVocabularySetsInput = {
@@ -733,6 +913,12 @@ export type UserUncheckedCreateWithoutVocabularySetsInput = {
   updatedAt?: Date | string
   classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
   classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type UserCreateOrConnectWithoutVocabularySetsInput = {
@@ -764,6 +950,12 @@ export type UserUpdateWithoutVocabularySetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
   classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVocabularySetsInput = {
@@ -779,6 +971,612 @@ export type UserUncheckedUpdateWithoutVocabularySetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
   classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutAssignmentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
+}
+
+export type UserUncheckedCreateWithoutAssignmentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type UserCreateOrConnectWithoutAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+}
+
+export type UserUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignmentsInput, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignmentsInput, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type UserUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
+}
+
+export type UserUncheckedCreateWithoutSubmissionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type UserCreateOrConnectWithoutSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+}
+
+export type UserUpsertWithoutSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSubmissionsInput, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSubmissionsInput, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type UserUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutProgressRecordsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
+}
+
+export type UserUncheckedCreateWithoutProgressRecordsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type UserCreateOrConnectWithoutProgressRecordsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProgressRecordsInput, Prisma.UserUncheckedCreateWithoutProgressRecordsInput>
+}
+
+export type UserUpsertWithoutProgressRecordsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProgressRecordsInput, Prisma.UserUncheckedUpdateWithoutProgressRecordsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProgressRecordsInput, Prisma.UserUncheckedCreateWithoutProgressRecordsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProgressRecordsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProgressRecordsInput, Prisma.UserUncheckedUpdateWithoutProgressRecordsInput>
+}
+
+export type UserUpdateWithoutProgressRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProgressRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutVocabMasteriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
+}
+
+export type UserUncheckedCreateWithoutVocabMasteriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type UserCreateOrConnectWithoutVocabMasteriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVocabMasteriesInput, Prisma.UserUncheckedCreateWithoutVocabMasteriesInput>
+}
+
+export type UserUpsertWithoutVocabMasteriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVocabMasteriesInput, Prisma.UserUncheckedUpdateWithoutVocabMasteriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVocabMasteriesInput, Prisma.UserUncheckedCreateWithoutVocabMasteriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVocabMasteriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVocabMasteriesInput, Prisma.UserUncheckedUpdateWithoutVocabMasteriesInput>
+}
+
+export type UserUpdateWithoutVocabMasteriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVocabMasteriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutLiveSessionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerCreateNestedManyWithoutStudentInput
+}
+
+export type UserUncheckedCreateWithoutLiveSessionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type UserCreateOrConnectWithoutLiveSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionsInput, Prisma.UserUncheckedCreateWithoutLiveSessionsInput>
+}
+
+export type UserUpsertWithoutLiveSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLiveSessionsInput, Prisma.UserUncheckedUpdateWithoutLiveSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionsInput, Prisma.UserUncheckedCreateWithoutLiveSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLiveSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLiveSessionsInput, Prisma.UserUncheckedUpdateWithoutLiveSessionsInput>
+}
+
+export type UserUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUpdateManyWithoutStudentNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLiveSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessionPlayers?: Prisma.LiveSessionPlayerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type UserCreateWithoutLiveSessionPlayersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionCreateNestedManyWithoutTeacherInput
+}
+
+export type UserUncheckedCreateWithoutLiveSessionPlayersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  role?: $Enums.UserRole
+  avatarUrl?: string
+  xp?: number
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  classrooms?: Prisma.ClassroomUncheckedCreateNestedManyWithoutTeacherInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedCreateNestedManyWithoutUserInput
+  vocabularySets?: Prisma.VocabularySetUncheckedCreateNestedManyWithoutTeacherInput
+  assignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTeacherInput
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutStudentInput
+  progressRecords?: Prisma.ProgressRecordUncheckedCreateNestedManyWithoutStudentInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutStudentInput
+  liveSessions?: Prisma.LiveSessionUncheckedCreateNestedManyWithoutTeacherInput
+}
+
+export type UserCreateOrConnectWithoutLiveSessionPlayersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedCreateWithoutLiveSessionPlayersInput>
+}
+
+export type UserUpsertWithoutLiveSessionPlayersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedUpdateWithoutLiveSessionPlayersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedCreateWithoutLiveSessionPlayersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLiveSessionPlayersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLiveSessionPlayersInput, Prisma.UserUncheckedUpdateWithoutLiveSessionPlayersInput>
+}
+
+export type UserUpdateWithoutLiveSessionPlayersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUpdateManyWithoutTeacherNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLiveSessionPlayersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  classrooms?: Prisma.ClassroomUncheckedUpdateManyWithoutTeacherNestedInput
+  classroomMembers?: Prisma.ClassroomsMemberUncheckedUpdateManyWithoutUserNestedInput
+  vocabularySets?: Prisma.VocabularySetUncheckedUpdateManyWithoutTeacherNestedInput
+  assignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTeacherNestedInput
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+  progressRecords?: Prisma.ProgressRecordUncheckedUpdateManyWithoutStudentNestedInput
+  vocabMasteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutStudentNestedInput
+  liveSessions?: Prisma.LiveSessionUncheckedUpdateManyWithoutTeacherNestedInput
 }
 
 
@@ -790,12 +1588,24 @@ export type UserCountOutputType = {
   classrooms: number
   classroomMembers: number
   vocabularySets: number
+  assignments: number
+  submissions: number
+  progressRecords: number
+  vocabMasteries: number
+  liveSessions: number
+  liveSessionPlayers: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   classrooms?: boolean | UserCountOutputTypeCountClassroomsArgs
   classroomMembers?: boolean | UserCountOutputTypeCountClassroomMembersArgs
   vocabularySets?: boolean | UserCountOutputTypeCountVocabularySetsArgs
+  assignments?: boolean | UserCountOutputTypeCountAssignmentsArgs
+  submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
+  progressRecords?: boolean | UserCountOutputTypeCountProgressRecordsArgs
+  vocabMasteries?: boolean | UserCountOutputTypeCountVocabMasteriesArgs
+  liveSessions?: boolean | UserCountOutputTypeCountLiveSessionsArgs
+  liveSessionPlayers?: boolean | UserCountOutputTypeCountLiveSessionPlayersArgs
 }
 
 /**
@@ -829,6 +1639,48 @@ export type UserCountOutputTypeCountVocabularySetsArgs<ExtArgs extends runtime.T
   where?: Prisma.VocabularySetWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProgressRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProgressRecordWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVocabMasteriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VocabMasteryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLiveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveSessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLiveSessionPlayersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveSessionPlayerWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -844,6 +1696,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   classrooms?: boolean | Prisma.User$classroomsArgs<ExtArgs>
   classroomMembers?: boolean | Prisma.User$classroomMembersArgs<ExtArgs>
   vocabularySets?: boolean | Prisma.User$vocabularySetsArgs<ExtArgs>
+  assignments?: boolean | Prisma.User$assignmentsArgs<ExtArgs>
+  submissions?: boolean | Prisma.User$submissionsArgs<ExtArgs>
+  progressRecords?: boolean | Prisma.User$progressRecordsArgs<ExtArgs>
+  vocabMasteries?: boolean | Prisma.User$vocabMasteriesArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.User$liveSessionsArgs<ExtArgs>
+  liveSessionPlayers?: boolean | Prisma.User$liveSessionPlayersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -891,6 +1749,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   classrooms?: boolean | Prisma.User$classroomsArgs<ExtArgs>
   classroomMembers?: boolean | Prisma.User$classroomMembersArgs<ExtArgs>
   vocabularySets?: boolean | Prisma.User$vocabularySetsArgs<ExtArgs>
+  assignments?: boolean | Prisma.User$assignmentsArgs<ExtArgs>
+  submissions?: boolean | Prisma.User$submissionsArgs<ExtArgs>
+  progressRecords?: boolean | Prisma.User$progressRecordsArgs<ExtArgs>
+  vocabMasteries?: boolean | Prisma.User$vocabMasteriesArgs<ExtArgs>
+  liveSessions?: boolean | Prisma.User$liveSessionsArgs<ExtArgs>
+  liveSessionPlayers?: boolean | Prisma.User$liveSessionPlayersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -902,6 +1766,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     classrooms: Prisma.$ClassroomPayload<ExtArgs>[]
     classroomMembers: Prisma.$ClassroomsMemberPayload<ExtArgs>[]
     vocabularySets: Prisma.$VocabularySetPayload<ExtArgs>[]
+    assignments: Prisma.$AssignmentPayload<ExtArgs>[]
+    submissions: Prisma.$SubmissionPayload<ExtArgs>[]
+    progressRecords: Prisma.$ProgressRecordPayload<ExtArgs>[]
+    vocabMasteries: Prisma.$VocabMasteryPayload<ExtArgs>[]
+    liveSessions: Prisma.$LiveSessionPayload<ExtArgs>[]
+    liveSessionPlayers: Prisma.$LiveSessionPlayerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1311,6 +2181,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   classrooms<T extends Prisma.User$classroomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$classroomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassroomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   classroomMembers<T extends Prisma.User$classroomMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$classroomMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassroomsMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vocabularySets<T extends Prisma.User$vocabularySetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vocabularySetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VocabularySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.User$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  submissions<T extends Prisma.User$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  progressRecords<T extends Prisma.User$progressRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$progressRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProgressRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  vocabMasteries<T extends Prisma.User$vocabMasteriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vocabMasteriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VocabMasteryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveSessions<T extends Prisma.User$liveSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$liveSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveSessionPlayers<T extends Prisma.User$liveSessionPlayersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$liveSessionPlayersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveSessionPlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1812,6 +2688,150 @@ export type User$vocabularySetsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.VocabularySetScalarFieldEnum | Prisma.VocabularySetScalarFieldEnum[]
+}
+
+/**
+ * User.assignments
+ */
+export type User$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Assignment
+   */
+  select?: Prisma.AssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Assignment
+   */
+  omit?: Prisma.AssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssignmentWhereInput
+  orderBy?: Prisma.AssignmentOrderByWithRelationInput | Prisma.AssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssignmentScalarFieldEnum | Prisma.AssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.submissions
+ */
+export type User$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Submission
+   */
+  select?: Prisma.SubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Submission
+   */
+  omit?: Prisma.SubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionInclude<ExtArgs> | null
+  where?: Prisma.SubmissionWhereInput
+  orderBy?: Prisma.SubmissionOrderByWithRelationInput | Prisma.SubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionScalarFieldEnum | Prisma.SubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.progressRecords
+ */
+export type User$progressRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProgressRecord
+   */
+  select?: Prisma.ProgressRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProgressRecord
+   */
+  omit?: Prisma.ProgressRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProgressRecordInclude<ExtArgs> | null
+  where?: Prisma.ProgressRecordWhereInput
+  orderBy?: Prisma.ProgressRecordOrderByWithRelationInput | Prisma.ProgressRecordOrderByWithRelationInput[]
+  cursor?: Prisma.ProgressRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProgressRecordScalarFieldEnum | Prisma.ProgressRecordScalarFieldEnum[]
+}
+
+/**
+ * User.vocabMasteries
+ */
+export type User$vocabMasteriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VocabMastery
+   */
+  select?: Prisma.VocabMasterySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VocabMastery
+   */
+  omit?: Prisma.VocabMasteryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VocabMasteryInclude<ExtArgs> | null
+  where?: Prisma.VocabMasteryWhereInput
+  orderBy?: Prisma.VocabMasteryOrderByWithRelationInput | Prisma.VocabMasteryOrderByWithRelationInput[]
+  cursor?: Prisma.VocabMasteryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VocabMasteryScalarFieldEnum | Prisma.VocabMasteryScalarFieldEnum[]
+}
+
+/**
+ * User.liveSessions
+ */
+export type User$liveSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveSession
+   */
+  select?: Prisma.LiveSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveSession
+   */
+  omit?: Prisma.LiveSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveSessionInclude<ExtArgs> | null
+  where?: Prisma.LiveSessionWhereInput
+  orderBy?: Prisma.LiveSessionOrderByWithRelationInput | Prisma.LiveSessionOrderByWithRelationInput[]
+  cursor?: Prisma.LiveSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveSessionScalarFieldEnum | Prisma.LiveSessionScalarFieldEnum[]
+}
+
+/**
+ * User.liveSessionPlayers
+ */
+export type User$liveSessionPlayersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveSessionPlayer
+   */
+  select?: Prisma.LiveSessionPlayerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveSessionPlayer
+   */
+  omit?: Prisma.LiveSessionPlayerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveSessionPlayerInclude<ExtArgs> | null
+  where?: Prisma.LiveSessionPlayerWhereInput
+  orderBy?: Prisma.LiveSessionPlayerOrderByWithRelationInput | Prisma.LiveSessionPlayerOrderByWithRelationInput[]
+  cursor?: Prisma.LiveSessionPlayerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveSessionPlayerScalarFieldEnum | Prisma.LiveSessionPlayerScalarFieldEnum[]
 }
 
 /**

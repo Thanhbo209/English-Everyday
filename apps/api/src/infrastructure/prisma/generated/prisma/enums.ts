@@ -38,3 +38,69 @@ export const PartOfSpeech = {
 } as const
 
 export type PartOfSpeech = (typeof PartOfSpeech)[keyof typeof PartOfSpeech]
+
+
+export const ActivityType = {
+  A1: 'A1',
+  A2: 'A2',
+  A3: 'A3',
+  A4: 'A4',
+  A5: 'A5',
+  A6: 'A6',
+  G1: 'G1',
+  G2: 'G2',
+  G3: 'G3',
+  G4: 'G4',
+  G5: 'G5',
+  G6: 'G6',
+  G7: 'G7',
+  G8: 'G8',
+  G9: 'G9',
+  G10: 'G10',
+  G11: 'G11',
+  S1: 'S1',
+  S2: 'S2',
+  L1: 'L1',
+  L2: 'L2',
+  L3: 'L3',
+  L4: 'L4',
+  L5: 'L5',
+  L6: 'L6'
+} as const
+
+export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
+
+
+export const SubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  GRADED: 'GRADED'
+} as const
+
+export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof SubmissionStatus]
+
+
+export const MasteryStatus = {
+  NEW: 'NEW',
+  LEARNING: 'LEARNING',
+  KNOWN: 'KNOWN'
+} as const
+
+export type MasteryStatus = (typeof MasteryStatus)[keyof typeof MasteryStatus]
+
+
+export const LiveSessionStatus = {
+  WAITING: 'WAITING',
+  ACTIVE: 'ACTIVE',
+  ENDED: 'ENDED'
+} as const
+
+export type LiveSessionStatus = (typeof LiveSessionStatus)[keyof typeof LiveSessionStatus]
+
+
+export const LeaderboardPeriod = {
+  WEEK: 'WEEK',
+  MONTH: 'MONTH',
+  ALL: 'ALL'
+} as const
+
+export type LeaderboardPeriod = (typeof LeaderboardPeriod)[keyof typeof LeaderboardPeriod]

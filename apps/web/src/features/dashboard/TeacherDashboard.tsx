@@ -6,126 +6,98 @@ import {
   BookOpen,
   ChartLineUp,
   Plus,
-  UserPlus,
-  Key,
-  CheckCircle,
-  XCircle,
-  Clock,
+  Trophy,
+  ClipboardText,
+  Broadcast,
 } from "@phosphor-icons/react";
 import { useAuth } from "../../features/auth/hooks/useAuth";
 import { DashboardStatCard, Badge, Button, Card, LoadingSpinner } from "../../components/ui";
 import { useClassrooms } from "../../features/classroom/hooks/useClassrooms";
 import { ClassroomModal } from "../../features/classroom/components/ClassroomModal";
-
-/* ── Activity Mock (remains for feed) ───────────────────────── */
-const ACTIVITY = [
-  {
-    id: "1",
-    icon: <CheckCircle size={15} className="text-primary" />,
-    text: 'Maria completed "Present Perfect" lesson',
-    time: "5 min ago",
-  },
-  {
-    id: "2",
-    icon: <UserPlus size={15} className="text-accent-foreground" />,
-    text: "David joined Business English classroom",
-    time: "32 min ago",
-  },
-  {
-    id: "3",
-    icon: <XCircle size={15} className="text-destructive" />,
-    text: 'Lesson "Reported Speech" scored below 60%',
-    time: "1 hour ago",
-  },
-  {
-    id: "4",
-    icon: <CheckCircle size={15} className="text-primary" />,
-    text: "12 students completed weekly quiz",
-    time: "3 hours ago",
-  },
-  {
-    id: "5",
-    icon: <Clock size={15} className="text-muted-foreground" />,
-    text: "Pronunciation Lab session starts in 1 hour",
-    time: "4 hours ago",
-  },
-];
+import { useAssignments } from "../../modules/flashcards/hooks/useAssignment";
+import { useLeaderboard } from "../../modules/flashcards/hooks/useLeaderboard";
+import { useClassroomMastery } from "../../modules/flashcards/hooks/useMastery";
+import { useLiveSessions } from "../../modules/flashcards/hooks/useLiveSessions";
 
 export function TeacherDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { data: classrooms, isLoading } = useClassrooms();
+  const { data: classrooms, isLoading: loadingClassrooms } = useClassrooms();
+  const { data: assignments, isLoading: loadingAssignments } = useAssignments();
+  const primaryClassroomId = classrooms?.[0]?.id;
+  const { data: leaderboard } = useLeaderboard(primaryClassroomId);
+  const { data: mastery } = useClassroomMastery(primaryClassroomId);
+  const { data: liveSessions } = useLiveSessions();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const now = new Date();
-  const hour = now.getHours();
-  const greeting =
-    hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
-
-  const dateLabel = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-
-  if (isLoading) {
+  if (loadingClassrooms || loadingAssignments) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="flex flex-col items-center gap-3">
           <LoadingSpinner size="lg" />
-          <p className="text-sm text-muted-foreground">Loading dashboard data…</p>
+          <p className="text-sm text-muted-foreground">Loading dashboard data...</p>
         </div>
       </div>
     );
   }
 
-  // Calculate dynamic stats
   const totalClassrooms = classrooms?.length ?? 0;
-  const totalStudents = classrooms?.reduce((acc, c) => acc + (c._count?.classroomsMembers ?? 0), 0) ?? 0;
-  const activeClassrooms = classrooms?.filter((c) => c.status === "ACTIVE").length ?? 0;
+  const totalStudents =
+    classrooms?.reduce((acc, classroom) => acc + (classroom._count?.classroomsMembers ?? 0), 0) ?? 0;
+  const totalAssignments = assignments?.length ?? 0;
+  const totalSubmissions =
+    assignments?.reduce((acc, assignment) => acc + (assignment._count?.submissions ?? 0), 0) ?? 0;
+  const completionRate =
+    totalAssignments > 0 && totalStudents > 0
+      ? Math.round((totalSubmissions / (totalAssignments * totalStudents)) * 100)
+      : 0;
+  const averageAccuracy =
+    leaderboard && leaderboard.length > 0
+      ? Math.round(
+          leaderboard.reduce((sum, entry) => sum + entry.averageAccuracy, 0) /
+            leaderboard.length,
+        )
+      : 0;
+  const activeLiveSessions = liveSessions?.filter((session) => session.status !== "ENDED") ?? [];
 
   const STATS = [
     {
-      label: "Total Classrooms",
+      label: "Classrooms",
       value: totalClassrooms,
       icon: <ChalkboardTeacher size={22} />,
       iconTone: "yellow" as const,
     },
     {
-      label: "Total Students",
+      label: "Students",
       value: totalStudents,
       icon: <Users size={22} />,
       iconTone: "blue" as const,
     },
     {
-      label: "Active Classrooms",
-      value: activeClassrooms,
+      label: "Completion",
+      value: `${completionRate}%`,
       icon: <BookOpen size={22} />,
-      iconTone: "orange" as const,
+      iconTone: "green" as const,
     },
     {
-      label: "Completion Rate",
-      value: "89%",
+      label: "Avg Accuracy",
+      value: `${averageAccuracy}%`,
       icon: <ChartLineUp size={22} />,
-      iconTone: "green" as const,
-      trend: { value: "+4% vs last month", direction: "up" as const },
+      iconTone: "orange" as const,
     },
   ];
 
-  const recentClassrooms = classrooms?.slice(0, 3) ?? [];
-
   return (
     <div className="space-y-7">
-      {/* ── Welcome banner & Breadcrumbs ── */}
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">{dateLabel}</p>
+            <p className="text-sm text-muted-foreground mb-1">Teacher workspace</p>
             <h2 className="text-2xl font-bold text-foreground">
-              {greeting}, {user?.name?.split(" ")[0]} 👋
+              Welcome, {user?.name?.split(" ")[0] ?? "Teacher"}
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Here is what is happening in your classrooms today.
+              Track assignments, mastery, and student performance from live learning data.
             </p>
           </div>
           <Button leftIcon={<Plus size={16} />} size="sm" onClick={() => setModalOpen(true)}>
@@ -142,160 +114,183 @@ export function TeacherDashboard() {
         </nav>
       </div>
 
-      {/* ── Stats grid ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-        {STATS.map((s) => (
-          <DashboardStatCard key={s.label} {...s} />
+        {STATS.map((stat) => (
+          <DashboardStatCard key={stat.label} {...stat} />
         ))}
       </div>
 
-      {/* ── Classrooms + Activity ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Recent Classrooms */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-semibold text-foreground">
-              Recent Classrooms
-            </h3>
+            <h3 className="text-base font-semibold text-foreground">Assignment Completion</h3>
             <button
-              onClick={() => navigate("/dashboard/classrooms")}
+              onClick={() => navigate("/dashboard/assignments")}
               className="text-xs text-primary hover:text-primary/80 font-medium transition-colors cursor-pointer"
             >
-              View all
+              Manage
             </button>
           </div>
 
-          {recentClassrooms.length === 0 ? (
-            <Card className="flex flex-col items-center justify-center py-10 text-center min-h-[180px]">
-              <ChalkboardTeacher size={36} className="text-muted-foreground mb-2" />
-              <p className="text-sm font-medium text-foreground">No classrooms created yet</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Create a classroom to invite your students and set up assignments.
-              </p>
-              <Button size="sm" className="mt-3.5" leftIcon={<Plus size={14} />} onClick={() => setModalOpen(true)}>
-                Create Classroom
-              </Button>
-            </Card>
-          ) : (
-            <div className="space-y-3">
-              {recentClassrooms.map((cls) => (
-                <Card
-                  key={cls.id}
-                  hover
-                  onClick={() => navigate(`/dashboard/classrooms/${cls.id}`)}
-                  className="flex items-center gap-4 cursor-pointer"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-sidebar-accent text-sidebar-accent-foreground flex items-center justify-center shrink-0">
-                    <ChalkboardTeacher size={20} />
+          <div className="space-y-3">
+            {assignments?.length ? (
+              assignments.slice(0, 5).map((assignment) => (
+                <Card key={assignment.id} className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <ClipboardText size={20} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground truncate">
-                      {cls.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {cls._count?.classroomsMembers ?? 0} students · Code: {cls.joinCode}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-sm font-semibold text-foreground truncate">
+                        {assignment.title}
+                      </p>
+                      <Badge variant="info">{assignment.activityType}</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {assignment.classroom?.name ?? "Classroom"} · {assignment._count?.submissions ?? 0} submissions
                     </p>
                   </div>
-                  <Badge variant={cls.status === "ACTIVE" ? "success" : "warning"}>
-                    {cls.status}
-                  </Badge>
                 </Card>
-              ))}
-            </div>
-          )}
+              ))
+            ) : (
+              <Card className="flex flex-col items-center justify-center py-10 text-center">
+                <ClipboardText size={32} className="text-muted-foreground mb-2" />
+                <p className="text-sm font-semibold text-foreground">No assignments yet</p>
+                <Button
+                  size="sm"
+                  className="mt-3"
+                  leftIcon={<Plus size={14} />}
+                  onClick={() => navigate("/dashboard/assignments")}
+                >
+                  Create Assignment
+                </Button>
+              </Card>
+            )}
+          </div>
         </div>
 
-        {/* Activity Feed */}
         <div className="space-y-4">
-          <h3 className="text-base font-semibold text-foreground">
-            Recent Activity
-          </h3>
+          <h3 className="text-base font-semibold text-foreground">Mastery Distribution</h3>
+          <Card className="space-y-4">
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div>
+                <p className="text-xl font-bold text-secondary">{mastery?.known ?? 0}</p>
+                <p className="text-[11px] text-muted-foreground">Known</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-accent-foreground">{mastery?.learning ?? 0}</p>
+                <p className="text-[11px] text-muted-foreground">Learning</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-foreground">{mastery?.new ?? 0}</p>
+                <p className="text-[11px] text-muted-foreground">New</p>
+              </div>
+            </div>
+            <div className="h-2 rounded-full bg-muted overflow-hidden">
+              <div
+                className="h-full bg-secondary"
+                style={{ width: `${mastery?.percentages.known ?? 0}%` }}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {mastery?.percentages.known ?? 0}% known in {classrooms?.[0]?.name ?? "selected classroom"}.
+            </p>
+          </Card>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="space-y-4">
+          <h3 className="text-base font-semibold text-foreground">Leaderboard</h3>
           <Card padding="none">
-            <ul>
-              {ACTIVITY.map((a, idx) => (
-                <li
-                  key={a.id}
-                  className={`flex gap-3 px-5 py-4 ${idx !== ACTIVITY.length - 1 ? "border-b border-border" : ""}`}
-                >
-                  <span className="mt-0.5 shrink-0">{a.icon}</span>
-                  <div className="min-w-0">
-                    <p className="text-xs text-foreground leading-snug">
-                      {a.text}
+            {leaderboard?.length ? (
+              <ul className="divide-y divide-border">
+                {leaderboard.slice(0, 5).map((entry) => (
+                  <li key={entry.studentId} className="px-5 py-3 flex items-center gap-3">
+                    <Trophy size={16} className="text-primary shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-foreground truncate">
+                        #{entry.rank} {entry.name}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground">
+                        {entry.score} points · {entry.averageAccuracy}% accuracy
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="p-5 text-xs text-muted-foreground">No leaderboard entries yet.</div>
+            )}
+          </Card>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-base font-semibold text-foreground">Student Progress</h3>
+          <Card padding="none">
+            {leaderboard?.length ? (
+              <ul className="divide-y divide-border">
+                {leaderboard.slice(0, 5).map((entry) => (
+                  <li key={entry.studentId} className="px-5 py-3">
+                    <p className="text-xs font-semibold text-foreground">{entry.name}</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      {entry.attempts} activities · {entry.averageAccuracy}% average accuracy
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="p-5 text-xs text-muted-foreground">No submitted work yet.</div>
+            )}
+          </Card>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-base font-semibold text-foreground">Live Sessions</h3>
+          <Card padding="none">
+            {activeLiveSessions.length ? (
+              <ul className="divide-y divide-border">
+                {activeLiveSessions.slice(0, 5).map((session) => (
+                  <li key={session.id} className="px-5 py-3">
+                    <p className="text-xs font-semibold text-foreground inline-flex items-center gap-2">
+                      <Broadcast size={14} />
+                      {session.vocabSet?.title ?? "Live activity"}
                     </p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
-                      {a.time}
+                      {session.activityType} · PIN {session.pin} · {session._count?.players ?? 0} players
                     </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="p-5 text-xs text-muted-foreground">No active live sessions.</div>
+            )}
           </Card>
         </div>
       </div>
 
-      {/* ── Quick Actions ── */}
       <div className="space-y-4">
-        <h3 className="text-base font-semibold text-foreground">
-          Quick Actions
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card
-            hover
-            onClick={() => setModalOpen(true)}
-            className="flex items-start gap-4 group cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-              <Plus size={18} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                Create Classroom
-              </p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Set up a new class with invite code
-              </p>
-            </div>
-          </Card>
-
-          <Card
-            hover
-            onClick={() => navigate("/dashboard/classrooms")}
-            className="flex items-start gap-4 group cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-              <Users size={18} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                Manage Classrooms
-              </p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                View status and members of classrooms
-              </p>
-            </div>
-          </Card>
-
-          <Card
-            hover
-            onClick={() => navigate("/dashboard/classrooms")}
-            className="flex items-start gap-4 group cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-              <Key size={18} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                Invite Codes
-              </p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Retrieve class codes to invite students
-              </p>
-            </div>
-          </Card>
+        <h3 className="text-base font-semibold text-foreground">Recent Classrooms</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {classrooms?.slice(0, 3).map((classroom) => (
+            <Card
+              key={classroom.id}
+              hover
+              onClick={() => navigate(`/dashboard/classrooms/${classroom.id}`)}
+              className="flex items-center gap-4 cursor-pointer"
+            >
+              <ChalkboardTeacher size={20} className="text-primary shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate">{classroom.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {classroom._count?.classroomsMembers ?? 0} students
+                </p>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
 
-      {/* Classroom Modal */}
       <ClassroomModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );

@@ -273,6 +273,7 @@ export type VocabItemWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"VocabItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VocabItem"> | Date | string
   vocabSet?: Prisma.XOR<Prisma.VocabularySetScalarRelationFilter, Prisma.VocabularySetWhereInput>
+  masteries?: Prisma.VocabMasteryListRelationFilter
 }
 
 export type VocabItemOrderByWithRelationInput = {
@@ -289,14 +290,15 @@ export type VocabItemOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   vocabSet?: Prisma.VocabularySetOrderByWithRelationInput
+  masteries?: Prisma.VocabMasteryOrderByRelationAggregateInput
 }
 
 export type VocabItemWhereUniqueInput = Prisma.AtLeast<{
+  id?: string
   setId_orderIndex?: Prisma.VocabItemSetIdOrderIndexCompoundUniqueInput
   AND?: Prisma.VocabItemWhereInput | Prisma.VocabItemWhereInput[]
   OR?: Prisma.VocabItemWhereInput[]
   NOT?: Prisma.VocabItemWhereInput | Prisma.VocabItemWhereInput[]
-  id?: Prisma.StringFilter<"VocabItem"> | string
   setId?: Prisma.StringFilter<"VocabItem"> | string
   term?: Prisma.StringFilter<"VocabItem"> | string
   definition?: Prisma.StringFilter<"VocabItem"> | string
@@ -309,7 +311,8 @@ export type VocabItemWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"VocabItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VocabItem"> | Date | string
   vocabSet?: Prisma.XOR<Prisma.VocabularySetScalarRelationFilter, Prisma.VocabularySetWhereInput>
-}, "setId_orderIndex">
+  masteries?: Prisma.VocabMasteryListRelationFilter
+}, "id" | "setId_orderIndex">
 
 export type VocabItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -362,6 +365,7 @@ export type VocabItemCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   vocabSet: Prisma.VocabularySetCreateNestedOneWithoutVocabItemsInput
+  masteries?: Prisma.VocabMasteryCreateNestedManyWithoutVocabItemInput
 }
 
 export type VocabItemUncheckedCreateInput = {
@@ -377,6 +381,7 @@ export type VocabItemUncheckedCreateInput = {
   orderIndex?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  masteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutVocabItemInput
 }
 
 export type VocabItemUpdateInput = {
@@ -392,6 +397,7 @@ export type VocabItemUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   vocabSet?: Prisma.VocabularySetUpdateOneRequiredWithoutVocabItemsNestedInput
+  masteries?: Prisma.VocabMasteryUpdateManyWithoutVocabItemNestedInput
 }
 
 export type VocabItemUncheckedUpdateInput = {
@@ -407,6 +413,7 @@ export type VocabItemUncheckedUpdateInput = {
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  masteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutVocabItemNestedInput
 }
 
 export type VocabItemCreateManyInput = {
@@ -521,6 +528,11 @@ export type VocabItemSumOrderByAggregateInput = {
   orderIndex?: Prisma.SortOrder
 }
 
+export type VocabItemScalarRelationFilter = {
+  is?: Prisma.VocabItemWhereInput
+  isNot?: Prisma.VocabItemWhereInput
+}
+
 export type VocabItemCreateNestedManyWithoutVocabSetInput = {
   create?: Prisma.XOR<Prisma.VocabItemCreateWithoutVocabSetInput, Prisma.VocabItemUncheckedCreateWithoutVocabSetInput> | Prisma.VocabItemCreateWithoutVocabSetInput[] | Prisma.VocabItemUncheckedCreateWithoutVocabSetInput[]
   connectOrCreate?: Prisma.VocabItemCreateOrConnectWithoutVocabSetInput | Prisma.VocabItemCreateOrConnectWithoutVocabSetInput[]
@@ -563,6 +575,20 @@ export type VocabItemUncheckedUpdateManyWithoutVocabSetNestedInput = {
   deleteMany?: Prisma.VocabItemScalarWhereInput | Prisma.VocabItemScalarWhereInput[]
 }
 
+export type VocabItemCreateNestedOneWithoutMasteriesInput = {
+  create?: Prisma.XOR<Prisma.VocabItemCreateWithoutMasteriesInput, Prisma.VocabItemUncheckedCreateWithoutMasteriesInput>
+  connectOrCreate?: Prisma.VocabItemCreateOrConnectWithoutMasteriesInput
+  connect?: Prisma.VocabItemWhereUniqueInput
+}
+
+export type VocabItemUpdateOneRequiredWithoutMasteriesNestedInput = {
+  create?: Prisma.XOR<Prisma.VocabItemCreateWithoutMasteriesInput, Prisma.VocabItemUncheckedCreateWithoutMasteriesInput>
+  connectOrCreate?: Prisma.VocabItemCreateOrConnectWithoutMasteriesInput
+  upsert?: Prisma.VocabItemUpsertWithoutMasteriesInput
+  connect?: Prisma.VocabItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VocabItemUpdateToOneWithWhereWithoutMasteriesInput, Prisma.VocabItemUpdateWithoutMasteriesInput>, Prisma.VocabItemUncheckedUpdateWithoutMasteriesInput>
+}
+
 export type VocabItemCreateWithoutVocabSetInput = {
   id?: string
   term: string
@@ -575,6 +601,7 @@ export type VocabItemCreateWithoutVocabSetInput = {
   orderIndex?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  masteries?: Prisma.VocabMasteryCreateNestedManyWithoutVocabItemInput
 }
 
 export type VocabItemUncheckedCreateWithoutVocabSetInput = {
@@ -589,6 +616,7 @@ export type VocabItemUncheckedCreateWithoutVocabSetInput = {
   orderIndex?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  masteries?: Prisma.VocabMasteryUncheckedCreateNestedManyWithoutVocabItemInput
 }
 
 export type VocabItemCreateOrConnectWithoutVocabSetInput = {
@@ -635,6 +663,82 @@ export type VocabItemScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"VocabItem"> | Date | string
 }
 
+export type VocabItemCreateWithoutMasteriesInput = {
+  id?: string
+  term: string
+  definition: string
+  phonetic?: string | null
+  partOfSpeech: string
+  exampleSentence?: string | null
+  imageUrl?: string | null
+  audioUrl?: string | null
+  orderIndex?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  vocabSet: Prisma.VocabularySetCreateNestedOneWithoutVocabItemsInput
+}
+
+export type VocabItemUncheckedCreateWithoutMasteriesInput = {
+  id?: string
+  setId: string
+  term: string
+  definition: string
+  phonetic?: string | null
+  partOfSpeech: string
+  exampleSentence?: string | null
+  imageUrl?: string | null
+  audioUrl?: string | null
+  orderIndex?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type VocabItemCreateOrConnectWithoutMasteriesInput = {
+  where: Prisma.VocabItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.VocabItemCreateWithoutMasteriesInput, Prisma.VocabItemUncheckedCreateWithoutMasteriesInput>
+}
+
+export type VocabItemUpsertWithoutMasteriesInput = {
+  update: Prisma.XOR<Prisma.VocabItemUpdateWithoutMasteriesInput, Prisma.VocabItemUncheckedUpdateWithoutMasteriesInput>
+  create: Prisma.XOR<Prisma.VocabItemCreateWithoutMasteriesInput, Prisma.VocabItemUncheckedCreateWithoutMasteriesInput>
+  where?: Prisma.VocabItemWhereInput
+}
+
+export type VocabItemUpdateToOneWithWhereWithoutMasteriesInput = {
+  where?: Prisma.VocabItemWhereInput
+  data: Prisma.XOR<Prisma.VocabItemUpdateWithoutMasteriesInput, Prisma.VocabItemUncheckedUpdateWithoutMasteriesInput>
+}
+
+export type VocabItemUpdateWithoutMasteriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  term?: Prisma.StringFieldUpdateOperationsInput | string
+  definition?: Prisma.StringFieldUpdateOperationsInput | string
+  phonetic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partOfSpeech?: Prisma.StringFieldUpdateOperationsInput | string
+  exampleSentence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vocabSet?: Prisma.VocabularySetUpdateOneRequiredWithoutVocabItemsNestedInput
+}
+
+export type VocabItemUncheckedUpdateWithoutMasteriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  setId?: Prisma.StringFieldUpdateOperationsInput | string
+  term?: Prisma.StringFieldUpdateOperationsInput | string
+  definition?: Prisma.StringFieldUpdateOperationsInput | string
+  phonetic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partOfSpeech?: Prisma.StringFieldUpdateOperationsInput | string
+  exampleSentence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type VocabItemCreateManyVocabSetInput = {
   id?: string
   term: string
@@ -661,6 +765,7 @@ export type VocabItemUpdateWithoutVocabSetInput = {
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  masteries?: Prisma.VocabMasteryUpdateManyWithoutVocabItemNestedInput
 }
 
 export type VocabItemUncheckedUpdateWithoutVocabSetInput = {
@@ -675,6 +780,7 @@ export type VocabItemUncheckedUpdateWithoutVocabSetInput = {
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  masteries?: Prisma.VocabMasteryUncheckedUpdateManyWithoutVocabItemNestedInput
 }
 
 export type VocabItemUncheckedUpdateManyWithoutVocabSetInput = {
@@ -692,6 +798,35 @@ export type VocabItemUncheckedUpdateManyWithoutVocabSetInput = {
 }
 
 
+/**
+ * Count Type VocabItemCountOutputType
+ */
+
+export type VocabItemCountOutputType = {
+  masteries: number
+}
+
+export type VocabItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  masteries?: boolean | VocabItemCountOutputTypeCountMasteriesArgs
+}
+
+/**
+ * VocabItemCountOutputType without action
+ */
+export type VocabItemCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VocabItemCountOutputType
+   */
+  select?: Prisma.VocabItemCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * VocabItemCountOutputType without action
+ */
+export type VocabItemCountOutputTypeCountMasteriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VocabMasteryWhereInput
+}
+
 
 export type VocabItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -707,6 +842,8 @@ export type VocabItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdAt?: boolean
   updatedAt?: boolean
   vocabSet?: boolean | Prisma.VocabularySetDefaultArgs<ExtArgs>
+  masteries?: boolean | Prisma.VocabItem$masteriesArgs<ExtArgs>
+  _count?: boolean | Prisma.VocabItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vocabItem"]>
 
 export type VocabItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -759,6 +896,8 @@ export type VocabItemSelectScalar = {
 export type VocabItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "setId" | "term" | "definition" | "phonetic" | "partOfSpeech" | "exampleSentence" | "imageUrl" | "audioUrl" | "orderIndex" | "createdAt" | "updatedAt", ExtArgs["result"]["vocabItem"]>
 export type VocabItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   vocabSet?: boolean | Prisma.VocabularySetDefaultArgs<ExtArgs>
+  masteries?: boolean | Prisma.VocabItem$masteriesArgs<ExtArgs>
+  _count?: boolean | Prisma.VocabItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VocabItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   vocabSet?: boolean | Prisma.VocabularySetDefaultArgs<ExtArgs>
@@ -771,6 +910,7 @@ export type $VocabItemPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "VocabItem"
   objects: {
     vocabSet: Prisma.$VocabularySetPayload<ExtArgs>
+    masteries: Prisma.$VocabMasteryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1180,6 +1320,7 @@ readonly fields: VocabItemFieldRefs;
 export interface Prisma__VocabItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   vocabSet<T extends Prisma.VocabularySetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabularySetDefaultArgs<ExtArgs>>): Prisma.Prisma__VocabularySetClient<runtime.Types.Result.GetResult<Prisma.$VocabularySetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  masteries<T extends Prisma.VocabItem$masteriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VocabItem$masteriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VocabMasteryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1619,6 +1760,30 @@ export type VocabItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many VocabItems to delete.
    */
   limit?: number
+}
+
+/**
+ * VocabItem.masteries
+ */
+export type VocabItem$masteriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VocabMastery
+   */
+  select?: Prisma.VocabMasterySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VocabMastery
+   */
+  omit?: Prisma.VocabMasteryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VocabMasteryInclude<ExtArgs> | null
+  where?: Prisma.VocabMasteryWhereInput
+  orderBy?: Prisma.VocabMasteryOrderByWithRelationInput | Prisma.VocabMasteryOrderByWithRelationInput[]
+  cursor?: Prisma.VocabMasteryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VocabMasteryScalarFieldEnum | Prisma.VocabMasteryScalarFieldEnum[]
 }
 
 /**

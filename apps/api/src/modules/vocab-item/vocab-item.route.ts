@@ -25,10 +25,10 @@ export async function vocabItemRoutes(app: any): Promise<void> {
 
   const controller = new VocabItemController(vocabItemService);
 
-  const { teacherPreHandler } = middlewareHandler(app);
+  const { teacherPreHandler, authPreHandler } = middlewareHandler(app);
 
   // Phase 2 — Item CRUD
-  app.get("/vocab-sets/:id/items", { preHandler: teacherPreHandler }, controller.getItems);
+  app.get("/vocab-sets/:id/items", { preHandler: authPreHandler }, controller.getItems);
   app.post(
     "/vocab-sets/:id/items",
     { preHandler: teacherPreHandler },

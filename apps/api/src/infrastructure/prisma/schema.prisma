@@ -8,33 +8,42 @@ datasource db {
 }
 
 model User {
-  id               String             @id @default(uuid())
-  email            String             @unique
-  passwordHash     String
-  name             String
-  role             UserRole           @default(STUDENT)
-  avatarUrl        String             @default("https://plus.unsplash.com/premium_photo-1739786996022-5ed5b56834e2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGVmYXVsdCUyMGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D")
-  xp               Int                @default(0)
-  streak           Int                @default(0)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  classrooms       Classroom[]        @relation("TeacherClassrooms")
-  classroomMembers ClassroomsMember[]
-  vocabularySets   VocabularySet[]    @relation("TeacherVocabularySets")
+  id                 String              @id @default(uuid())
+  email              String              @unique
+  passwordHash       String
+  name               String
+  role               UserRole            @default(STUDENT)
+  avatarUrl          String              @default("https://plus.unsplash.com/premium_photo-1739786996022-5ed5b56834e2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGVmYXVsdCUyMGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D")
+  xp                 Int                 @default(0)
+  streak             Int                 @default(0)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  classrooms         Classroom[]         @relation("TeacherClassrooms")
+  classroomMembers   ClassroomsMember[]
+  vocabularySets     VocabularySet[]     @relation("TeacherVocabularySets")
+  assignments        Assignment[]        @relation("TeacherAssignments")
+  submissions        Submission[]        @relation("StudentSubmissions")
+  progressRecords    ProgressRecord[]    @relation("StudentProgressRecords")
+  vocabMasteries     VocabMastery[]      @relation("StudentVocabMasteries")
+  liveSessions       LiveSession[]       @relation("TeacherLiveSessions")
+  liveSessionPlayers LiveSessionPlayer[] @relation("StudentLiveSessionPlayers")
 }
 
 model Classroom {
-  id                String             @id @default(uuid())
-  name              String
-  description       String?
-  teacherId         String
-  joinCode          String             @unique
-  status            ClassroomStatus    @default(ACTIVE)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  teacher           User               @relation("TeacherClassrooms", fields: [teacherId], references: [id])
-  classroomsMembers ClassroomsMember[]
-  vocabularySets    VocabularySet[]
+  id                   String                @id @default(uuid())
+  name                 String
+  description          String?
+  teacherId            String
+  joinCode             String                @unique
+  status               ClassroomStatus       @default(ACTIVE)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  teacher              User                  @relation("TeacherClassrooms", fields: [teacherId], references: [id])
+  classroomsMembers    ClassroomsMember[]
+  vocabularySets       VocabularySet[]
+  assignments          Assignment[]
+  liveSessions         LiveSession[]
+  leaderboardSnapshots LeaderboardSnapshot[]
 }
 
 model ClassroomsMember {
@@ -70,6 +79,57 @@ enum PartOfSpeech {
   DETERMINER
 }
 
+enum ActivityType {
+  A1
+  A2
+  A3
+  A4
+  A5
+  A6
+  G1
+  G2
+  G3
+  G4
+  G5
+  G6
+  G7
+  G8
+  G9
+  G10
+  G11
+  S1
+  S2
+  L1
+  L2
+  L3
+  L4
+  L5
+  L6
+}
+
+enum SubmissionStatus {
+  SUBMITTED
+  GRADED
+}
+
+enum MasteryStatus {
+  NEW
+  LEARNING
+  KNOWN
+}
+
+enum LiveSessionStatus {
+  WAITING
+  ACTIVE
+  ENDED
+}
+
+enum LeaderboardPeriod {
+  WEEK
+  MONTH
+  ALL
+}
+
 model VocabularySet {
   id          String @id @default(uuid())
   classroomId String
@@ -85,7 +145,10 @@ model VocabularySet {
   classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
   teacher   User      @relation("TeacherVocabularySets", fields: [teacherId], references: [id], onDelete: Cascade)
 
-  vocabItems VocabItem[]
+  vocabItems      VocabItem[]
+  assignments     Assignment[]
+  progressRecords ProgressRecord[]
+  liveSessions    LiveSession[]
 
   @@index([classroomId])
   @@index([teacherId])
@@ -93,7 +156,7 @@ model VocabularySet {
 }
 
 model VocabItem {
-  id    String @default(uuid())
+  id    String @id @default(uuid())
   setId String
 
   term       String
@@ -111,9 +174,143 @@ model VocabItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  vocabSet VocabularySet @relation(fields: [setId], references: [id], onDelete: Cascade)
+  vocabSet  VocabularySet  @relation(fields: [setId], references: [id], onDelete: Cascade)
+  masteries VocabMastery[]
 
   @@unique([setId, orderIndex])
   @@index([setId])
   @@map("vocab_items")
+}
+
+model Assignment {
+  id           String       @id @default(uuid())
+  classroomId  String
+  teacherId    String
+  title        String
+  activityType ActivityType
+  vocabSetId   String
+  config       Json         @default("{}")
+  dueAt        DateTime?
+  createdAt    DateTime     @default(now())
+
+  classroom   Classroom     @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  teacher     User          @relation("TeacherAssignments", fields: [teacherId], references: [id], onDelete: Cascade)
+  vocabSet    VocabularySet @relation(fields: [vocabSetId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+
+  @@index([classroomId])
+  @@index([teacherId])
+  @@index([vocabSetId])
+  @@index([activityType])
+  @@index([dueAt])
+}
+
+model Submission {
+  id           String           @id @default(uuid())
+  assignmentId String
+  studentId    String
+  answers      Json
+  score        Int
+  accuracy     Float
+  timeTakenSec Int
+  status       SubmissionStatus @default(SUBMITTED)
+  submittedAt  DateTime         @default(now())
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student    User       @relation("StudentSubmissions", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([assignmentId])
+  @@index([studentId])
+  @@index([status])
+  @@index([submittedAt])
+}
+
+model ProgressRecord {
+  id           String       @id @default(uuid())
+  studentId    String
+  vocabSetId   String
+  activityType ActivityType
+  score        Int
+  accuracy     Float
+  recordedAt   DateTime     @default(now())
+
+  student  User          @relation("StudentProgressRecords", fields: [studentId], references: [id], onDelete: Cascade)
+  vocabSet VocabularySet @relation(fields: [vocabSetId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([vocabSetId])
+  @@index([activityType])
+  @@index([recordedAt])
+}
+
+model VocabMastery {
+  studentId   String
+  vocabItemId String
+  status      MasteryStatus @default(NEW)
+  attempts    Int           @default(0)
+  lastSeenAt  DateTime?
+
+  student   User      @relation("StudentVocabMasteries", fields: [studentId], references: [id], onDelete: Cascade)
+  vocabItem VocabItem @relation(fields: [vocabItemId], references: [id], onDelete: Cascade)
+
+  @@id([studentId, vocabItemId])
+  @@index([studentId, status])
+  @@index([vocabItemId])
+}
+
+model LiveSession {
+  id           String            @id @default(uuid())
+  classroomId  String
+  teacherId    String
+  activityType ActivityType
+  vocabSetId   String
+  config       Json              @default("{}")
+  status       LiveSessionStatus @default(WAITING)
+  pin          String            @unique
+  scores       Json              @default("[]")
+  startedAt    DateTime?
+  endedAt      DateTime?
+
+  classroom Classroom           @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  teacher   User                @relation("TeacherLiveSessions", fields: [teacherId], references: [id], onDelete: Cascade)
+  vocabSet  VocabularySet       @relation(fields: [vocabSetId], references: [id], onDelete: Cascade)
+  players   LiveSessionPlayer[]
+
+  @@index([classroomId])
+  @@index([teacherId])
+  @@index([vocabSetId])
+  @@index([activityType])
+  @@index([status])
+  @@index([pin])
+}
+
+model LiveSessionPlayer {
+  sessionId String
+  studentId String
+  score     Int      @default(0)
+  answers   Json     @default("{}")
+  joinedAt  DateTime @default(now())
+  rank      Int?
+
+  session LiveSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  student User        @relation("StudentLiveSessionPlayers", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@id([sessionId, studentId])
+  @@index([studentId])
+  @@index([score])
+  @@index([rank])
+}
+
+model LeaderboardSnapshot {
+  id          String            @id @default(uuid())
+  classroomId String
+  period      LeaderboardPeriod
+  entries     Json
+  computedAt  DateTime          @default(now())
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+
+  @@index([classroomId])
+  @@index([period])
+  @@index([computedAt])
 }

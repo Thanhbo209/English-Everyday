@@ -1,0 +1,35 @@
+import { z } from "zod";
+
+export const ActivityTypeSchema = z.enum([
+  "A1",
+  "A2",
+  "A3",
+  "A4",
+  "A5",
+  "A6",
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8",
+  "G9",
+  "G10",
+  "G11",
+  "S1",
+  "S2",
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5",
+  "L6",
+]);
+
+export const IdParamsSchema = z.object({
+  id: z.string().uuid(),
+});
+
+export type ActivityTypeInput = z.infer<typeof ActivityTypeSchema>;
