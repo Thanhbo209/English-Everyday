@@ -17,15 +17,15 @@ import {
   EmptyState,
   PageSpinner,
   useToast,
-} from "../../components/ui";
-import { useClassrooms } from "../../features/classroom/hooks/useClassrooms";
+} from "../../../components/ui";
+import { useClassrooms } from "../../../features/classroom/hooks/useClassrooms";
 import {
   useVocabSets,
   useCreateVocabSet,
   useUpdateVocabSet,
   useDeleteVocabSet,
-} from "../../features/vocab/hooks/useVocabs";
-import type { VocabSet } from "../../api/vocab.api";
+} from "../../../features/vocab/hooks/useVocabs";
+import type { VocabSet } from "../../../api/vocab.api";
 
 export default function VocabSetsPage() {
   const navigate = useNavigate();

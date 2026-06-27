@@ -8,15 +8,15 @@ import {
   PencilSimple,
   Trash,
 } from "@phosphor-icons/react";
-import { Card, Button, Badge, EmptyState, useToast } from "../../components/ui";
-import { useAuth } from "../../features/auth/hooks/useAuth";
+import { Card, Button, Badge, EmptyState, useToast } from "../../../components/ui";
+import { useAuth } from "../../../features/auth/hooks/useAuth";
 import {
   useClassrooms,
   useDeleteClassroom,
-} from "../../features/classroom/hooks/useClassrooms";
-import { ClassroomModal } from "../../features/classroom/components/ClassroomModal";
-import { ConfirmDeleteModal } from "../../features/classroom/components/ConfirmDeleteModal";
-import type { Classroom } from "../../api/classroom.api";
+} from "../../../features/classroom/hooks/useClassrooms";
+import { ClassroomModal } from "../../../features/classroom/components/ClassroomModal";
+import { ConfirmDeleteModal } from "../../../features/classroom/components/ConfirmDeleteModal";
+import type { Classroom } from "../../../api/classroom.api";
 
 export default function ClassroomsPage() {
   const { user } = useAuth();

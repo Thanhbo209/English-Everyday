@@ -16,15 +16,15 @@ import {
   EmptyState,
   useToast,
   LoadingSpinner,
-} from "../../components/ui";
-import { useAuth } from "../../features/auth/hooks/useAuth";
+} from "../../../components/ui";
+import { useAuth } from "../../../features/auth/hooks/useAuth";
 import {
   useClassroom,
   useClassroomMembers,
   useDeleteClassroom,
-} from "../../features/classroom/hooks/useClassrooms";
-import { ClassroomModal } from "../../features/classroom/components/ClassroomModal";
-import { ConfirmDeleteModal } from "../../features/classroom/components/ConfirmDeleteModal";
+} from "../../../features/classroom/hooks/useClassrooms";
+import { ClassroomModal } from "../../../features/classroom/components/ClassroomModal";
+import { ConfirmDeleteModal } from "../../../features/classroom/components/ConfirmDeleteModal";
 
 export default function ClassroomDetailPage() {
   const { id } = useParams<{ id: string }>();

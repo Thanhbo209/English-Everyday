@@ -74,7 +74,14 @@ export default function buildApp() {
   app.get("/uploads/*", async (request: any, reply: any) => {
     const wild = request.params["*"];
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const filePath = path.resolve(__dirname, "../uploads", wild);
+    const uploadsRoot = path.resolve(__dirname, "../uploads");
+    const filePath = path.resolve(uploadsRoot, wild);
+
+    // Prevent path traversal outside the uploads directory
+    const rel = path.relative(uploadsRoot, filePath);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) {
+      return reply.status(403).send({ message: "Forbidden" });
+    }
 
     try {
       const buffer = await fs.readFile(filePath);

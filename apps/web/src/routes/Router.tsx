@@ -5,17 +5,17 @@ import ProtectedRoute from "./ProtectedRoute";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 /* Dashboard pages */
-import ClassroomsPage from "../pages/dashboard/ClassroomsPage";
-import ClassroomDetailPage from "../pages/dashboard/ClassroomDetailPage";
-import JoinClassroomPage from "../pages/dashboard/JoinClassroomPage";
-import StudentsPage from "../pages/dashboard/StudentsPage";
-import AssignmentsPage from "../pages/dashboard/AssignmentsPage";
-import ProgressPage from "../pages/dashboard/ProgressPage";
-import ProfilePage from "../pages/dashboard/ProfilePage";
-import SettingsPage from "../pages/dashboard/SettingsPage";
+import ClassroomsPage from "../pages/dashboard/shared/ClassroomsPage";
+import ClassroomDetailPage from "../pages/dashboard/shared/ClassroomDetailPage";
+import JoinClassroomPage from "../pages/dashboard/student/JoinClassroomPage";
+import StudentsPage from "../pages/dashboard/teacher/StudentsPage";
+import AssignmentsPage from "../pages/dashboard/teacher/AssignmentsPage";
+import ProgressPage from "../pages/dashboard/student/ProgressPage";
+import ProfilePage from "../pages/dashboard/shared/ProfilePage";
+import SettingsPage from "../pages/dashboard/shared/SettingsPage";
 import RoleGuard from "./RoleGuard";
-import VocabSetsPage from "../pages/dashboard/VocabSetsPage";
-import VocabSetDetailPage from "../pages/dashboard/VocabSetDetailPage";
+import VocabSetsPage from "../pages/dashboard/teacher/VocabSetsPage";
+import VocabSetDetailPage from "../pages/dashboard/teacher/VocabSetDetailPage";
 
 export const router = createBrowserRouter([
   /* ── Public auth ── */

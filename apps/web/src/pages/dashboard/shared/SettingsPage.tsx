@@ -1,5 +1,5 @@
-import { GearSix } from '@phosphor-icons/react';
-import { EmptyState } from '../../components/ui';
+import { GearSix } from "@phosphor-icons/react";
+import { EmptyState } from "../../../components/ui";
 
 export default function SettingsPage() {
   return (

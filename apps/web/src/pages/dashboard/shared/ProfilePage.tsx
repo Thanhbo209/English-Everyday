@@ -1,5 +1,5 @@
-import { Student } from '@phosphor-icons/react';
-import { EmptyState } from '../../components/ui';
+import { Student } from "@phosphor-icons/react";
+import { EmptyState } from "../../../components/ui";
 
 export default function ProfilePage() {
   return (

@@ -29,7 +29,7 @@ import {
   EmptyState,
   PageSpinner,
   useToast,
-} from "../../components/ui";
+} from "../../../components/ui";
 import {
   useVocabSet,
   useVocabItems,
@@ -41,8 +41,8 @@ import {
   useConfirmCsvImport,
   useUploadImage,
   useUploadAudio,
-} from "../../features/vocab/hooks/useVocabs";
-import type { VocabItem } from "../../api/vocab.api";
+} from "../../../features/vocab/hooks/useVocabs";
+import type { VocabItem } from "../../../api/vocab.api";
 
 const PARTS_OF_SPEECH = [
   "NOUN",
