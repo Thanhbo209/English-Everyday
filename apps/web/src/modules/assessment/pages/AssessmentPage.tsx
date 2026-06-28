@@ -19,12 +19,14 @@ export const AssessmentPage: FC = () => {
 
   const [retryCount, setRetryCount] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
-  const [sessionStats, setSessionStats] = useState<AssessmentStats | null>(null);
+  const [sessionStats, setSessionStats] = useState<AssessmentStats | null>(
+    null,
+  );
 
   // Fetch the assignment details and its vocabulary items
   const { vocabSet, vocabItems, isLoading } = useFlashcardDeck(
     assignmentId,
-    undefined
+    undefined,
   );
 
   // Submission mutation
@@ -70,25 +72,28 @@ export const AssessmentPage: FC = () => {
     }
   }, [activityType]);
 
-  const handleAssessmentComplete = (stats: AssessmentStats) => {
+  const handleAssessmentComplete = async (stats: AssessmentStats) => {
     setSessionStats(stats);
-    setShowSummary(true);
 
     if (assignmentId) {
-      submission.mutate({
-        score: stats.score,
-        accuracy: stats.accuracy,
-        timeTakenSec: stats.timeTakenSec,
-        answers: {
-          activityType: activityType?.toUpperCase() || "",
-          total: stats.total,
-          correct: stats.correct,
-          wrong: stats.wrong,
-          // Format answers breakdown for submission schema
-          answersMeta: stats,
-        },
-      });
+      try {
+        await submission.mutateAsync({
+          score: stats.score,
+          accuracy: stats.accuracy,
+          timeTakenSec: stats.timeTakenSec,
+          answers: {
+            activityType: activityType?.toUpperCase() || "",
+            total: stats.total,
+            correct: stats.correct,
+            wrong: stats.wrong,
+            answersMeta: stats,
+          },
+        });
+      } catch {
+        return;
+      }
     }
+    setShowSummary(true);
   };
 
   const handleRetry = () => {
