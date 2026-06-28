@@ -5,7 +5,9 @@ import { shuffle } from "./shuffle";
  * Ensures the output is an array of uppercase letter characters.
  */
 export function scrambleLetters(word: string): string[] {
-  const letters = word.toUpperCase().replace(/[^A-Z]/g, "").split("");
+  const letters = Array.from(word.toUpperCase()).filter(
+    (char) => char.toLowerCase() !== char.toUpperCase(),
+  );
   if (letters.length <= 1) return letters;
 
   let scrambled = shuffle(letters);
