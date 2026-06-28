@@ -20,9 +20,27 @@ export function generateQuestions(
   }
 
   const isMcq = allowedMcq.includes(upperType);
+
+  // Filter items based on media requirements of the selected mode
+  const needsImage = ["Q1", "Q2", "Q6", "F1", "F4"].includes(upperType);
+  const needsAudio = ["Q5", "Q6", "Q7", "F3", "F6"].includes(upperType);
+
+  const eligibleItems = items.filter((item) => {
+    if (needsImage && (!item.imageUrl || !item.imageUrl.trim())) {
+      return false;
+    }
+    if (needsAudio && (!item.audioUrl || !item.audioUrl.trim())) {
+      return false;
+    }
+    return true;
+  });
+
+  if (eligibleItems.length === 0) {
+    return [];
+  }
   
   // Shuffled items represent the question order
-  const shuffledItems = shuffle(items);
+  const shuffledItems = shuffle(eligibleItems);
 
   return shuffledItems.map((item) => {
     let questionType: "MCQ" | "FIB" = isMcq ? "MCQ" : "FIB";
@@ -115,7 +133,7 @@ export function generateQuestions(
 
     if (questionType === "MCQ") {
       // 1. Gather all potential distractors (values from other vocab items in this set)
-      const otherItems = items.filter((x) => x.id !== item.id);
+      const otherItems = eligibleItems.filter((x) => x.id !== item.id);
       
       const potentialDistractors = otherItems
         .map((x) => {
