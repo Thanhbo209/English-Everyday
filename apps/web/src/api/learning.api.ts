@@ -26,7 +26,20 @@ export type ActivityType =
   | "L3"
   | "L4"
   | "L5"
-  | "L6";
+  | "L6"
+  | "Q1"
+  | "Q2"
+  | "Q3"
+  | "Q4"
+  | "Q5"
+  | "Q6"
+  | "Q7"
+  | "F1"
+  | "F2"
+  | "F3"
+  | "F4"
+  | "F5"
+  | "F6";
 
 export interface Assignment {
   id: string;
@@ -61,6 +74,14 @@ export interface CreateAssignmentPayload {
   vocabSetId: string;
   config?: Record<string, unknown>;
   dueAt?: string;
+}
+
+export interface UpdateAssignmentPayload {
+  title?: string;
+  activityType?: ActivityType;
+  vocabSetId?: string;
+  config?: Record<string, unknown>;
+  dueAt?: string | null;
 }
 
 export interface Submission {
@@ -171,6 +192,14 @@ export async function createAssignment(
   payload: CreateAssignmentPayload,
 ): Promise<Assignment> {
   const response = await api.post<Assignment>("/assignments", payload);
+  return response.data;
+}
+
+export async function updateAssignment(
+  id: string,
+  payload: UpdateAssignmentPayload,
+): Promise<Assignment> {
+  const response = await api.patch<Assignment>(`/assignments/${id}`, payload);
   return response.data;
 }
 

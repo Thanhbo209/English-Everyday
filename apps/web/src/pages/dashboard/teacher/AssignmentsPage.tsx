@@ -1,6 +1,15 @@
-import { useMemo, useState, type FormEvent } from "react";
-import { ClipboardText, Plus, Trash, CalendarBlank } from "@phosphor-icons/react";
-import { Badge, Button, Card, Input, LoadingSpinner } from "../../../components/ui";
+import { useState } from "react";
+import { ClipboardText, Plus, Trash, Calendar, Users, Books } from "@phosphor-icons/react";
+import {
+  EmptyState,
+  Button,
+  Card,
+  Modal,
+  Input,
+  Badge,
+  LoadingSpinner,
+  useToast,
+} from "../../../components/ui";
 import { useClassrooms } from "../../../features/classroom/hooks/useClassrooms";
 import { useVocabSets } from "../../../features/vocab/hooks/useVocabs";
 import {
@@ -8,58 +17,110 @@ import {
   useCreateAssignment,
   useDeleteAssignment,
 } from "../../../modules/flashcards/hooks/useAssignment";
-import type { ActivityType } from "../../../api/learning.api";
+import type { ActivityType, Assignment } from "../../../api/learning.api";
 
-const ACTIVITY_TYPES: ActivityType[] = ["A1", "A2", "A3", "A4", "A5", "A6"];
+const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
+  { value: "A1", label: "A1 • Learn Cards (Autoplay)" },
+  { value: "A2", label: "A2 • Flip Cards" },
+  { value: "A3", label: "A3 • Self Learning" },
+  { value: "A4", label: "A4 • Listening Practice" },
+  { value: "A5", label: "A5 • Hidden Meaning" },
+  { value: "A6", label: "A6 • Speaking Cards" },
+  { value: "Q1", label: "Q1 • MCQ Match Image" },
+  { value: "Q2", label: "Q2 • MCQ Match Word" },
+  { value: "Q3", label: "Q3 • MCQ Match Definition" },
+  { value: "Q4", label: "Q4 • MCQ Definition to Word" },
+  { value: "Q5", label: "Q5 • MCQ Audio to Word" },
+  { value: "Q6", label: "Q6 • MCQ Audio to Image" },
+  { value: "Q7", label: "Q7 • MCQ Audio to Definition" },
+  { value: "F1", label: "F1 • FIB Image to Word" },
+  { value: "F2", label: "F2 • FIB Definition to Word" },
+  { value: "F3", label: "F3 • FIB Audio to Word" },
+  { value: "F4", label: "F4 • FIB Image to Scrambled Word" },
+  { value: "F5", label: "F5 • FIB Definition to Scrambled Word" },
+  { value: "F6", label: "F6 • FIB Audio to Scrambled Word" },
+];
 
 export default function AssignmentsPage() {
-  const { data: classrooms, isLoading: loadingClassrooms } = useClassrooms();
-  const { data: vocabSets, isLoading: loadingVocabSets } = useVocabSets();
-  const { data: assignments, isLoading: loadingAssignments } = useAssignments();
-  const createAssignment = useCreateAssignment();
-  const deleteAssignment = useDeleteAssignment();
+  const { toast } = useToast();
+  const [modalOpen, setModalOpen] = useState(false);
 
+  // Form states
   const [title, setTitle] = useState("");
-  const [classroomId, setClassroomId] = useState("");
-  const [vocabSetId, setVocabSetId] = useState("");
-  const [activityType, setActivityType] = useState<ActivityType>("A1");
+  const [selectedClassroomId, setSelectedClassroomId] = useState("");
+  const [selectedVocabSetId, setSelectedVocabSetId] = useState("");
+  const [activityType, setActivityType] = useState<ActivityType>("Q3");
   const [dueAt, setDueAt] = useState("");
 
-  const filteredVocabSets = useMemo(
-    () =>
-      vocabSets?.filter((set) => !classroomId || set.classroomId === classroomId) ??
-      [],
-    [classroomId, vocabSets],
+  // Queries
+  const { data: assignments, isLoading: loadingAssignments } = useAssignments();
+  const { data: classrooms, isLoading: loadingClassrooms } = useClassrooms();
+  // Fetch vocabulary sets for the selected classroom
+  const { data: vocabSets, isLoading: loadingVocabSets } = useVocabSets(
+    selectedClassroomId || undefined
   );
 
-  const isLoading = loadingClassrooms || loadingVocabSets || loadingAssignments;
+  // Mutations
+  const createMutation = useCreateAssignment();
+  const deleteMutation = useDeleteAssignment();
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (!title.trim() || !classroomId || !vocabSetId) return;
-
-    createAssignment.mutate(
-      {
-        title: title.trim(),
-        classroomId,
-        vocabSetId,
-        activityType,
-        config: {},
-        dueAt: dueAt ? new Date(dueAt).toISOString() : undefined,
-      },
-      {
-        onSuccess: () => {
-          setTitle("");
-          setVocabSetId("");
-          setDueAt("");
-        },
-      },
-    );
+  const handleOpenCreateModal = () => {
+    setTitle("");
+    setSelectedClassroomId(classrooms?.[0]?.id || "");
+    setSelectedVocabSetId("");
+    setActivityType("Q3");
+    setDueAt("");
+    setModalOpen(true);
   };
 
-  if (isLoading) {
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!title.trim()) {
+      toast("Title is required", "error");
+      return;
+    }
+    if (!selectedClassroomId) {
+      toast("Please select a classroom", "error");
+      return;
+    }
+    if (!selectedVocabSetId) {
+      toast("Please select a vocabulary deck", "error");
+      return;
+    }
+
+    try {
+      await createMutation.mutateAsync({
+        title,
+        classroomId: selectedClassroomId,
+        vocabSetId: selectedVocabSetId,
+        activityType,
+        dueAt: dueAt ? new Date(dueAt).toISOString() : undefined,
+      });
+
+      toast("Assignment created successfully", "success");
+      setModalOpen(false);
+    } catch {
+      toast("Failed to create assignment", "error");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this assignment?")) {
+      return;
+    }
+
+    try {
+      await deleteMutation.mutateAsync(id);
+      toast("Assignment deleted successfully", "success");
+    } catch {
+      toast("Failed to delete assignment", "error");
+    }
+  };
+
+  if (loadingAssignments || loadingClassrooms) {
     return (
-      <div className="flex min-h-[320px] items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -67,137 +128,222 @@ export default function AssignmentsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      {/* Header section */}
+      <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted-foreground mb-1">Learning engine</p>
-          <h2 className="text-2xl font-bold text-foreground">Assignments</h2>
+          <h1 className="text-xl font-extrabold text-foreground tracking-tight">
+            Assignments
+          </h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Create tasks, learning activities, and assessments for your classrooms.
+          </p>
         </div>
+        <Button
+          onClick={handleOpenCreateModal}
+          variant="primary"
+          leftIcon={<Plus size={16} />}
+          className="cursor-pointer"
+        >
+          Create Assignment
+        </Button>
       </div>
 
-      <Card>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-end">
-          <div className="lg:col-span-2">
-            <Input
-              label="Title"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-              placeholder="Weekly flashcard review"
-            />
-          </div>
-
-          <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground">
-            Classroom
-            <select
-              value={classroomId}
-              onChange={(event) => {
-                setClassroomId(event.target.value);
-                setVocabSetId("");
-              }}
-              className="h-9 rounded-lg border border-border bg-input px-3 text-sm"
+      {/* Main content grid */}
+      {!assignments || assignments.length === 0 ? (
+        <EmptyState
+          icon={<ClipboardText size={26} />}
+          title="No assignments created yet"
+          description="Build task assignments for your students to let them learn vocabulary cards and practice assessments."
+          action={
+            <Button
+              onClick={handleOpenCreateModal}
+              variant="primary"
+              leftIcon={<Plus size={16} />}
+              className="cursor-pointer"
             >
-              <option value="">Select classroom</option>
+              Create Assignment
+            </Button>
+          }
+        />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {assignments.map((assignment: Assignment) => {
+            const hasDueDate = !!assignment.dueAt;
+            const dueDateString = hasDueDate
+              ? new Date(assignment.dueAt!).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "No due date";
+
+            return (
+              <Card key={assignment.id} className="p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
+                <div className="space-y-3">
+                  {/* Top badges */}
+                  <div className="flex items-center justify-between gap-2">
+                    <Badge variant="info" className="uppercase font-semibold tracking-wider">
+                      {assignment.activityType}
+                    </Badge>
+                    <button
+                      onClick={() => handleDelete(assignment.id)}
+                      className="text-muted-foreground hover:text-destructive p-1 rounded hover:bg-secondary transition-colors cursor-pointer"
+                      title="Delete assignment"
+                    >
+                      <Trash size={16} />
+                    </button>
+                  </div>
+
+                  {/* Title & info */}
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-bold text-foreground line-clamp-1">
+                      {assignment.title}
+                    </h3>
+                  </div>
+
+                  {/* Relationships details */}
+                  <div className="space-y-1.5 pt-1 text-xs text-muted-foreground font-medium">
+                    <div className="flex items-center gap-1.5">
+                      <Users size={14} className="shrink-0" />
+                      <span className="truncate">Class: {assignment.classroom?.name}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Books size={14} className="shrink-0" />
+                      <span className="truncate">Deck: {assignment.vocabSet?.title}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={14} className="shrink-0" />
+                      <span className="truncate">{dueDateString}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submissions count summary */}
+                <div className="border-t border-border/60 pt-3 flex justify-between items-center text-xs font-semibold text-muted-foreground">
+                  <span>Submissions</span>
+                  <span className="text-foreground font-bold">
+                    {assignment._count?.submissions ?? 0}
+                  </span>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Slide-over create assignment modal */}
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Create New Assignment"
+        size="md"
+      >
+        <form onSubmit={handleCreate} className="space-y-5 pt-2">
+          {/* Title */}
+          <Input
+            label="Assignment Title"
+            placeholder="e.g. Unit 3 Vocabulary Quiz"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+
+          {/* Classroom Selection */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-foreground">Classroom</label>
+            <select
+              value={selectedClassroomId}
+              onChange={(e) => {
+                setSelectedClassroomId(e.target.value);
+                setSelectedVocabSetId("");
+              }}
+              className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
+              required
+            >
+              <option value="" disabled>Select Classroom</option>
               {classrooms?.map((classroom) => (
                 <option key={classroom.id} value={classroom.id}>
                   {classroom.name}
                 </option>
               ))}
             </select>
-          </label>
+          </div>
 
-          <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground">
-            Vocabulary Set
+          {/* Vocabulary Set Selection */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-foreground">Vocabulary Set</label>
             <select
-              value={vocabSetId}
-              onChange={(event) => setVocabSetId(event.target.value)}
-              className="h-9 rounded-lg border border-border bg-input px-3 text-sm"
+              value={selectedVocabSetId}
+              onChange={(e) => setSelectedVocabSetId(e.target.value)}
+              className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors disabled:opacity-50"
+              disabled={!selectedClassroomId || loadingVocabSets}
+              required
             >
-              <option value="">Select set</option>
-              {filteredVocabSets.map((set) => (
+              <option value="" disabled>
+                {!selectedClassroomId
+                  ? "Select a classroom first"
+                  : loadingVocabSets
+                    ? "Loading sets..."
+                    : "Select Vocabulary Set"}
+              </option>
+              {vocabSets?.map((set) => (
                 <option key={set.id} value={set.id}>
-                  {set.title}
+                  {set.title} ({set.language})
                 </option>
               ))}
             </select>
-          </label>
+          </div>
 
-          <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground">
-            Activity
+          {/* Activity Type Selection */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-foreground">Activity Type</label>
             <select
               value={activityType}
-              onChange={(event) => setActivityType(event.target.value as ActivityType)}
-              className="h-9 rounded-lg border border-border bg-input px-3 text-sm"
+              onChange={(e) => setActivityType(e.target.value as ActivityType)}
+              className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
+              required
             >
               {ACTIVITY_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+                <option key={type.value} value={type.value}>
+                  {type.label}
                 </option>
               ))}
             </select>
-          </label>
+          </div>
 
-          <Input
-            label="Due"
-            type="datetime-local"
-            value={dueAt}
-            onChange={(event) => setDueAt(event.target.value)}
-          />
+          {/* Due Date */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-foreground">Due Date & Time (Optional)</label>
+            <input
+              type="datetime-local"
+              value={dueAt}
+              onChange={(e) => setDueAt(e.target.value)}
+              className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
+            />
+          </div>
 
-          <Button
-            type="submit"
-            leftIcon={<Plus size={16} />}
-            loading={createAssignment.isPending}
-            disabled={!title.trim() || !classroomId || !vocabSetId}
-          >
-            Create
-          </Button>
+          {/* Submit Actions */}
+          <div className="flex justify-end gap-3 pt-4 border-t border-border">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setModalOpen(false)}
+              className="cursor-pointer"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              loading={createMutation.isPending}
+              className="cursor-pointer"
+            >
+              Create Assignment
+            </Button>
+          </div>
         </form>
-      </Card>
-
-      <div className="space-y-3">
-        {assignments?.length === 0 ? (
-          <Card className="flex flex-col items-center justify-center py-12 text-center">
-            <ClipboardText size={32} className="text-muted-foreground mb-2" />
-            <p className="text-sm font-semibold text-foreground">No assignments yet</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Create an assignment to send real flashcard activities to students.
-            </p>
-          </Card>
-        ) : (
-          assignments?.map((assignment) => (
-            <Card key={assignment.id} className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <ClipboardText size={20} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-sm font-semibold text-foreground truncate">
-                    {assignment.title}
-                  </p>
-                  <Badge variant="info">{assignment.activityType}</Badge>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {assignment.classroom?.name ?? "Classroom"} · {assignment.vocabSet?.title ?? "Vocabulary set"} · {assignment._count?.submissions ?? 0} submissions
-                </p>
-                {assignment.dueAt && (
-                  <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1">
-                    <CalendarBlank size={13} />
-                    Due {new Date(assignment.dueAt).toLocaleString()}
-                  </p>
-                )}
-              </div>
-              <Button
-                variant="destructive"
-                size="sm"
-                leftIcon={<Trash size={15} />}
-                loading={deleteAssignment.isPending}
-                onClick={() => deleteAssignment.mutate(assignment.id)}
-              >
-                Delete
-              </Button>
-            </Card>
-          ))
-        )}
-      </div>
+      </Modal>
     </div>
   );
 }

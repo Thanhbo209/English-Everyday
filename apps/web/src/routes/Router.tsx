@@ -24,6 +24,7 @@ import SelfLearningPage from "../modules/flashcards/pages/SelfLearningPage";
 import ListeningPage from "../modules/flashcards/pages/ListeningPage";
 import HiddenMeaningPage from "../modules/flashcards/pages/HiddenMeaningPage";
 import SpeakingCardsPage from "../modules/flashcards/pages/SpeakingCardsPage";
+import AssessmentPage from "../modules/assessment/pages/AssessmentPage";
 
 export const router = createBrowserRouter([
   /* ── Public auth ── */
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
       { path: "a4/:vocabSetId", element: <ListeningPage /> },
       { path: "a5/:vocabSetId", element: <HiddenMeaningPage /> },
       { path: "a6/:vocabSetId", element: <SpeakingCardsPage /> },
+      {
+        path: ":activityType/assignments/:assignmentId",
+        element: <AssessmentPage />,
+      },
     ],
   },
 
