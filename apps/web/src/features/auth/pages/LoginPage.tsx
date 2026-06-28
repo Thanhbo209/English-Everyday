@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from 'react';
-import googleLogo from '../../assets/google.svg';
+import googleLogo from '@/assets/google.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { EnvelopeSimple, Lock, ArrowRight, WarningCircle } from '@phosphor-icons/react';
 import { useAuth } from '@/features/auth';
-import { getApiError } from '../../shared/errors/api-error';
+import { getApiError } from '@/shared/errors/api-error';
 import { Button, Input } from '@/shared/components';
 
 export default function Login() {

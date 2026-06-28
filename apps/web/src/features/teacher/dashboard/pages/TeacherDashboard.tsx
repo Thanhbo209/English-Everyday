@@ -13,7 +13,7 @@ import {
 import { useAuth } from "@/features/auth";
 import { DashboardStatCard, Badge, Button, Card, LoadingSpinner } from "@/shared/components";
 import { useClassrooms } from "@/features/teacher/classrooms";
-import { ClassroomModal } from "../../features/classroom/components/ClassroomModal";
+import { ClassroomModal } from "@/features/teacher/classrooms/components/ClassroomModal";
 import { useAssignments } from "@/features/teacher/assignments";
 import { useLeaderboard } from "@/features/student/activities/flashcard";
 import { useClassroomMastery } from "@/features/student/activities/flashcard";
@@ -43,10 +43,10 @@ export function TeacherDashboard() {
 
   const totalClassrooms = classrooms?.length ?? 0;
   const totalStudents =
-    classrooms?.reduce((acc, classroom) => acc + (classroom._count?.classroomsMembers ?? 0), 0) ?? 0;
+    classrooms?.reduce((acc: number, classroom: any) => acc + (classroom._count?.classroomsMembers ?? 0), 0) ?? 0;
   const totalAssignments = assignments?.length ?? 0;
   const totalSubmissions =
-    assignments?.reduce((acc, assignment) => acc + (assignment._count?.submissions ?? 0), 0) ?? 0;
+    assignments?.reduce((acc: number, assignment: any) => acc + (assignment._count?.submissions ?? 0), 0) ?? 0;
   const completionRate =
     totalAssignments > 0 && totalStudents > 0
       ? Math.round((totalSubmissions / (totalAssignments * totalStudents)) * 100)
@@ -54,11 +54,11 @@ export function TeacherDashboard() {
   const averageAccuracy =
     leaderboard && leaderboard.length > 0
       ? Math.round(
-          leaderboard.reduce((sum, entry) => sum + entry.averageAccuracy, 0) /
+          leaderboard.reduce((sum: number, entry: any) => sum + entry.averageAccuracy, 0) /
             leaderboard.length,
         )
       : 0;
-  const activeLiveSessions = liveSessions?.filter((session) => session.status !== "ENDED") ?? [];
+  const activeLiveSessions = liveSessions?.filter((session: any) => session.status !== "ENDED") ?? [];
 
   const STATS = [
     {
@@ -205,7 +205,7 @@ export function TeacherDashboard() {
           <Card padding="none">
             {leaderboard?.length ? (
               <ul className="divide-y divide-border">
-                {leaderboard.slice(0, 5).map((entry) => (
+                {leaderboard.slice(0, 5).map((entry: any) => (
                   <li key={entry.studentId} className="px-5 py-3 flex items-center gap-3">
                     <Trophy size={16} className="text-primary shrink-0" />
                     <div className="flex-1 min-w-0">
@@ -230,7 +230,7 @@ export function TeacherDashboard() {
           <Card padding="none">
             {leaderboard?.length ? (
               <ul className="divide-y divide-border">
-                {leaderboard.slice(0, 5).map((entry) => (
+                {leaderboard.slice(0, 5).map((entry: any) => (
                   <li key={entry.studentId} className="px-5 py-3">
                     <p className="text-xs font-semibold text-foreground">{entry.name}</p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -250,7 +250,7 @@ export function TeacherDashboard() {
           <Card padding="none">
             {activeLiveSessions.length ? (
               <ul className="divide-y divide-border">
-                {activeLiveSessions.slice(0, 5).map((session) => (
+                {activeLiveSessions.slice(0, 5).map((session: any) => (
                   <li key={session.id} className="px-5 py-3">
                     <p className="text-xs font-semibold text-foreground inline-flex items-center gap-2">
                       <Broadcast size={14} />
@@ -272,7 +272,7 @@ export function TeacherDashboard() {
       <div className="space-y-4">
         <h3 className="text-base font-semibold text-foreground">Recent Classrooms</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {classrooms?.slice(0, 3).map((classroom) => (
+          {classrooms?.slice(0, 3).map((classroom: any) => (
             <Card
               key={classroom.id}
               hover

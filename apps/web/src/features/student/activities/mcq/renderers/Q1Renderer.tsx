@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import type { AssessmentQuestion } from "../types";
-import { MCQOptions } from "../components/MCQOptions";
+import type { AssessmentQuestion } from '../../types';
+import { MCQOptions } from '../../components/MCQOptions';
 
 interface RendererProps {
   question: AssessmentQuestion;

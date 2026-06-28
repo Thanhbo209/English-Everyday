@@ -23,8 +23,8 @@ import {
   useClassroomMembers,
   useDeleteClassroom,
 } from "@/features/teacher/classrooms";
-import { ClassroomModal } from "../../../features/classroom/components/ClassroomModal";
-import { ConfirmDeleteModal } from "../../../features/classroom/components/ConfirmDeleteModal";
+import { ClassroomModal } from '../components/ClassroomModal';
+import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
 
 export default function ClassroomDetailPage() {
   const { id } = useParams<{ id: string }>();

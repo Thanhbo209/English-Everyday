@@ -1,5 +1,6 @@
 import { api } from "../../../../shared/api/axios";
-import type { ActivityType } from "@/features/student/dashboard/api/learning.api"; // Wait, can we import type from global or define it? Let's check where it's defined.
+import type { ActivityType } from "@/features/student/dashboard/api/learning.api";
+export type { ActivityType };
 
 export interface Assignment {
   id: string;

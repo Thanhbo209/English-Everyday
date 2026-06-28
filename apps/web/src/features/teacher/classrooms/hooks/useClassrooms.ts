@@ -7,12 +7,12 @@ import {
   deleteClassroom,
   joinClassroom,
   getClassroomMembers,
-} from "../../../api/classroom.api";
+} from '../api/classroom.api';
 import type {
   CreateClassroomPayload,
   UpdateClassroomPayload,
   JoinClassroomPayload,
-} from "../../../api/classroom.api";
+} from '../api/classroom.api';
 
 export function useClassrooms() {
   return useQuery({

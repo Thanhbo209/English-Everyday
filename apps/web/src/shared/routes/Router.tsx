@@ -1,30 +1,37 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { DashboardLayout } from "@/shared/layouts/DashboardLayout";
 import { DashboardRouter } from "@/features/teacher/dashboard";
-import ProtectedRoute from "@/shared/routes";
-import Login from "@/features/auth";
-import Register from "@/features/auth";
-/* Dashboard pages */
-import ClassroomsPage from "@/features/teacher/classrooms";
-import ClassroomDetailPage from "@/features/teacher/classrooms";
-import JoinClassroomPage from "@/features/student/task-list";
-import StudentsPage from "@/features/teacher/classrooms";
-import AssignmentsPage from "@/features/teacher/assignments";
-import ProgressPage from "@/features/student/dashboard";
-import ProfilePage from "@/features/auth";
-import SettingsPage from "@/features/auth";
-import RoleGuard from "@/shared/routes";
-import VocabSetsPage from "@/features/teacher/vocab-builder";
-import VocabSetDetailPage from "@/features/teacher/vocab-builder";
+import ProtectedRoute from "./ProtectedRoute";
+import RoleGuard from "./RoleGuard";
 
-/* Student Flashcard Suite Pages */
-import LearnCardsPage from "@/features/student/activities/flashcard";
-import FlipCardsPage from "@/features/student/activities/flashcard";
-import SelfLearningPage from "@/features/student/activities/flashcard";
-import ListeningPage from "@/features/student/activities/flashcard";
-import HiddenMeaningPage from "@/features/student/activities/flashcard";
-import SpeakingCardsPage from "@/features/student/activities/flashcard";
-import AssessmentPage from "@/features/student/activities";
+/* Auth pages */
+import { LoginPage as Login, RegisterPage as Register, ProfilePage, SettingsPage } from "@/features/auth";
+
+/* Classrooms pages */
+import { ClassroomsPage, ClassroomDetailPage, StudentsPage } from "@/features/teacher/classrooms";
+
+/* Assignments page */
+import { AssignmentsPage } from "@/features/teacher/assignments";
+
+/* Student pages */
+import { JoinClassroomPage } from "@/features/student/task-list";
+import { ProgressPage } from "@/features/student/dashboard";
+
+/* Vocab Builder pages */
+import { VocabSetsPage, VocabSetDetailPage } from "@/features/teacher/vocab-builder";
+
+/* Student Immersive Flashcard Activities Pages */
+import {
+  LearnCardsPage,
+  FlipCardsPage,
+  SelfLearningPage,
+  ListeningPage,
+  HiddenMeaningPage,
+  SpeakingCardsPage,
+} from "@/features/student/activities/flashcard";
+
+/* Student Assessment Page */
+import { AssessmentPage } from "@/features/student/activities";
 
 export const router = createBrowserRouter([
   /* ── Public auth ── */

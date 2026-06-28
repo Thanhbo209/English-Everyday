@@ -1,10 +1,10 @@
 import type { FC } from "react";
 import { useEffect } from "react";
 import { SpeakerHigh } from "@phosphor-icons/react";
-import type { AssessmentQuestion } from "../types";
-import { TextAnswerInput } from "../components/TextAnswerInput";
-import { ScrambledHint } from "../components/ScrambledHint";
-import { useAudioPlayer } from "../../flashcards/hooks/useAudioPlayer";
+import type { AssessmentQuestion } from '../../types';
+import { TextAnswerInput } from '../../components/TextAnswerInput';
+import { ScrambledHint } from '../../components/ScrambledHint';
+import { useAudioPlayer } from '@/features/student/activities/flashcard';
 
 interface RendererProps {
   question: AssessmentQuestion;

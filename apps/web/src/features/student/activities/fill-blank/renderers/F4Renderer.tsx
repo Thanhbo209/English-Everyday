@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import type { AssessmentQuestion } from "../types";
-import { TextAnswerInput } from "../components/TextAnswerInput";
-import { ScrambledHint } from "../components/ScrambledHint";
+import type { AssessmentQuestion } from '../../types';
+import { TextAnswerInput } from '../../components/TextAnswerInput';
+import { ScrambledHint } from '../../components/ScrambledHint';
 
 interface RendererProps {
   question: AssessmentQuestion;
