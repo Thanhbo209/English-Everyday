@@ -31,7 +31,7 @@ export const F1Renderer: FC<RendererProps> = ({
           {question.prompt ? (
             <img
               src={question.prompt}
-              alt="Prompt"
+              alt={question.vocabItem.definition || "Vocabulary deck item illustration"}
               className="max-h-full max-w-full object-contain rounded-lg"
             />
           ) : (
