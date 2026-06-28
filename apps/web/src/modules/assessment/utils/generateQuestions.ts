@@ -12,7 +12,14 @@ export function generateQuestions(
   activityType: string
 ): AssessmentQuestion[] {
   const upperType = activityType.toUpperCase();
-  const isMcq = upperType.startsWith("Q");
+  const allowedMcq = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"];
+  const allowedFib = ["F1", "F2", "F3", "F4", "F5", "F6"];
+
+  if (!allowedMcq.includes(upperType) && !allowedFib.includes(upperType)) {
+    throw new Error(`Unsupported assessment activity type: ${activityType}`);
+  }
+
+  const isMcq = allowedMcq.includes(upperType);
   
   // Shuffled items represent the question order
   const shuffledItems = shuffle(items);
