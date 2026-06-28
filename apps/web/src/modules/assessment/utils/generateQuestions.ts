@@ -160,12 +160,7 @@ export function generateQuestions(
       // Shuffle distractors and pick up to 3
       let chosenDistractors = shuffle(uniqueDistractors).slice(0, 3);
 
-      // Pad distractors if not enough items
-      while (chosenDistractors.length < 3) {
-        chosenDistractors.push(`Distractor Option ${chosenDistractors.length + 1}`);
-      }
-
-      // Final choices array (correct answer + 3 distractors) shuffled
+      // Final choices array (correct answer + available distractors) shuffled
       options = shuffle([correctAnswer, ...chosenDistractors]);
     }
 
