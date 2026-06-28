@@ -42,10 +42,16 @@ export const F6Renderer: FC<RendererProps> = ({
         </span>
         <div className="flex justify-center">
           <button
+            type="button"
+            aria-label="Play audio again"
             onClick={() => question.prompt && play(question.prompt)}
             className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary/95 hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <SpeakerHigh size={32} weight="fill" className={isPlaying ? "animate-pulse" : ""} />
+            <SpeakerHigh
+              size={32}
+              weight="fill"
+              className={isPlaying ? "animate-pulse" : ""}
+            />
           </button>
         </div>
       </div>
