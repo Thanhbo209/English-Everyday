@@ -17,7 +17,7 @@ import {
   useCreateAssignment,
   useDeleteAssignment,
 } from "@/features/teacher/assignments";
-import type { ActivityType, Assignment } from "@/features/student/dashboard/api/learning.api";
+import type { ActivityType, Assignment } from "../api/assignment.api";
 
 const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
   { value: "A1", label: "A1 • Learn Cards (Autoplay)" },
@@ -263,7 +263,7 @@ export default function AssignmentsPage() {
               required
             >
               <option value="" disabled>Select Classroom</option>
-              {classrooms?.map((classroom) => (
+              {classrooms?.map((classroom: any) => (
                 <option key={classroom.id} value={classroom.id}>
                   {classroom.name}
                 </option>
@@ -289,7 +289,7 @@ export default function AssignmentsPage() {
                     ? "Loading sets..."
                     : "Select Vocabulary Set"}
               </option>
-              {vocabSets?.map((set) => (
+              {vocabSets?.map((set: any) => (
                 <option key={set.id} value={set.id}>
                   {set.title} ({set.language})
                 </option>

@@ -25,7 +25,7 @@ export default function JoinClassroomPage() {
     joinMutation.mutate(
       { joinCode: cleanCode },
       {
-        onSuccess: (data) => {
+        onSuccess: (data: any) => {
           toast.success("Joined classroom successfully!");
           const classroomId = data?.classroomId ?? data?.classroom?.id;
           if (classroomId) {

@@ -1,5 +1,5 @@
-import { api } from "./axios";
-import type { VocabItem, VocabSet } from "./vocab.api";
+import { api } from "@/shared/api/axios";
+import type { VocabItem, VocabSet } from "@/features/teacher/vocab-builder/api/vocab.api";
 
 export type ActivityType =
   | "A1"

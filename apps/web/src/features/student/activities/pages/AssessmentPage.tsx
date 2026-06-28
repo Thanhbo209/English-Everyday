@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFlashcardDeck } from "../../flashcards/hooks/useFlashcardDeck";
+import { useFlashcardDeck } from "@/features/student/activities/flashcard";
 import { generateQuestions } from "../utils/generateQuestions";
 import { AssessmentShell } from "../components/AssessmentShell";
 import { SessionSummary } from "../components/SessionSummary";

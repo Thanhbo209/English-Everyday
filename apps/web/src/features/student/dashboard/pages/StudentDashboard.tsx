@@ -20,7 +20,7 @@ import {
   LoadingSpinner,
 } from "@/shared/components";
 import { useClassrooms } from "@/features/teacher/classrooms";
-import { useVocabSets } from "../vocab/hooks/useVocabs";
+import { useVocabSets } from '@/features/teacher/vocab-builder';
 import { PracticeModal } from "@/features/student/activities/flashcard";
 import type { VocabSet } from "@/features/teacher/vocab-builder/api/vocab.api";
 import { useStudentAssignments } from "@/features/student/activities/flashcard";

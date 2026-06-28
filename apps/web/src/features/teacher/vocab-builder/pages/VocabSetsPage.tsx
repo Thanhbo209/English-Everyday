@@ -385,7 +385,7 @@ export default function VocabSetsPage() {
                 className="w-full h-9 rounded-lg border border-border text-sm bg-input text-foreground px-3 focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
                 required
               >
-                {classrooms?.map((cls) => (
+                {classrooms?.map((cls: any) => (
                   <option key={cls.id} value={cls.id}>
                     {cls.name}
                   </option>

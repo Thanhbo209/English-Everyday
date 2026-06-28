@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import type { AssessmentQuestion } from "../types";
-import { TextAnswerInput } from "../components/TextAnswerInput";
+import type { AssessmentQuestion } from '../../types';
+import { TextAnswerInput } from '../../components/TextAnswerInput';
 
 interface RendererProps {
   question: AssessmentQuestion;

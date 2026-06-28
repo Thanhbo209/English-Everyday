@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button, Input } from "../../../components/ui";
+import { Button, Input } from '@/shared/components';
 
 const classroomFormSchema = z.object({
   name: z.string().trim().min(3, "Name must be at least 3 characters").max(100, "Name is too long"),

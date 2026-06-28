@@ -1,6 +1,6 @@
-import { useAuth } from "../auth/hooks/useAuth";
+import { useAuth } from '@/features/auth';
 import { TeacherDashboard } from "./TeacherDashboard";
-import { StudentDashboard } from "./StudentDashboard";
+import { StudentDashboard } from '@/features/student/dashboard';
 import { PageSpinner } from "@/shared/components";
 
 /**

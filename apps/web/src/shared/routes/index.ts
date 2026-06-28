@@ -1,3 +1,3 @@
-export { default as ProtectedRoute } from "@/shared/routes";
-export { default as RoleGuard } from "@/shared/routes";
+export { default as ProtectedRoute } from "./ProtectedRoute";
+export { default as RoleGuard } from "./RoleGuard";
 export { router } from "./Router";

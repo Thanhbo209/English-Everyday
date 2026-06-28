@@ -12,19 +12,19 @@ import { WrongAnimation } from "./WrongAnimation";
 import { Card } from "@/shared/components";
 
 // Import renderers
-import Q1Renderer from "../renderers/Q1Renderer";
-import Q2Renderer from "../renderers/Q2Renderer";
-import Q3Renderer from "../renderers/Q3Renderer";
-import Q4Renderer from "../renderers/Q4Renderer";
-import Q5Renderer from "../renderers/Q5Renderer";
-import Q6Renderer from "../renderers/Q6Renderer";
-import Q7Renderer from "../renderers/Q7Renderer";
-import F1Renderer from "../renderers/F1Renderer";
-import F2Renderer from "../renderers/F2Renderer";
-import F3Renderer from "../renderers/F3Renderer";
-import F4Renderer from "../renderers/F4Renderer";
-import F5Renderer from "../renderers/F5Renderer";
-import F6Renderer from "../renderers/F6Renderer";
+import Q1Renderer from "../mcq/renderers/Q1Renderer";
+import Q2Renderer from "../mcq/renderers/Q2Renderer";
+import Q3Renderer from "../mcq/renderers/Q3Renderer";
+import Q4Renderer from "../mcq/renderers/Q4Renderer";
+import Q5Renderer from "../mcq/renderers/Q5Renderer";
+import Q6Renderer from "../mcq/renderers/Q6Renderer";
+import Q7Renderer from "../mcq/renderers/Q7Renderer";
+import F1Renderer from "../fill-blank/renderers/F1Renderer";
+import F2Renderer from "../fill-blank/renderers/F2Renderer";
+import F3Renderer from "../fill-blank/renderers/F3Renderer";
+import F4Renderer from "../fill-blank/renderers/F4Renderer";
+import F5Renderer from "../fill-blank/renderers/F5Renderer";
+import F6Renderer from "../fill-blank/renderers/F6Renderer";
 
 const RENDERERS: Record<string, any> = {
   Q1: Q1Renderer,
