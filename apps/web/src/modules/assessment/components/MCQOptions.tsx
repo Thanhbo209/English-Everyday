@@ -42,13 +42,16 @@ export const MCQOptions: FC<MCQOptionsProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mx-auto">
       {options.map((choice, index) => {
-        const isImage = choice.startsWith("http") || choice.startsWith("/") || choice.includes("unsplash");
+        const isImage =
+          /^(https?:\/\/|\/).+\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(choice);
         const isSelected = selectedChoice === choice;
         const isCorrect = correctAnswer === choice;
 
-        let borderClass = "border-border hover:border-primary/50 hover:bg-primary/5";
+        let borderClass =
+          "border-border hover:border-primary/50 hover:bg-primary/5";
         let textClass = "text-foreground";
-        let badgeClass = "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary";
+        let badgeClass =
+          "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary";
 
         if (isSelected && !hasAnswered) {
           borderClass = "border-primary bg-primary/5 ring-1 ring-primary";
@@ -57,11 +60,13 @@ export const MCQOptions: FC<MCQOptionsProps> = ({
 
         if (hasAnswered) {
           if (isCorrect) {
-            borderClass = "border-emerald-500 bg-emerald-500/10 dark:bg-emerald-500/20 ring-1 ring-emerald-500";
+            borderClass =
+              "border-emerald-500 bg-emerald-500/10 dark:bg-emerald-500/20 ring-1 ring-emerald-500";
             textClass = "text-emerald-700 dark:text-emerald-400 font-semibold";
             badgeClass = "bg-emerald-500 text-white";
           } else if (isSelected) {
-            borderClass = "border-destructive bg-destructive/10 dark:bg-destructive/20 ring-1 ring-destructive";
+            borderClass =
+              "border-destructive bg-destructive/10 dark:bg-destructive/20 ring-1 ring-destructive";
             textClass = "text-destructive font-semibold";
             badgeClass = "bg-destructive text-white";
           } else {
@@ -78,14 +83,14 @@ export const MCQOptions: FC<MCQOptionsProps> = ({
             className={cn(
               "group relative flex items-center gap-3 p-4 rounded-xl border text-left font-medium transition-all duration-200 outline-none select-none",
               !disabled && "cursor-pointer active:scale-98",
-              borderClass
+              borderClass,
             )}
           >
             {/* Hotkey Number Badge */}
             <span
               className={cn(
                 "w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold transition-colors shrink-0",
-                badgeClass
+                badgeClass,
               )}
             >
               {index + 1}
@@ -102,7 +107,12 @@ export const MCQOptions: FC<MCQOptionsProps> = ({
                 />
               </div>
             ) : (
-              <span className={cn("flex-1 text-sm leading-snug break-words", textClass)}>
+              <span
+                className={cn(
+                  "flex-1 text-sm leading-snug break-words",
+                  textClass,
+                )}
+              >
                 {choice}
               </span>
             )}
