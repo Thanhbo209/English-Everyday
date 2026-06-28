@@ -103,7 +103,14 @@ export const AssessmentShell: FC<AssessmentShellProps> = ({
 
   // Keyboard shortcut handlers (Enter, Escape, arrow navigation)
   useEffect(() => {
+    const isInteractiveTarget = (target: EventTarget | null) =>
+      target instanceof HTMLElement &&
+      (target.closest("input, textarea, button, a, [role='button']") !== null ||
+        target.isContentEditable);
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (isInteractiveTarget(e.target)) {
+        return;
+      }
       if (e.key === "Escape") {
         e.preventDefault();
         navigate("/dashboard");
@@ -136,7 +143,8 @@ export const AssessmentShell: FC<AssessmentShellProps> = ({
 
   if (!currentQuestion) return null;
 
-  const ActiveQuestionRenderer = RENDERERS[currentQuestion.activityType] || Q3Renderer;
+  const ActiveQuestionRenderer =
+    RENDERERS[currentQuestion.activityType] || Q3Renderer;
   const isLast = currentQuestionIndex === totalQuestions - 1;
 
   // Checks if user has provided input to allow submitting
@@ -189,7 +197,9 @@ export const AssessmentShell: FC<AssessmentShellProps> = ({
                 {isAnswerCorrect ? (
                   <CorrectAnimation />
                 ) : (
-                  <WrongAnimation correctAnswerText={currentQuestion.correctAnswer} />
+                  <WrongAnimation
+                    correctAnswerText={currentQuestion.correctAnswer}
+                  />
                 )}
               </motion.div>
             )}
