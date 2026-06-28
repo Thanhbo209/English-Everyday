@@ -251,8 +251,9 @@ export default function AssignmentsPage() {
 
           {/* Classroom Selection */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Classroom</label>
+            <label htmlFor="classroomId" className="text-sm font-medium text-foreground">Classroom</label>
             <select
+              id="classroomId"
               value={selectedClassroomId}
               onChange={(e) => {
                 setSelectedClassroomId(e.target.value);
@@ -272,8 +273,9 @@ export default function AssignmentsPage() {
 
           {/* Vocabulary Set Selection */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Vocabulary Set</label>
+            <label htmlFor="vocabSetId" className="text-sm font-medium text-foreground">Vocabulary Set</label>
             <select
+              id="vocabSetId"
               value={selectedVocabSetId}
               onChange={(e) => setSelectedVocabSetId(e.target.value)}
               className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors disabled:opacity-50"
@@ -297,8 +299,9 @@ export default function AssignmentsPage() {
 
           {/* Activity Type Selection */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Activity Type</label>
+            <label htmlFor="activityType" className="text-sm font-medium text-foreground">Activity Type</label>
             <select
+              id="activityType"
               value={activityType}
               onChange={(e) => setActivityType(e.target.value as ActivityType)}
               className="w-full h-9 rounded-lg border border-border bg-input px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
@@ -314,8 +317,9 @@ export default function AssignmentsPage() {
 
           {/* Due Date */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Due Date & Time (Optional)</label>
+            <label htmlFor="dueAt" className="text-sm font-medium text-foreground">Due Date & Time (Optional)</label>
             <input
+              id="dueAt"
               type="datetime-local"
               value={dueAt}
               onChange={(e) => setDueAt(e.target.value)}
