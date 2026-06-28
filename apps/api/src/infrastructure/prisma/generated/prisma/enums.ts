@@ -65,20 +65,7 @@ export const ActivityType = {
   L3: 'L3',
   L4: 'L4',
   L5: 'L5',
-  L6: 'L6',
-  Q1: 'Q1',
-  Q2: 'Q2',
-  Q3: 'Q3',
-  Q4: 'Q4',
-  Q5: 'Q5',
-  Q6: 'Q6',
-  Q7: 'Q7',
-  F1: 'F1',
-  F2: 'F2',
-  F3: 'F3',
-  F4: 'F4',
-  F5: 'F5',
-  F6: 'F6'
+  L6: 'L6'
 } as const
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
