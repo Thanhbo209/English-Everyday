@@ -16,10 +16,11 @@ export const QuestionProgress: FC<QuestionProgressProps> = ({
     <div className="w-full space-y-2">
       <div className="flex justify-between text-xs font-semibold text-muted-foreground">
         <span>
-          Question <strong className="text-foreground">{currentIndex + 1}</strong> of{" "}
+          Question{" "}
+          <strong className="text-foreground">{currentIndex + 1}</strong> of{" "}
           <strong className="text-foreground">{totalCards}</strong>
         </span>
-        <span>{Math.round((currentIndex / totalCards) * 100)}% complete</span>
+        <span>{Math.round(percentage)}% complete</span>
       </div>
       <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
         <motion.div
