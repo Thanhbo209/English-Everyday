@@ -17,6 +17,7 @@ import { progressRoutes } from "./modules/progress/progress.route.js";
 import { masteryRoutes } from "./modules/mastery/mastery.route.js";
 import { liveSessionRoutes } from "./modules/live-session/live-session.route.js";
 import { leaderboardRoutes } from "./modules/leaderboard/leaderboard.route.js";
+import { learningRoutes } from "./modules/learning/learning.route.js";
 import multipart from "@fastify/multipart";
 import minioPlugin from "./plugins/minio.js";
 import fs from "fs/promises";
@@ -102,6 +103,9 @@ export default function buildApp() {
   });
   app.register(leaderboardRoutes, {
     prefix: "/api/leaderboard",
+  });
+  app.register(learningRoutes, {
+    prefix: "/api/activities",
   });
 
   // Local static file serving fallback for uploads when MinIO is down
