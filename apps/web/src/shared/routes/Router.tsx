@@ -33,6 +33,15 @@ import {
 /* Student Assessment Page */
 import { AssessmentPage } from "@/features/student/activities";
 
+/* Phase 5 Word Game Pages */
+import { UnscrambleTypePage, UnscrambleDragPage } from "@/features/student/activities/unscramble";
+import { MatchMeaningPage } from "@/features/student/activities/match-pairs";
+import { LetterFillPage } from "@/features/student/activities/letter-fill";
+import { PairMatchPage } from "@/features/student/activities/pair-match";
+import { ConnectPage } from "@/features/student/activities/connect";
+import { WordSearchPage } from "@/features/student/activities/word-search";
+import { HangmanPage } from "@/features/student/activities/hangman";
+
 export const router = createBrowserRouter([
   /* ── Public auth ── */
   { path: "/login", element: <Login /> },
@@ -113,6 +122,19 @@ export const router = createBrowserRouter([
       { path: "a4/:vocabSetId", element: <ListeningPage /> },
       { path: "a5/:vocabSetId", element: <HiddenMeaningPage /> },
       { path: "a6/:vocabSetId", element: <SpeakingCardsPage /> },
+      { path: "u1/assignments/:assignmentId", element: <UnscrambleTypePage /> },
+      { path: "u2/assignments/:assignmentId", element: <UnscrambleDragPage /> },
+      { path: "m1/assignments/:assignmentId", element: <MatchMeaningPage activityType="M1" /> },
+      { path: "m2/assignments/:assignmentId", element: <MatchMeaningPage activityType="M2" /> },
+      { path: "v1/assignments/:assignmentId", element: <LetterFillPage activityType="V1" /> },
+      { path: "v2/assignments/:assignmentId", element: <LetterFillPage activityType="V2" /> },
+      { path: "v3/assignments/:assignmentId", element: <LetterFillPage activityType="V3" /> },
+      { path: "o1/assignments/:assignmentId", element: <PairMatchPage activityType="O1" /> },
+      { path: "o2/assignments/:assignmentId", element: <PairMatchPage activityType="O2" /> },
+      { path: "c1/assignments/:assignmentId", element: <ConnectPage activityType="C1" /> },
+      { path: "c2/assignments/:assignmentId", element: <ConnectPage activityType="C2" /> },
+      { path: "w1/assignments/:assignmentId", element: <WordSearchPage /> },
+      { path: "h1/assignments/:assignmentId", element: <HangmanPage /> },
       {
         path: ":activityType/assignments/:assignmentId",
         element: <AssessmentPage />,

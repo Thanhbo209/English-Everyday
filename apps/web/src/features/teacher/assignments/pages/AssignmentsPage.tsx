@@ -39,6 +39,19 @@ const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
   { value: "F4", label: "F4 • FIB Image to Scrambled Word" },
   { value: "F5", label: "F5 • FIB Definition to Scrambled Word" },
   { value: "F6", label: "F6 • FIB Audio to Scrambled Word" },
+  { value: "U1", label: "U1 • Unscramble (Type)" },
+  { value: "U2", label: "U2 • Unscramble (Drag & Arrange)" },
+  { value: "M1", label: "M1 • Match Word ↔ Meaning" },
+  { value: "M2", label: "M2 • Match Image ↔ Word" },
+  { value: "V1", label: "V1 • Letter Fill (Hints)" },
+  { value: "V2", label: "V2 • Letter Fill (No Hints)" },
+  { value: "V3", label: "V3 • Letter Fill (Choose Hint Level)" },
+  { value: "O1", label: "O1 • Pair Match (Word ↔ Image)" },
+  { value: "O2", label: "O2 • Pair Match (Word ↔ Meaning)" },
+  { value: "C1", label: "C1 • Connect Word ↔ Image" },
+  { value: "C2", label: "C2 • Connect Word ↔ Meaning" },
+  { value: "W1", label: "W1 • Word Search Grid" },
+  { value: "H1", label: "H1 • Hangman Challenge" },
 ];
 
 export default function AssignmentsPage() {

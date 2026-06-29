@@ -39,6 +39,19 @@ export const ActivityTypeSchema = z.enum([
   "F4",
   "F5",
   "F6",
+  "U1",
+  "U2",
+  "M1",
+  "M2",
+  "V1",
+  "V2",
+  "V3",
+  "O1",
+  "O2",
+  "C1",
+  "C2",
+  "W1",
+  "H1",
 ]);
 
 export const IdParamsSchema = z.object({
