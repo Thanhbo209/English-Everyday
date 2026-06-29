@@ -8,4 +8,5 @@ export { Avatar }             from './Avatar';
 export { LoadingSpinner, PageSpinner } from './LoadingSpinner';
 export { DashboardStatCard }  from './DashboardStatCard';
 export { ToastProvider, useToast } from './Toast';
+export * from './dashboard';
 

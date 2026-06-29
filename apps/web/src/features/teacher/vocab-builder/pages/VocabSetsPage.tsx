@@ -18,7 +18,7 @@ import {
   PageSpinner,
   useToast,
 } from "@/shared/components";
-import { useClassrooms } from "@/features/teacher/classrooms";
+import { useClassrooms } from "@/features/classrooms";
 import {
   useVocabSets,
   useCreateVocabSet,

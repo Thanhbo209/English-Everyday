@@ -10,7 +10,7 @@ import {
   LoadingSpinner,
   useToast,
 } from "@/shared/components";
-import { useClassrooms } from "@/features/teacher/classrooms";
+import { useClassrooms } from "@/features/classrooms";
 import { useVocabSets } from "@/features/teacher/vocab-builder";
 import {
   useAssignments,

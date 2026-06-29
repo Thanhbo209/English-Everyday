@@ -8,7 +8,7 @@ import RoleGuard from "./RoleGuard";
 import { LoginPage as Login, RegisterPage as Register, ProfilePage, SettingsPage } from "@/features/auth";
 
 /* Classrooms pages */
-import { ClassroomsPage, ClassroomDetailPage, StudentsPage } from "@/features/teacher/classrooms";
+import { ClassroomListPage, ClassroomWorkspacePage, StudentsPage } from "@/features/classrooms";
 
 /* Assignments page */
 import { AssignmentsPage } from "@/features/teacher/assignments";
@@ -59,8 +59,8 @@ export const router = createBrowserRouter([
       /* Role-aware index */
       { index: true, element: <DashboardRouter /> },
       /* Shared */
-      { path: "classrooms", element: <ClassroomsPage /> },
-      { path: "classrooms/:id", element: <ClassroomDetailPage /> },
+      { path: "classrooms", element: <ClassroomListPage /> },
+      { path: "classrooms/:id", element: <ClassroomWorkspacePage /> },
       {
         path: "classrooms/join",
         element: (
